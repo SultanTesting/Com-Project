@@ -8,6 +8,7 @@ use App\Models\Slider;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class SliderController extends Controller
 {
@@ -30,14 +31,14 @@ class SliderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SliderRequest $request)
+    public function store(SliderRequest $request, Slider $slider)
     {
         // dd($request->all());
 
+        Slider::create($request->getData($slider));
 
-        Slider::create($request->getData());
-
-        return back()->with('message', 'Data Created Successfully');
+        return redirect()->route('admin.slider.index')
+        ->with('message', 'Data Created Successfully');
 
 
     }

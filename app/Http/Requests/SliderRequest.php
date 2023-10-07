@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Slider;
+use Illuminate\Support\Facades\File;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SliderRequest extends FormRequest
@@ -32,9 +34,24 @@ class SliderRequest extends FormRequest
         ];
     }
 
-    public function getData()
+    public function getData($slider)
     {
+
         $data = $this->validated();
+
+        if($this->hasFile('banner'))
+        {
+            if(File::exists(public_path($slider->banner)))
+            {
+                File::delete(public_path($slider->banner));
+            }
+
+            $image = $this->banner;
+            $imageName = date("Y-m-d").rand(256,10000).'_'.$image->getClientOriginalName();
+            $image->move(public_path('uploads'), $imageName);
+
+            $data['banner'] = "/uploads/".$imageName;
+        }
 
         return $data;
     }
