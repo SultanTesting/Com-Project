@@ -23,6 +23,7 @@
                         <div class="card-body">
 
                             <form method="POST" action="{{ route('admin.slider.store') }}" enctype="multipart/form-data">
+                                @csrf
 
                                 <div class="mb-3 form-group">
                                     <label for="formFileMultiple" class="form-label">Upload Images</label>
