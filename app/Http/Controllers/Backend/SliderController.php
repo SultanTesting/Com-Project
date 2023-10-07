@@ -15,9 +15,10 @@ class SliderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        return view('admin.slider.index');
+        $data = Slider::latest()->paginate(10)->withQueryString();
+        return view('admin.slider.index', compact('data'));
     }
 
     /**
