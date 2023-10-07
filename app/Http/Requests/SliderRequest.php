@@ -22,9 +22,20 @@ class SliderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "banner" => ['required', 'image', 'max:2000'],
-            "title" => ['required', 'min:6', 'max:25'],
-            "type" => ['required', 'min:6', 'max:25'],
+            "banner" => ['nullable', 'image', 'max:2000'],
+            "title"  => ['required', 'min:6', 'max:25'],
+            "type"   => ['string', 'max:200'],
+            "starting_price" => ['required', 'max:200000'],
+            "url"    => ['required', 'url', 'max:200'],
+            "serial" => ['required', 'max:50'],
+            "status" => ['required']
         ];
+    }
+
+    public function getData()
+    {
+        $data = $this->validated();
+
+        return $data;
     }
 }

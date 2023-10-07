@@ -21,7 +21,7 @@ class UserProfileController extends Controller
         return view('frontend.dashboard.sections.profile');
     }
 
-    public function updateProfile(ProfileRequest $request, User $user )
+    public function updateProfile(ProfileRequest $request)
     {
         $user = $request->user();
 

@@ -33,33 +33,34 @@
 
                                 <div class="form-group">
                                     <label class="form-label">Type</label>
-                                    <input type="text" name="type" class="form-control">
+                                    <input type="text" name="type" value="{{old('type')}}" class="form-control">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Title</label>
-                                    <input type="text" name="title" class="form-control">
+                                    <input type="text" name="title" value="{{old('title')}}" class="form-control">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Starting Price $</label>
-                                    <input type="text" name="starting_price" class="form-control">
+                                    <input type="text" name="starting_price" value="{{old('starting_price')}}" class="form-control">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Serial Number</label>
-                                    <input type="text" name="serial" class="form-control">
+                                    <input type="text" name="serial" value="{{old('serial')}}" class="form-control">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Url</label>
-                                    <input type="text" name="url" class="form-control">
+                                    <input type="text" name="url" value="{{old('url')}}" class="form-control">
                                 </div>
 
                                 <label>Status</label>
-                                <select class="form-select" aria-label="Default select example" name="status">
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
+                                <select class="form-select" aria-label="Default select example"
+                                name="status" value="{{old('status')}}">
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
                                 </select>
 
                                 <div class="d-grid gap-2 mt-4">
