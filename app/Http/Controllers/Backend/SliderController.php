@@ -32,11 +32,11 @@ class SliderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SliderRequest $request, Slider $slider)
+    public function store(SliderRequest $request)
     {
         // dd($request->all());
 
-        Slider::create($request->getData($slider));
+        Slider::create($request->getData());
 
         return redirect()->route('admin.slider.index')
         ->with('message', 'Data Created Successfully');

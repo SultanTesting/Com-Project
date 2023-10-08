@@ -34,24 +34,16 @@ class SliderRequest extends FormRequest
         ];
     }
 
-    public function getData($slider)
+    public function getData()
     {
 
         $data = $this->validated();
 
-        if($this->hasFile('banner'))
-        {
-            if(File::exists(public_path($slider->banner)))
-            {
-                File::delete(public_path($slider->banner));
-            }
+        $image = $this->banner;
+        $imageName = date("Y-m-d").rand(256,10000).'_'.$image->getClientOriginalName();
+        $image->move(public_path('uploads/products'), $imageName);
 
-            $image = $this->banner;
-            $imageName = date("Y-m-d").rand(256,10000).'_'.$image->getClientOriginalName();
-            $image->move(public_path('uploads'), $imageName);
-
-            $data['banner'] = "/uploads/".$imageName;
-        }
+        $data['banner'] = "/uploads/products/".$imageName;
 
         return $data;
     }

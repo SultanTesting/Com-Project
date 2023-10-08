@@ -57,14 +57,14 @@
                                 </div>
 
                                 <label>Status</label>
-                                <select class="form-select" aria-label="Default select example"
+                                <select class="form-control" aria-label="Default select example"
                                 name="status" value="{{old('status')}}">
                                     <option value="Active">Active</option>
                                     <option value="Inactive">Inactive</option>
                                 </select>
 
-                                <div class="d-grid gap-2 mt-4">
-                                    <button type="submit" class="btn btn-outline-primary btn-lg fs-5 ">Create</button>
+                                <div class="mt-4">
+                                    <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Create</button>
                                 </div>
                             </form>
 

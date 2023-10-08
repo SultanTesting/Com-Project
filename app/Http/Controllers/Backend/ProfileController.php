@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\ProfileRequest;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -14,7 +15,7 @@ class ProfileController extends Controller
         return view('admin.profile.index');
     }
 
-    public function update(ProfileRequest $request)
+    public function update(ProfileRequest $request, User $user)
     {
         // dd($request->all());
 
@@ -28,27 +29,11 @@ class ProfileController extends Controller
         // $user->email = $request->email;
         // $user->save();
 
-        $user = $request->user();
+        $request->user()->update($request->getData($request));
 
-        if($request->hasFile('image'))
-        {
-            // Delete Old Photo if exists
-            if(File::exists(public_path($user->image)))
-            {
-                File::delete(public_path($user->image));
-            }
-
-            // Upload New One
-            $image = $request->image;
-            $imageName = date("Y-m-d").rand(255,10000).'_'.$image->getClientOriginalName();
-            $image->move(public_path('uploads'), $imageName);
-
-            $path = "/uploads/".$imageName;
-        }
-
-        $user->fill($request->getData());
-        ($request->hasFile('image')) ? ($user->image = $path) : '' ;
-        $user->save();
+        // $user->fill($request->getData($request));
+        // ($request->hasFile('image')) ? ($user->image = $path) : '' ;
+        // $user->save();
 
 
         return redirect()->back()->with('message', 'Updated Successfully!');

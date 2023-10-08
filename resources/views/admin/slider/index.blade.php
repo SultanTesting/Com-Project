@@ -37,14 +37,15 @@
                         <th scope="col">Url</th>
                         <th scope="col">Serial</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Created_At</th>
+                        <th scope="col">Created At</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach($data as $row)
+                    
+                    @foreach($data as $index => $row)
                         <tr>
-                            <td>{{ $row->id }}</td>
+                            <td>{{ $data->firstItem() + $index }}</td>
                             <td>{{ $row->type }}</td>
                             <td>{{ $row->title }}</td>
                             <td>{{ $row->starting_price }}</td>
