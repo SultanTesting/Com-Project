@@ -2,12 +2,16 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\imageTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProfileRequest extends FormRequest
 {
+
+    use imageTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -36,21 +40,13 @@ class ProfileRequest extends FormRequest
 
         $user = $request->user();
 
-        if($request->hasFile('image'))
+        // Delete Old Photo if exists
+        if(File::exists(public_path($user->image)))
         {
-            // Delete Old Photo if exists
-            if(File::exists(public_path($user->image)))
-            {
-                File::delete(public_path($user->image));
-            }
-
-            // Upload New One
-            $image = $request->image;
-            $imageName = date("Y-m-d").rand(255,10000).'_'.$image->getClientOriginalName();
-            $image->move(public_path('uploads/userProfiles'), $imageName);
-
-            $data['image'] = "/uploads/userProfiles/".$imageName;
+            File::delete(public_path($user->image));
         }
+
+        $data['image'] = $this->uploadImages($this, 'image', 'uploads/userProfiles');
 
         return $data;
     }

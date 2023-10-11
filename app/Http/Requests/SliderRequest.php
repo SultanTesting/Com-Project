@@ -3,11 +3,15 @@
 namespace App\Http\Requests;
 
 use App\Models\Slider;
+use App\Traits\imageTrait;
 use Illuminate\Support\Facades\File;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SliderRequest extends FormRequest
 {
+
+    use imageTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,7 +28,7 @@ class SliderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "banner" => ['nullable', 'image', 'max:2000'],
+            "banner.*" => ['nullable', 'image', 'max:2000'],
             "title"  => ['required', 'min:6', 'max:25'],
             "type"   => ['string', 'max:200'],
             "starting_price" => ['required', 'max:200000'],
@@ -39,14 +43,12 @@ class SliderRequest extends FormRequest
 
         $data = $this->validated();
 
-        if($this->hasFile('banner'))
+        if(File::exists(public_path($this->banner)))
         {
-            $image = $this->banner;
-            $imageName = date("Y-m-d").rand(256,10000).'_'.$image->getClientOriginalName();
-            $image->move(public_path('uploads/products'), $imageName);
-
-            $data['banner'] = "/uploads/products/".$imageName;
+            File::delete(public_path($this->banner));
         }
+
+        $data['banner'] = $this->uploadImages($this, 'banner', 'uploads/products');
 
         return $data;
     }

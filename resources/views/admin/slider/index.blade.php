@@ -48,7 +48,7 @@
                                         <td>{{ $data->firstItem() + $index }}</td>
                                         <td><a href="">{{ $row->type }}</a></td>
                                         <td>{{ $row->title }}</td>
-                                        <td>{{ $row->starting_price }}</td>
+                                        <td class="font-weight-bold">{{ '$' . $row->starting_price }}</td>
                                         <td>{{ $row->url }}</td>
                                         <td>{{ $row->serial }}</td>
                                         <td><div class="badge {{($row->status == 'Active') ? 'badge-success' : 'badge-danger'}} ">{{$row->status}}</div></td>
