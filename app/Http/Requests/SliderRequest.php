@@ -39,11 +39,14 @@ class SliderRequest extends FormRequest
 
         $data = $this->validated();
 
-        $image = $this->banner;
-        $imageName = date("Y-m-d").rand(256,10000).'_'.$image->getClientOriginalName();
-        $image->move(public_path('uploads/products'), $imageName);
+        if($this->hasFile('banner'))
+        {
+            $image = $this->banner;
+            $imageName = date("Y-m-d").rand(256,10000).'_'.$image->getClientOriginalName();
+            $image->move(public_path('uploads/products'), $imageName);
 
-        $data['banner'] = "/uploads/products/".$imageName;
+            $data['banner'] = "/uploads/products/".$imageName;
+        }
 
         return $data;
     }
