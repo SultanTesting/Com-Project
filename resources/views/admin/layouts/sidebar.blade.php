@@ -23,7 +23,7 @@
         <li class="dropdown active">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Manage Website</span></a>
           <ul class="dropdown-menu">
-            <li class="{{Route::is('admin.slider.index') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin.slider.index')}}">Slider</a></li>
+            <li class="{{Route::is('admin.slider.index') ? 'active' : ''}}"><a class="nav-link" href="{{route('admin.slider.index')}}">Products</a></li>
 
           </ul>
         </li>

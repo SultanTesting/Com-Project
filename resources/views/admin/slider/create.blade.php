@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Table</h1>
+            <h1>Add New Product</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
                 <div class="breadcrumb-item"><a href="{{ route('admin.slider.index') }}">Manage Website</a></div>
@@ -17,7 +17,7 @@
                 <div class="col-12 col-xl-12 col-md-6">
                     <div class="card">
                         <div class="card-header justify-content-between">
-                            <h4>Create New Data</h4>
+                            <h4>Create New Product</h4>
                         </div>
 
                         <div class="card-body">

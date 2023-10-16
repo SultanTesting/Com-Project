@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\DataTables\SliderDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SliderRequest;
 use App\Models\Slider;
@@ -9,16 +10,13 @@ use Illuminate\Http\Request;
 
 class SliderController extends Controller
 {
-
-
-
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(SliderDataTable $dataTable)
     {
         $data = Slider::latest()->paginate(10)->withQueryString();
-        return view('admin.slider.index', compact('data'));
+        return $dataTable->render('admin.slider.index', compact('data'));
     }
 
     /**
@@ -32,11 +30,11 @@ class SliderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SliderRequest $request)
+    public function store(SliderRequest $request, Slider $slider)
     {
         // dd($request->all());
 
-        Slider::create($request->getData());
+        Slider::create($request->getData($slider));
 
         return redirect()->route('admin.slider.index')
         ->with('message', 'Data Created Successfully');
@@ -55,25 +53,33 @@ class SliderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Slider $slider)
     {
-        return view('admin.slider.edit');
+        return view('admin.slider.edit', compact('slider'));
 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SliderRequest $request, Slider $slider)
     {
-        //
+        // dd($request->all());
+
+        $slider->update($request->getData($slider));
+
+        return redirect()->route('admin.slider.index')
+               ->with('message' , 'Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Slider $slider)
     {
-        //
+        $slider->delete();
+
+        return redirect()->route('admin.slider.index')
+              ->with('message', 'Product Deleted Successfully');
     }
 }

@@ -28,7 +28,7 @@ class SliderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "banner.*" => ['nullable', 'image', 'max:2000'],
+            "banner" => ['nullable', 'image', 'max:2000'],
             "title"  => ['required', 'min:6', 'max:25'],
             "type"   => ['string', 'max:200'],
             "starting_price" => ['required', 'max:200000'],
@@ -38,17 +38,17 @@ class SliderRequest extends FormRequest
         ];
     }
 
-    public function getData()
+    public function getData(Slider $slider)
     {
 
         $data = $this->validated();
 
-        if(File::exists(public_path($this->banner)))
+        if(!empty($data['banner']))
         {
-            File::delete(public_path($this->banner));
+            $data['banner'] = $this->uploadImages($this, 'banner', '/uploads/products', $slider->banner);
+        }else{
+            $slider->banner;
         }
-
-        $data['banner'] = $this->uploadImages($this, 'banner', 'uploads/products');
 
         return $data;
     }
