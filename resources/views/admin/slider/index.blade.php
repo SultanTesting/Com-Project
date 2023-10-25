@@ -20,7 +20,7 @@
                 <div class="card">
                     <div class="card-header justify-content-between">
                         <h4>Poducts Table</h4>
-                        <a href="{{route('admin.slider.create')}}" class="btn btn-primary">Create +</a>
+                        <a href="{{route('admin.slider.create')}}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Create</a>
                     </div>
                     <div class="card-body">
                         <table>

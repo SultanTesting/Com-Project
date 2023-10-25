@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="icon" type="image/x-icon" href="{{ asset('backend/assets/img/main-logo.png') }}">
   <title>General Dashboard &mdash; Stisla</title>
 
@@ -22,6 +23,7 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
   <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"/>
+  <link rel="stylesheet" href="{{ asset('backend/assets/css/bootstrap-iconpicker.min.css') }}"/>
 
 
   <!-- Template CSS -->
@@ -88,6 +90,8 @@
   <script src="{{ asset('backend/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
   <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" ></script>
   <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{{ asset('backend/assets/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
 
   <!-- Toastr Js -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" ></script>
@@ -102,23 +106,73 @@
 
   <!-- Toastr Script  -->
 
-  <script>
-    toastr.options.progressBar = true;
-    toastr.options.closeButton = true;
+    <script>
+        toastr.options.progressBar = true;
+        toastr.options.closeButton = true;
 
-    @if ($errors->any())
-        @foreach ($errors->all() as $error )
-            toastr.error("{{$error}}")
-        @endforeach
-    @endif
+        @if ($errors->any())
+            @foreach ($errors->all() as $error )
+                toastr.error("{{$error}}")
+            @endforeach
+        @endif
 
-    @if ($message = session('message'))
-        toastr.success("{{ $message }}")
-    @endif
+        @if ($message = session('message'))
+            toastr.success("{{ $message }}")
+        @endif
 
-</script>
+    </script>
 
   <!-- END Of Toastr Script  -->
+
+  <!-- Sweet Alert  -->
+
+    <script>
+        $(document).ready(function(){
+            $('body').on('click', '.delete-item', function(event){
+                event.preventDefault();
+
+                let deleteUrl = $(this).attr('href');
+
+                Swal.fire(
+                {
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        $.ajax({
+                            type: 'DELETE',
+                            url: deleteUrl,
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                            },
+                            success: function(data){
+                                if(data.status == 'success')
+                                {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        data.message,
+                                        'success'
+                                    )
+                                   setTimeout(() => {
+                                    window.location.reload();
+                                   }, 3000);
+                                }
+                            },
+                            error: function(xhr, status, error){
+                                console.log(error);
+                            }
+                        })
+                    }
+                })
+            })
+        })
+    </script>
 
   @stack('scripts')
 

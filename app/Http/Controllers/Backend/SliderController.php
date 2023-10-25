@@ -6,10 +6,13 @@ use App\DataTables\SliderDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SliderRequest;
 use App\Models\Slider;
+use App\Traits\imageTrait;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
 {
+    use imageTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -45,9 +48,9 @@ class SliderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Slider $slider)
     {
-        //
+        return view('admin.slider.show', compact('slider'));
     }
 
     /**
@@ -77,9 +80,10 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
+
+        $this->deleteImage($slider->banner);
         $slider->delete();
 
-        return redirect()->route('admin.slider.index')
-              ->with('message', 'Product Deleted Successfully');
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }
