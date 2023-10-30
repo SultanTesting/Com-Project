@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\SubCategoryDataTable;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\SubCategoryRequest;
 use App\Models\Category;
 use App\Models\SubCategory;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\DataTables\SubCategoryDataTable;
+use App\Http\Requests\SubCategoryRequest;
 
 class SubCategoryController extends Controller
 {
@@ -59,9 +60,20 @@ class SubCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, SubCategory $subCategory)
     {
-        //
+        $request->validate([
+            'category_id' => ['required', 'exists:categories,id'],
+            'name' => ['required', 'min:3', 'max:25', 'unique:sub_categories,name,' . $subCategory->id],
+            'slug' => ['string'],
+            'status' => ['required']
+        ]);
+
+        $subCategory->slug = Str::slug($request->name, '-');
+        $subCategory->update($request->all());
+
+        return redirect()->route('admin.sub-category.index')
+            ->with('message', 'Sub-Category Updated');
     }
 
     public function changeStatus(Request $request)
@@ -76,8 +88,10 @@ class SubCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(SubCategory $subCategory)
     {
-        //
+        $subCategory->delete();
+
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }

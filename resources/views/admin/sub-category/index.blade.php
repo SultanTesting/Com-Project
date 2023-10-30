@@ -45,33 +45,40 @@
 
     <script> // change category status
        $(document).ready(function() {
+
+            var debounce = null;
             $('body').on('click', '.change-status', function(){
                 let isChecked = $(this).is(':checked');
                 let id = $(this).data('id');
 
-                $.ajax({
-                    url: "{{route('admin.sub-category.change-status')}}",
-                    method: "PUT",
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        status: isChecked,
-                        id: id
-                    },
+                clearTimeout(debounce);
 
-                    success: function(data){
-                        toastr.success(data.message);
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 3000);
-                    },
 
-                    error: function(xhr, status, error){
-                        toastr.error(error);
-                        console.log(error);
-                    }
-                })
+                    debounce = setTimeout(function()
+                    {
+                        $.ajax({
+                            url: "{{route('admin.sub-category.change-status')}}",
+                            method: "PUT",
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                status: isChecked,
+                                id: id
+                            },
 
+                            success: function(data){
+                                toastr.success(data.message);
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 2000);
+                            },
+
+                            error: function(xhr, status, error){
+                                toastr.error(error);
+                                console.log(error);
+                            }
+                        })
+                    }, 1000)
             })
-       })
+        })
     </script>
 @endpush

@@ -35,9 +35,9 @@
                             <div class="form-group">
                                 <label class="form-label">Category</label>
                                 <select name="category_id" class="form-control">
-                                    <option value="{{$subCategory->id}}" selected></option>
                                     @foreach ($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                        <option {{$category->id == $subCategory->category_id ? 'selected' : ''}}
+                                        value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -55,7 +55,12 @@ class SubCategoryDataTable extends DataTable
             {
                 return $subCategory->uploadDate();
             })
-            ->rawColumns(['action', 'created_at', 'status'])
+
+            ->addColumn('category', function($query)
+            {
+                return $query->category->name;
+            })
+            ->rawColumns(['action', 'created_at', 'status', 'category'])
             ->setRowId('id');
     }
 
@@ -77,7 +82,7 @@ class SubCategoryDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -98,7 +103,7 @@ class SubCategoryDataTable extends DataTable
 
             Column::make('id'),
             Column::make('name'),
-            Column::make('category_id'),
+            Column::make('category'),
             Column::make('status'),
             Column::make('created_at'),
             Column::computed('action')
