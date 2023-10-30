@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\SubCategoryController;
 
 // ! [ prefix && as ] methods predefined in RouteServiceProvider
 
@@ -23,7 +24,13 @@ Route::resource('slider', SliderController::class);
 
 // ? Categories Routes */
 
+Route::put('category-status', [CategoryController::class, 'changeStatus'])->name('category.change-status');
 Route::resource('category', CategoryController::class);
+
+// ? Sub Categories Routes */
+
+Route::put('subcategory/status', [SubCategoryController::class, 'changeStatus'])->name('sub-category.change-status');
+Route::resource('sub-category', SubCategoryController::class);
 
 
 

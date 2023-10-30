@@ -4,11 +4,11 @@
 
     <section class="section">
         <div class="section-header">
-        <h1>Categories</h1>
+        <h1>Sub Categories</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{route('admin.dashboard')}}">Dashboard</a></div>
             <div class="breadcrumb-item"><a href="{{route('admin.category.index')}}">Manage Categories</a></div>
-            <div class="breadcrumb-item">Category</div>
+            <div class="breadcrumb-item">Sub Categories</div>
         </div>
         </div>
 
@@ -19,8 +19,8 @@
                     <div class="card">
 
                         <div class="card-header justify-content-between">
-                            <h4>Categories Table</h4>
-                            <a href="{{route('admin.category.create')}}" class="btn btn-primary">
+                            <h4>Sub-Categories Table</h4>
+                            <a href="{{route('admin.sub-category.create')}}" class="btn btn-primary">
                                 <i class="fa fa-plus" aria-hidden="true"></i> Create
                             </a>
                         </div>
@@ -44,31 +44,34 @@
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
     <script> // change category status
-        $(document).ready(function(){
+       $(document).ready(function() {
             $('body').on('click', '.change-status', function(){
                 let isChecked = $(this).is(':checked');
                 let id = $(this).data('id');
 
                 $.ajax({
-                    url: "{{route('admin.category.change-status')}}",
-                    method: 'PUT',
+                    url: "{{route('admin.sub-category.change-status')}}",
+                    method: "PUT",
                     data: {
                         "_token": "{{ csrf_token() }}",
                         status: isChecked,
                         id: id
                     },
+
                     success: function(data){
                         toastr.success(data.message);
                         setTimeout(() => {
                             window.location.reload();
                         }, 3000);
                     },
+
                     error: function(xhr, status, error){
+                        toastr.error(error);
                         console.log(error);
                     }
-
                 })
+
             })
-        })
+       })
     </script>
 @endpush

@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,25 +12,25 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class CategoryDataTable extends DataTable
+class SubCategoryDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
      *
      * @param QueryBuilder $query Results from query() method.
      */
-    public function dataTable(QueryBuilder $query, Category $category): EloquentDataTable
+    public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-
             ->addColumn('action', function($query)
             {
-                $editBtn = "<a href='".route('admin.category.edit', $query->id)."' class='btn btn-sm btn-info'>
+                $editBtn = "<a href='".route('admin.sub-category.edit', $query->id)."' class='btn btn-sm btn-info'>
                 <i class='far fa-edit'></i></a>";
 
-                $deleteBtn = "<a href='".route('admin.category.destroy', $query->id)."' class='btn btn-sm btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $deleteBtn = "<a href='".route('admin.sub-category.destroy', $query->id)."' class='btn btn-sm btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
                 return $editBtn.$deleteBtn;
             })
+
             ->addColumn('status', function($query)
             {
                 if($query->status == 'Active')
@@ -41,8 +41,8 @@ class CategoryDataTable extends DataTable
                         <span class='ml-2 badge badge-success'>Active</span>
                     </label>";
                 }
-                else
-                {
+                else {
+
                     return "<label class='custom-switch mt-2'>
                         <input type='checkbox' name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'/>
                         <span class='custom-switch-indicator'></span>
@@ -50,29 +50,19 @@ class CategoryDataTable extends DataTable
                     </label>";
                 }
             })
-            ->addColumn('created_at', function($category)
+
+            ->addColumn('created_at', function(SubCategory $subCategory)
             {
-                return $category->uploadDate();
+                return $subCategory->uploadDate();
             })
-            ->addColumn('icon', function($query)
-            {
-                return "<div class='text-center'>
-                    <i style='font-size: 35px' class='$query->icon text-primary'></i>
-                </div>";
-            })
-            ->addColumn('name', function($query)
-            {
-                return "<p style='font-weight: bold'>$query->name</p>";
-            })
-            ->addIndexColumn()
-            ->rawColumns(['action', 'created_at', 'status', 'icon', 'name'])
+            ->rawColumns(['action', 'created_at', 'status'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Category $model): QueryBuilder
+    public function query(SubCategory $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -83,11 +73,11 @@ class CategoryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('category-table')
+                    ->setTableId('subcategory-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(0)
+                    ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -108,9 +98,8 @@ class CategoryDataTable extends DataTable
 
             Column::make('id'),
             Column::make('name'),
-            Column::make('slug'),
+            Column::make('category_id'),
             Column::make('status'),
-            Column::make('icon'),
             Column::make('created_at'),
             Column::computed('action')
                   ->exportable(false)
@@ -125,6 +114,6 @@ class CategoryDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Category_' . date('YmdHis');
+        return 'SubCategory_' . date('YmdHis');
     }
 }

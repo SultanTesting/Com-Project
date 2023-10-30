@@ -76,6 +76,16 @@ class CategoryController extends Controller
         return redirect()->route('admin.category.index')->with('message', 'Category Edited ! ');
     }
 
+    public function changeStatus(Request $request)
+    {
+        // dd($request->all());
+        $category = Category::findOrFail($request->id);
+        $category->status = ($request->status == 'true') ? 'Active' : 'Inactive';
+        $category->save();
+
+        return response(['status' => 'success', 'message' => 'Status Has Been Changed']);
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -83,6 +93,6 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return redirect()->route('admin.category.index')->with('message', 'Category Deleted Successfully!');
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }

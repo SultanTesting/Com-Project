@@ -26,6 +26,10 @@
                 <a class="nav-link" href="{{route('admin.category.index')}}">Category</a>
             </li>
 
+            <li class="{{Route::is('admin.sub-category.index') ? 'active' : ''}}">
+                <a class="nav-link" href="{{route('admin.sub-category.index')}}">Sub-Category</a>
+            </li>
+
           </ul>
         </li>
 

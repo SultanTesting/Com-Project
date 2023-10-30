@@ -39,8 +39,10 @@ class SliderController extends Controller
 
         Slider::create($request->getData($slider));
 
+
         return redirect()->route('admin.slider.index')
-        ->with('message', 'Data Created Successfully');
+            ->with('message', 'Product Added');
+
 
 
     }
