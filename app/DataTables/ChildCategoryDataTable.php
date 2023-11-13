@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Category;
+use App\Models\ChildCategory;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,23 +12,22 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class CategoryDataTable extends DataTable
+class ChildCategoryDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
      *
      * @param QueryBuilder $query Results from query() method.
      */
-    public function dataTable(QueryBuilder $query, Category $category): EloquentDataTable
+    public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-
             ->addColumn('action', function($query)
             {
-                $editBtn = "<a href='".route('admin.category.edit', $query->id)."' class='btn btn-sm btn-info'>
+                $editBtn = "<a href='".route('admin.child-category.edit', $query->id)."' class='btn btn-sm btn-info'>
                 <i class='far fa-edit'></i></a>";
 
-                $deleteBtn = "<a href='".route('admin.category.destroy', $query->id)."' class='btn btn-sm btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+                $deleteBtn = "<a href='".route('admin.child-category.destroy', $query->id)."' class='btn btn-sm btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
                 return $editBtn.$deleteBtn;
             })
             ->addColumn('status', function($query)
@@ -50,25 +49,26 @@ class CategoryDataTable extends DataTable
                     </label>";
                 }
             })
-            ->addColumn('created_at', function($category)
+            ->addColumn('created_at', function(ChildCategory $child)
             {
-                return $category->uploadDate();
+                return $child->uploadDate();
             })
-            ->addColumn('icon', function($query)
+            ->addColumn('category', function($query)
             {
-                return "<div class='text-center'>
-                    <i style='font-size: 35px' class='$query->icon text-primary'></i>
-                </div>";
+                return $query->category->name;
             })
-            ->addIndexColumn()
-            ->rawColumns(['action', 'created_at', 'status', 'icon'])
+            ->addColumn('subCategory', function($query)
+            {
+                return $query->subCategory->name;
+            })
+            ->rawColumns(['action', 'status'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Category $model): QueryBuilder
+    public function query(ChildCategory $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -79,7 +79,7 @@ class CategoryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('category-table')
+                    ->setTableId('childcategory-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -101,13 +101,13 @@ class CategoryDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-
             Column::make('id'),
             Column::make('name')
                   ->addClass('font-weight-bold'),
+            Column::make('category'),
+            Column::make('subCategory'),
             Column::make('slug'),
             Column::make('status'),
-            Column::make('icon'),
             Column::make('created_at'),
             Column::computed('action')
                   ->exportable(false)
@@ -122,6 +122,6 @@ class CategoryDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Category_' . date('YmdHis');
+        return 'ChildCategory_' . date('YmdHis');
     }
 }

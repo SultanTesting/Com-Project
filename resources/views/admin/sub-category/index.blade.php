@@ -43,42 +43,11 @@
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
-    <script> // change category status
-       $(document).ready(function() {
-
-            var debounce = null;
-            $('body').on('click', '.change-status', function(){
-                let isChecked = $(this).is(':checked');
-                let id = $(this).data('id');
-
-                clearTimeout(debounce);
-
-
-                    debounce = setTimeout(function()
-                    {
-                        $.ajax({
-                            url: "{{route('admin.sub-category.change-status')}}",
-                            method: "PUT",
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                status: isChecked,
-                                id: id
-                            },
-
-                            success: function(data){
-                                toastr.success(data.message);
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 2000);
-                            },
-
-                            error: function(xhr, status, error){
-                                toastr.error(error);
-                                console.log(error);
-                            }
-                        })
-                    }, 1000)
-            })
-        })
+    <script>
+        var myUrl = @json(route('admin.sub-category.change-status'));
+        var myToken = @json(csrf_token());
     </script>
+
+    <script src="{{ asset('backend/assets/js/change-status.js') }}"></script>
+
 @endpush

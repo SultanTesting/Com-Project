@@ -4,11 +4,11 @@
 
     <section class="section">
         <div class="section-header">
-        <h1>Categories</h1>
+        <h1>Child Categories</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{route('admin.dashboard')}}">Dashboard</a></div>
             <div class="breadcrumb-item"><a href="{{route('admin.category.index')}}">Manage Categories</a></div>
-            <div class="breadcrumb-item">Category</div>
+            <div class="breadcrumb-item">Child Categories</div>
         </div>
         </div>
 
@@ -19,8 +19,8 @@
                     <div class="card">
 
                         <div class="card-header justify-content-between">
-                            <h4>Categories Table</h4>
-                            <a href="{{route('admin.category.create')}}" class="btn btn-primary">
+                            <h4>Child-Categories Table</h4>
+                            <a href="{{route('admin.child-category.create')}}" class="btn btn-primary">
                                 <i class="fa fa-plus" aria-hidden="true"></i> Create
                             </a>
                         </div>
@@ -44,9 +44,10 @@
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
     <script>
-        var myUrl = @json(route('admin.category.change-status'));
+        var myUrl = @json(route('admin.child-category.change-status'));
         var myToken = @json(csrf_token());
     </script>
 
     <script src="{{ asset('backend/assets/js/change-status.js') }}"></script>
+
 @endpush

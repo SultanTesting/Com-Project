@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\DataTables\SubCategoryDataTable;
 use App\Http\Requests\SubCategoryRequest;
+use App\Models\ChildCategory;
 
 class SubCategoryController extends Controller
 {
@@ -90,6 +91,14 @@ class SubCategoryController extends Controller
      */
     public function destroy(SubCategory $subCategory)
     {
+        //! Protecting SubCategories from wrong actions!
+        
+        $childCategory = ChildCategory::where('sub_category_id', $subCategory->id)->count();
+        if($childCategory > 0)
+        {
+            return response(['status' => 'error', 'message' => 'Cannot Delete This SubCategory, Delete Childs First']);
+        }
+
         $subCategory->delete();
 
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);

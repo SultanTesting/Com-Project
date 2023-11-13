@@ -8,9 +8,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\DataTables\CategoryDataTable;
 use App\Http\Requests\CategoryRequest;
+use App\Models\SubCategory;
+
 
 class CategoryController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -91,6 +94,13 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        //! Protecting categories from wrong actions!
+        $subCategory = SubCategory::where('category_id', $category->id)->count();
+        if($subCategory > 0)
+        {
+            return response(['status' => 'error', 'message' => 'Cannot Delete This Category, Delete Sub Items First!']);
+        }
+
         $category->delete();
 
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);

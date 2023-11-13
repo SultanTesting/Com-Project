@@ -15,7 +15,12 @@ class Category extends Model
     {
         return $this->hasMany(SubCategory::class);
     }
-    
+
+    public function activeSubCategory()
+    {
+        return $this->hasMany(SubCategory::class)->where('status', 'Active');
+    }
+
     public function uploadDate()
     {
         return $this->created_at->diffForHumans();

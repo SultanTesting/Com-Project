@@ -109,6 +109,7 @@
     <script>
         toastr.options.progressBar = true;
         toastr.options.closeButton = true;
+        toastr.options.timeOut = 5000;
 
         @if ($errors->any())
             @foreach ($errors->all() as $error )
@@ -162,6 +163,15 @@
                                    setTimeout(() => {
                                     window.location.reload();
                                    }, 3000);
+                                }
+                                else if(data.status == 'error')
+                                {
+                                    Swal.fire(
+                                        "Can't Delete!",
+                                        data.message,
+                                        'error'
+
+                                    )
                                 }
                             },
                             error: function(xhr, status, error){
