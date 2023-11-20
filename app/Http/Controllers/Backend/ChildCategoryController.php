@@ -74,20 +74,11 @@ class ChildCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ChildCategory $childCategory)
+    public function update(ChildCategoryRequest $request, ChildCategory $childCategory)
     {
         // dd($request->all());
 
-        $request->validate([
-            'category_id'     => ['required', 'exists:categories,id'],
-            'sub_category_id' => ['required', 'exists:sub_categories,id'],
-            'name'            => ['required', 'min:3', 'max:25', 'unique:child_categories,name,' . $childCategory->id],
-            'slug'            => ['string'],
-            'status'          => ['required'],
-        ]);
-
-        $childCategory->slug = Str::slug($request->name, '-');
-        $childCategory->update($request->all());
+        $childCategory->update($request->getData());
 
         return redirect()->route('admin.child-category.index')->with('message', 'Child Category Updated');
     }

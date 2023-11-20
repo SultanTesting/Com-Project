@@ -61,20 +61,11 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         // dd($request->all());
 
-        $request->validate([
-                'name'   => ['required', 'string', 'min:2', 'max:20', 'unique:categories,name,' . $category->id],
-                'slug'   => ['string'],
-                'icon'   => ['required' ,'not_in:empty'],
-                'status' =>['required']
-        ]);
-
-        $category->slug = Str::slug($request->name, '-');
-
-        $category->update($request->all());
+        $category->update($request->getData());
 
         return redirect()->route('admin.category.index')->with('message', 'Category Edited ! ');
     }

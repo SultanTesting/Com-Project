@@ -22,6 +22,19 @@ class ChildCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        $childId = $this->route('child_category.id');
+
+        if($this->method() == "PUT")
+        {
+            return [
+                'category_id'     => ['required', 'exists:categories,id'],
+                'sub_category_id' => ['required', 'exists:sub_categories,id'],
+                'name'            => ['required', 'min:3', 'max:25', 'unique:child_categories,name,' . $childId],
+                'slug'            => ['string'],
+                'status'          => ['required'],
+            ];
+        }
+
         return [
             'category_id'     => ['required', 'exists:categories,id'],
             'sub_category_id' => ['required', 'exists:sub_categories,id'],

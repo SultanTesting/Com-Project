@@ -22,6 +22,18 @@ class SubCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        $subId = $this->route('sub_category.id');
+
+        if($this->method() == "PUT")
+        {
+            return [
+                'category_id' => ['required', 'exists:categories,id'],
+                'name' => ['required', 'min:3', 'max:25', 'unique:sub_categories,name,' . $subId],
+                'slug' => ['string'],
+                'status' => ['required']
+            ];
+        }
+
         return [
             'category_id' => ['required', 'exists:categories,id'],
             'name'        => ['required', 'min:3', 'max:25', 'unique:sub_categories,name'],

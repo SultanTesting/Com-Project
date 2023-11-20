@@ -61,17 +61,9 @@ class SubCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SubCategory $subCategory)
+    public function update(SubCategoryRequest $request, SubCategory $subCategory)
     {
-        $request->validate([
-            'category_id' => ['required', 'exists:categories,id'],
-            'name' => ['required', 'min:3', 'max:25', 'unique:sub_categories,name,' . $subCategory->id],
-            'slug' => ['string'],
-            'status' => ['required']
-        ]);
-
-        $subCategory->slug = Str::slug($request->name, '-');
-        $subCategory->update($request->all());
+        $subCategory->update($request->getData());
 
         return redirect()->route('admin.sub-category.index')
             ->with('message', 'Sub-Category Updated');
@@ -92,7 +84,7 @@ class SubCategoryController extends Controller
     public function destroy(SubCategory $subCategory)
     {
         //! Protecting SubCategories from wrong actions!
-        
+
         $childCategory = ChildCategory::where('sub_category_id', $subCategory->id)->count();
         if($childCategory > 0)
         {

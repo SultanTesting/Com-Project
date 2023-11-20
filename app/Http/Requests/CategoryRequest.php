@@ -23,6 +23,18 @@ class CategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        $categoryId = $this->route('category.id');
+        
+        if($this->method() == "PUT")
+        {
+                return [
+                    'name'   => ['required', 'string', 'min:2', 'max:20', 'unique:categories,name,' . $categoryId],
+                    'slug'   => ['string'],
+                    'icon'   => ['required' ,'not_in:empty'],
+                    'status' =>['required']
+                ];
+        }
+
         return [
             'name'   => ['required', 'string', 'min:2', 'max:20', 'unique:categories,name'],
             'slug'   => ['string'],
