@@ -39,7 +39,8 @@ class CategoryController extends Controller
 
         Category::create($request->getData());
 
-        return redirect()->route('admin.category.index')->with('message', 'New Category Added');
+        return redirect()->route('admin.category.index')
+        ->with('message', __('strings.Created', ['name' => __('strings.Category')]));
     }
 
     /**
@@ -67,7 +68,8 @@ class CategoryController extends Controller
 
         $category->update($request->getData());
 
-        return redirect()->route('admin.category.index')->with('message', 'Category Edited ! ');
+        return redirect()->route('admin.category.index')
+        ->with('message', __('strings.Updated', ['name' => $category->name]));
     }
 
     public function changeStatus(Request $request)
@@ -77,7 +79,7 @@ class CategoryController extends Controller
         $category->status = ($request->status == 'true') ? 'Active' : 'Inactive';
         $category->save();
 
-        return response(['status' => 'success', 'message' => 'Status Has Been Changed']);
+        return response(['status' => 'success', 'message' => __('strings.Status Changed')]);
     }
 
     /**
@@ -89,11 +91,12 @@ class CategoryController extends Controller
         $subCategory = SubCategory::where('category_id', $category->id)->count();
         if($subCategory > 0)
         {
-            return response(['status' => 'error', 'message' => 'Cannot Delete This Category, Delete Sub Items First!']);
+            return response(['status' => 'error',
+            'message' => __('strings.Cannot Delete This Category, Delete Sub Items First!')]);
         }
 
         $category->delete();
 
-        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+        return response(['status' => 'success', 'message' => __('strings.Deleted', ['name' => $category->name])]);
     }
 }

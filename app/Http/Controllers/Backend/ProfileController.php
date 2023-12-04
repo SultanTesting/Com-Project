@@ -29,14 +29,14 @@ class ProfileController extends Controller
         // $user->email = $request->email;
         // $user->save();
 
-        $request->user()->update($request->getData($request));
+        $request->user()->update($request->getData($user));
 
         // $user->fill($request->getData($request));
         // ($request->hasFile('image')) ? ($user->image = $path) : '' ;
         // $user->save();
 
-
-        return redirect()->back()->with('message', 'Updated Successfully!');
+        return redirect()->back()
+        ->with('message', __('strings.Updated', ['name' => $request->name]));
 
     }
 
@@ -53,7 +53,7 @@ class ProfileController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        return back()->with('message', 'Password Updated Successfully!');
+        return back()->with('message', __('strings.Updated', ['name' => __('strings.Password')]));
     }
 
 

@@ -36,11 +36,11 @@ class VendorProfileController extends Controller
             $path = "/uploads/".$imageName;
         }
 
-        $user->fill($request->getData());
+        $user->fill($request->getData($request));
         ($request->hasFile('image') ? ($user->image = $path) : '');
         $user->save();
 
-        return back()->with('message', 'Vendor Profile Updated');
+        return back()->with('message', __('strings.Updated', ['name' => $request->name]));
     }
 
     public function updatePassword(Request $request)
@@ -57,6 +57,6 @@ class VendorProfileController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        return back()->with('message', 'Vendor Password Updated');
+        return back()->with('message', __('strings.Updated', ['name' => __('strings.Password')]));
     }
 }

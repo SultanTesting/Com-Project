@@ -128,6 +128,10 @@
   <!-- Sweet Alert  -->
 
     <script>
+
+        var sure = @json(__('strings.Are You Sure?'));
+        var revert = @json(__("strings.You won't be able to revert this!"));
+
         $(document).ready(function(){
             $('body').on('click', '.delete-item', function(event){
                 event.preventDefault();
@@ -136,13 +140,14 @@
 
                 Swal.fire(
                 {
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: sure,
+                    text: revert,
                     icon: 'warning',
+                    cancelButtonText: @json(__('strings.Cancel')),
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: @json(__('strings.Yes, delete it!'))
                     }).then((result) => {
                     if (result.isConfirmed) {
 

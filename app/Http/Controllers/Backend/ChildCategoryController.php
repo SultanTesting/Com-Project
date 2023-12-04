@@ -50,7 +50,8 @@ class ChildCategoryController extends Controller
 
         ChildCategory::create($request->getData());
 
-        return redirect()->route('admin.child-category.index')->with('message', 'Child Category Created');
+        return redirect()->route('admin.child-category.index')
+        ->with('message', __('strings.Created', ['name' => __('strings.Child-Category')]));
     }
 
     /**
@@ -80,7 +81,8 @@ class ChildCategoryController extends Controller
 
         $childCategory->update($request->getData());
 
-        return redirect()->route('admin.child-category.index')->with('message', 'Child Category Updated');
+        return redirect()->route('admin.child-category.index')
+        ->with('message', __('strings.Updated', ['name' => $childCategory->name]));
     }
 
     public function changeStatus(Request $request)
@@ -89,7 +91,7 @@ class ChildCategoryController extends Controller
         $childCategory->status = ($request->status == 'true') ? 'Active' : 'Inactive';
         $childCategory->save();
 
-        return response(['status' => 'success', 'message' => 'Status Changed !']);
+        return response(['status' => 'success', 'message' => __('strings.Status Changed')]);
     }
 
     /**
@@ -99,6 +101,6 @@ class ChildCategoryController extends Controller
     {
         $childCategory->delete();
 
-        return response(['status' => 'success', 'message' => 'Child Category Deleted!']);
+        return response(['status' => 'success', 'message' => __('strings.Deleted', ['name' => $childCategory->name])]);
     }
 }

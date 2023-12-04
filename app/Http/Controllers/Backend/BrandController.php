@@ -38,7 +38,8 @@ class BrandController extends Controller
         // dd($request->all());
         Brand::create($request->getData($brand));
 
-        return redirect()->route('admin.brand.index')->with('message', 'Brand Created');
+        return redirect()->route('admin.brand.index')
+        ->with('message', __('strings.Created', ['name' => __('strings.Brand')]));
     }
 
     /**
@@ -67,7 +68,8 @@ class BrandController extends Controller
 
         $brand->update($request->getData($brand));
 
-        return redirect()->route('admin.brand.index')->with('message', 'Brand Updated Successfully');
+        return redirect()->route('admin.brand.index')
+        ->with('message', __('strings.Updated', ['name' => $brand->name]));
     }
 
     public function changeStatus(Request $request)
@@ -87,7 +89,7 @@ class BrandController extends Controller
         $this->deleteImage($brand->logo);
         $brand->delete();
 
-        return response(['status' => 'success', 'message' => 'Brand Deleted!']);
+        return response(['status' => 'success', 'message' => __('strings.Deleted', ['name' => $brand->name])]);
 
     }
 }

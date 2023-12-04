@@ -32,12 +32,15 @@ class BrandDataTable extends DataTable
         })
         ->addColumn('status', function($query)
         {
+            $active = __('strings.Active');
+            $inActive = __('strings.Inactive');
+
             if($query->status == 'Active')
             {
                 return "<label class='custom-switch mt-2'>
                     <input type='checkbox' checked name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'/>
                     <span class='custom-switch-indicator'></span>
-                    <span class='ml-2 badge badge-success'>Active</span>
+                    <span class='ml-2 badge badge-success'>$active</span>
                 </label>";
             }
             else
@@ -45,7 +48,7 @@ class BrandDataTable extends DataTable
                 return "<label class='custom-switch mt-2'>
                     <input type='checkbox' name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'/>
                     <span class='custom-switch-indicator'></span>
-                    <span class='ml-2 badge badge-danger'>Inactive</span>
+                    <span class='ml-2 badge badge-danger'>$inActive</span>
                 </label>";
             }
             })
@@ -66,10 +69,10 @@ class BrandDataTable extends DataTable
             {
                 if($query->featured == "Yes")
                 {
-                    return "<span class='badge badge-success'>Yes</span>";
+                    return "<span class='badge badge-success'>".__('strings.Yes')."</span>";
                 }
 
-                    return "<span class='badge badge-danger'>No</span>";
+                    return "<span class='badge badge-danger'>".__('strings.No')."</span>";
             })
             ->rawColumns(['action', 'status', 'logo', 'featured'])
             ->setRowId('id');

@@ -3,47 +3,73 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\BrandController;
-use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\Backend\ChildCategoryController;
-use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\ChildCategoryController;
+use App\Http\Controllers\Backend\VendorFrontEndController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 // ! [ prefix && as ] methods predefined in RouteServiceProvider
 
-Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::middleware(['web', 'role:admin', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
+    ->prefix('admin')
+    ->as('admin.')
+    ->group( function(){
 
-// Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+        Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
-// Route::post('profile/update', [ProfileController::class, 'update'])->name('profile.update');
+        // Route::get('profile', [ProfileController::class, 'index'])->name('profile');
 
-Route::post('profile/update/pass', [ProfileController::class, 'updatePassword'])->name('password.update');
-Route::resource('profile', ProfileController::class)->only(['index', 'update']);
+        // Route::post('profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
-// ? Slider Routes */
+        Route::post('profile/update/pass', [ProfileController::class, 'updatePassword'])->name('password.update');
+        Route::resource('profile', ProfileController::class)->only(['index', 'update']);
 
-Route::resource('slider', SliderController::class);
+        // ? Slider Routes */
 
-// ? Categories Routes */
+        Route::resource('slider', SliderController::class);
 
-Route::put('category-status', [CategoryController::class, 'changeStatus'])->name('category.change-status');
-Route::resource('category', CategoryController::class);
+        // ? Categories Routes */
 
-// ? Sub Categories Routes */
+        Route::put('category-status', [CategoryController::class, 'changeStatus'])->name('category.change-status');
+        Route::resource('category', CategoryController::class);
 
-Route::put('subcategory/status', [SubCategoryController::class, 'changeStatus'])->name('sub-category.change-status');
-Route::resource('sub-category', SubCategoryController::class);
+        // ? Sub Categories Routes */
 
-// ? Child Categories Routes */
+        Route::put('subcategory/status', [SubCategoryController::class, 'changeStatus'])->name('sub-category.change-status');
+        Route::resource('sub-category', SubCategoryController::class);
 
-Route::put('childcategory/status', [ChildCategoryController::class, 'changeStatus'])->name('child-category.change-status');
-Route::get('get-subcategories', [ChildCategoryController::class, 'getSubCategories'])->name('get-subCategories');
-Route::resource('child-category', ChildCategoryController::class);
+        // ? Child Categories Routes */
 
-// ? Brand Routes
+        Route::put('childcategory/status', [ChildCategoryController::class, 'changeStatus'])->name('child-category.change-status');
+        Route::get('get-subcategories', [ChildCategoryController::class, 'getSubCategories'])->name('get-subCategories');
+        Route::resource('child-category', ChildCategoryController::class);
 
-Route::put('brand-status', [BrandController::class, 'changeStatus'])->name('brand.change-status');
-Route::resource('brand', BrandController::class);
+        // ? Brand Routes
+
+        Route::put('brand-status', [BrandController::class, 'changeStatus'])->name('brand.change-status');
+        Route::resource('brand', BrandController::class);
+
+        // ? Vendor FrontEnd Routes
+
+        Route::resource('vendor-profile', VendorFrontEndController::class);
+
+        // ? Products Routes
+
+        Route::get('products/get-subcategories', [ProductController::class, 'getSubCategories'])->name('product.get-subcategories');
+
+        Route::get('products/get-childcategories', [ProductController::class, 'getChildCategories'])->name('product.get-childcategories');
+
+        Route::resource('products', ProductController::class);
+
+    });
+
+
+
+
 
 
 

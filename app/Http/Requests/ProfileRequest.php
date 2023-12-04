@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use App\Traits\imageTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -34,19 +35,17 @@ class ProfileRequest extends FormRequest
         ];
     }
 
-    public function getData($request)
+    public function getData(User $user)
     {
         $data = $this->validated();
 
-        $user = $request->user();
 
-        // Delete Old Photo if exists
-        if(File::exists(public_path($user->image)))
+        if(!empty($data['image']))
         {
-            File::delete(public_path($user->image));
+            $data['image'] = $this->uploadImages($this, 'image', 'uploads/userProfiles', $user->image);
+        }else{
+            $user->image;
         }
-
-        $data['image'] = $this->uploadImages($this, 'image', 'uploads/userProfiles');
 
         return $data;
     }

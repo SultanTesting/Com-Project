@@ -51,4 +51,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->where('role', 'admin')->count();
     }
+
+    public function activeUserCount()
+    {
+        return $this->where('status', 'active')->count();
+    }
+
+    public function vendor()
+    {
+        return $this->hasMany(Vendor::class);
+    }
 }

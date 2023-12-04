@@ -37,7 +37,7 @@ class ChildCategoryDataTable extends DataTable
                     return "<label class='custom-switch mt-2'>
                         <input type='checkbox' checked name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'/>
                         <span class='custom-switch-indicator'></span>
-                        <span class='ml-2 badge badge-success'>Active</span>
+                        <span class='ml-2 badge badge-success'>".__('strings.Active')."</span>
                     </label>";
                 }
                 else
@@ -45,7 +45,7 @@ class ChildCategoryDataTable extends DataTable
                     return "<label class='custom-switch mt-2'>
                         <input type='checkbox' name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'/>
                         <span class='custom-switch-indicator'></span>
-                        <span class='ml-2 badge badge-danger'>Inactive</span>
+                        <span class='ml-2 badge badge-danger'>".__('strings.Inactive')."</span>
                     </label>";
                 }
             })

@@ -3,11 +3,15 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Edit Child-Category</h1>
+        <h1>{{__('strings.Edit Child-Category')}}</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-            <div class="breadcrumb-item"><a href="{{ route('admin.category.index') }}">Manage Categories</a></div>
-            <div class="breadcrumb-item">Edit</div>
+            <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                {{__('strings.Dashboard')}}
+            </a></div>
+            <div class="breadcrumb-item"><a href="{{ route('admin.category.index') }}">
+                {{__('strings.Manage Categories')}}
+            </a></div>
+            <div class="breadcrumb-item">{{__('strings.Edit')}}</div>
         </div>
     </div>
 
@@ -17,7 +21,7 @@
             <div class="col-12 col-xl-12 col-md-6">
                 <div class="card">
                     <div class="card-header justify-content-between">
-                        <h4>Edit [ {{$childCategory->name}}  ]</h4>
+                        <h4>{{__('strings.Edit')}} [ {{$childCategory->name}}  ]</h4>
                     </div>
 
                     <div class="card-body">
@@ -27,12 +31,12 @@
                             @method('PUT')
 
                             <div class="form-group">
-                                <label for="name">Child-Category Name</label>
+                                <label for="name">{{__('strings.Child-Category Name')}}</label>
                                 <input type="text" class="form-control" name="name" value="{{$childCategory->name}}">
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">Category</label>
+                                <label class="form-label">{{__('strings.Category')}}</label>
                                 <select name="category_id" class="form-control main-category">
                                     @foreach ($category as $cat)
                                         <option {{$cat->id == $childCategory->category_id ? 'selected' : ''}}
@@ -42,7 +46,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">Sub-Category</label>
+                                <label class="form-label">{{__('strings.Sub-Category')}}</label>
                                 <select name="sub_category_id" class="form-control sub-category">
                                     @foreach ($subCategory as $sub)
                                         <option {{$sub->id == $childCategory->sub_category_id ? 'selected' : ''}}
@@ -51,21 +55,27 @@
                                 </select>
                             </div>
 
-                            <label class="form-label">Status</label>
-                            <select name="status" class="form-control">
-                                <option {{$childCategory->status == 'Active' ? 'selected' : ''}}
-                                    value='Active'>
-                                    Active
-                                </option>
-                                <option {{$childCategory->status == 'Inactive' ? 'selected' : ''}}
-                                    value='Inactive'>
-                                    Inactive
-                                </option>
-                            </select>
+                            <div class="form-group">
+                                <label class="form-label">{{__('strings.Status')}}</label>
+                                <select name="status" class="form-control">
+
+                                    <option {{$childCategory->status == 'Active' ? 'selected' : ''}}
+                                        value='Active'>
+                                        {{__('strings.Active')}}
+                                    </option>
+                                    <option {{$childCategory->status == 'Inactive' ? 'selected' : ''}}
+                                        value='Inactive'>
+                                        {{__('strings.Inactive')}}
+                                    </option>
+
+                                </select>
+                            </div>
 
 
                             <div class="mt-4">
-                                <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Update</button>
+                                <button type="submit" class="btn btn-outline-primary btn-lg btn-block">
+                                    {{__('strings.Update')}}
+                                </button>
                             </div>
                         </form>
 

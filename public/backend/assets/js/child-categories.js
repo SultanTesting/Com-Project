@@ -1,24 +1,25 @@
 $(document).ready(function()
 {
-    $('body').on('change', '.main-category', function(e)
+    $('body').on('change', '.sub-category', function(e)
     {
         let id = $(this).val();
 
         $.ajax(
             {
                 method: "GET",
-                url: myUrl,
+                url: childUrl,
                 data: {
                     id: id
                 },
 
                 success: function(data)
                 {
-                    $('.sub-category').empty();
+                    $('.child-category').empty();
+                    $('.child-category').append(`<option selected disabled>Choose One</option>`);
 
                     $.each(data, function(i, item)
                     {
-                        $('.sub-category').append(`<option value="${item.id}">${item.name}</option>`)
+                        $('.child-category').append(`<option value="${item.id}">${item.name}</option>`)
                     })
                 },
 
