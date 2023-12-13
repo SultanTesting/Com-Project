@@ -19,11 +19,87 @@ class ProductDataTable extends DataTable
      *
      * @param QueryBuilder $query Results from query() method.
      */
-    public function dataTable(QueryBuilder $query): EloquentDataTable
+    public function dataTable(QueryBuilder $query, Product $product): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'product.action')
-            ->setRowId('id');
+
+        ->addColumn('action', function($query)
+        {
+            $editBtn = "<a href='".route('admin.products.edit', $query->id)."' class='btn btn-sm btn-info ml-2'>
+            <i class='far fa-edit'></i></a>";
+
+            $deleteBtn = "<a href='".route('admin.products.destroy', $query->id)."' class='btn btn-sm btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+
+            $more = "
+            <div class='btn-group dropleft'>
+                <button type='button' class='btn btn-sm btn-primary dropdown-toggle ml-2' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                <i class='fas fa-cog'></i>
+                </button>
+                <div class='dropdown-menu'>
+                    <button class='dropdown-item' type='button'>Action</button>
+                    <button class='dropdown-item' type='button'>Another action</button>
+                    <button class='dropdown-item' type='button'>Something else here</button>
+                </div>
+            </div>";
+            return $editBtn.$deleteBtn.$more;
+        })
+        ->addColumn('status', function($query)
+        {
+            if($query->status == 'active')
+            {
+                return "<label class='custom-switch mt-2'>
+                    <input type='checkbox' checked name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'/>
+                    <span class='custom-switch-indicator'></span>
+                    <span class='ml-2 badge badge-success'>".__('Active')."</span>
+                </label>";
+            }
+            else
+            {
+                return "<label class='custom-switch mt-2'>
+                    <input type='checkbox' name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'/>
+                    <span class='custom-switch-indicator'></span>
+                    <span class='ml-2 badge badge-danger'>".__('Inactive')."</span>
+                </label>";
+            }
+        })
+        ->addColumn('image', function($query)
+        {
+            return "<img src='$query->thumb_image' width='100px'/>";
+        })
+        ->addColumn('created_at', function($product)
+        {
+            return $product->uploadDate();
+        })
+        ->addColumn('offer_start_date', function($query)
+        {
+            if($query->offer_start_date)
+            {
+                return "<span class='badge badge-primary'>$query->offer_start_date</span>";
+            }
+                return "<span class='badge badge-secondary'>No Offer Date</span>";
+        })
+        ->addColumn('offer_end_date', function($query)
+        {
+            if($query->offer_end_date)
+            {
+                return "<span class='badge badge-danger'>$query->offer_end_date</span>";
+            }
+                return "<span class='badge badge-secondary'>No Offer Date</span>";
+        })
+        ->addColumn('product_type', function($query)
+        {
+            if($query->product_type == 'new')
+            {
+                return "<span style='font-size:25px'>🆕</span>";
+            }elseif($query->product_type == 'top')
+            {
+                return "<span style='font-size:25px'>🔝</span>";
+            }
+                return "<span style='font-size:25px'>⭐</span>";
+        })
+
+        ->rawColumns(['action', 'created_at', 'status', 'image', 'offer_start_date', 'offer_end_date', 'product_type'])
+        ->setRowId('id');
     }
 
     /**
@@ -44,7 +120,7 @@ class ProductDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -62,15 +138,29 @@ class ProductDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+
+            Column::make('id'),
+            Column::make('name')
+                ->addClass('font-weight-bold')
+                ->width(150),
+            Column::make('image')
+                ->width(100),
+            Column::make('quantity'),
+            Column::make('price'),
+            Column::make('offer_price'),
+            Column::make('offer_start_date')
+                ->addClass('font-weight-bold'),
+            Column::make('offer_end_date')
+                ->addClass('font-weight-bold'),
+            Column::make('status'),
+            Column::make('product_type')
+                ->addClass('text-center'),
+            Column::make('created_at'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(150)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
         ];
     }
 

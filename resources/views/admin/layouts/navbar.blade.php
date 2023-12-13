@@ -140,32 +140,36 @@
             </div>
         </li>
 
+
         <li class="dropdown">
 
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image" src="{{ asset( auth()->user()->image )}}" class="rounded-circle mr-1">
-                <div class="d-sm-none d-lg-inline-block">{{__('strings.Hi', ['name' => auth()->user()->name])}}</div>
+                <div class="d-sm-none d-lg-inline-block">{{__('Hi', ['name' => auth()->user()->name])}}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-            <div class="dropdown-title">{{__('strings.LOGGED IN')}} 5 min ago</div>
+            <div class="dropdown-title"> {{__('LOGGED IN')}} {{auth()->user()->lastLogin()}}  </div>
             <a href="{{ route('admin.profile.index') }}" class="dropdown-item has-icon">
-                <i class="far fa-user"></i> {{__('strings.Profile')}}
+                <i class="far fa-user"></i> {{__('Profile')}}
             </a>
             <a href="features-activities.html" class="dropdown-item has-icon">
-                <i class="fas fa-bolt"></i> {{__('strings.Activities')}}
+                <i class="fas fa-bolt"></i> {{__('Activities')}}
             </a>
             <a href="features-settings.html" class="dropdown-item has-icon">
-                <i class="fas fa-cog"></i> {{__('strings.Settings')}}
+                <i class="fas fa-cog"></i> {{__('Settings')}}
             </a>
             <div class="dropdown-divider"></div>
 
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <a href="{{route('logout')}}" onclick="event.preventDefault();
+
+                <button href=" {{route('logout')}} "
+                onclick="event.preventDefault();
                 this.closest('form').submit();"
                 class="dropdown-item has-icon text-danger">
-                    <i class="fas fa-sign-out-alt"></i> {{__('strings.Logout')}}
-                </a>
+                    <i class="fas fa-sign-out-alt"></i>
+                    {{__('Logout')}}
+                </button>
             </form>
 
             </div>

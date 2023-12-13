@@ -17,26 +17,11 @@ class ProfileController extends Controller
 
     public function update(ProfileRequest $request, User $user)
     {
-        // dd($request->all());
-
-        // $request->validate([
-        //     'name' => ['required', 'max:25'],
-        //     'email' => ['required', 'email', 'unique:users,email,'.Auth::user()->id]
-        // ]);
-
-        // $user = Auth::user();
-        // $user->name = $request->name;
-        // $user->email = $request->email;
-        // $user->save();
 
         $request->user()->update($request->getData($user));
 
-        // $user->fill($request->getData($request));
-        // ($request->hasFile('image')) ? ($user->image = $path) : '' ;
-        // $user->save();
-
         return redirect()->back()
-        ->with('message', __('strings.Updated', ['name' => $request->name]));
+        ->with('message', __('Updated', ['name' => $request->name]));
 
     }
 
@@ -53,7 +38,7 @@ class ProfileController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        return back()->with('message', __('strings.Updated', ['name' => __('strings.Password')]));
+        return back()->with('message', __('Updated', ['name' => __('Password')]));
     }
 
 

@@ -28,11 +28,9 @@ return new class extends Migration
             $table->string('SKU')->nullable();
             $table->double('price');
             $table->double('offer_price')->nullable();
-            $table->date('offer_start_data')->nullable();
-            $table->date('offer_end_data')->nullable();
-            $table->enum('top', ['yes', 'no'])->nullable();
-            $table->enum('best', ['yes', 'no'])->nullable();
-            $table->enum('featured', ['yes', 'no'])->nullable();
+            $table->date('offer_start_date')->nullable();
+            $table->date('offer_end_date')->nullable();
+            $table->enum('product_type', ['new', 'featured', 'top']);
             $table->enum('status', ['active', 'inactive']);
             $table->enum('approved', ['pending', 'published', 'failed'])->default('pending');
             $table->string('seo_title')->nullable();

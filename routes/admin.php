@@ -63,6 +63,8 @@ Route::middleware(['web', 'role:admin', 'localeSessionRedirect', 'localizationRe
 
         Route::get('products/get-childcategories', [ProductController::class, 'getChildCategories'])->name('product.get-childcategories');
 
+        Route::put('products/status', [ProductController::class, 'changeStatus'])->name('products.change-status');
+
         Route::resource('products', ProductController::class);
 
     });

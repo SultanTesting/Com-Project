@@ -38,7 +38,7 @@ class CategoryDataTable extends DataTable
                     return "<label class='custom-switch mt-2'>
                         <input type='checkbox' checked name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'/>
                         <span class='custom-switch-indicator'></span>
-                        <span class='ml-2 badge badge-success'>".__('strings.Active')."</span>
+                        <span class='ml-2 badge badge-success'>".__('Active')."</span>
                     </label>";
                 }
                 else
@@ -46,7 +46,7 @@ class CategoryDataTable extends DataTable
                     return "<label class='custom-switch mt-2'>
                         <input type='checkbox' name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'/>
                         <span class='custom-switch-indicator'></span>
-                        <span class='ml-2 badge badge-danger'>".__('strings.Inactive')."</span>
+                        <span class='ml-2 badge badge-danger'>".__('Inactive')."</span>
                     </label>";
                 }
             })

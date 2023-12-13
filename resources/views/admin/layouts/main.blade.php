@@ -10,7 +10,7 @@
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{ asset('backend/assets/modules/bootstrap/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('backend/assets/modules/fontawesome/css/all.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('backend/assets/css/toastr.min.css') }}">
+
   {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> --}}
 
   <!-- CSS Libraries -->
@@ -20,15 +20,25 @@
   {{-- <link rel="stylesheet" href="{{asset('backend/assets/css/bootstrap-iconpicker.min.css')}}"> --}}
   <link rel="stylesheet" href="{{asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css')}}">
   <link rel="stylesheet" href="{{ asset('backend/assets/modules/summernote/summernote-bs4.css') }}">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+  {{-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/> --}}
   <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"/>
   <link rel="stylesheet" href="{{ asset('backend/assets/css/bootstrap-iconpicker.min.css') }}"/>
 
 
+
+
+
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('backend/assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('backend/assets/css/components.css') }}">
+  <link rel="stylesheet" href="{{ asset('backend/assets/css/toastr.min.css') }}">
+
+  @if (dirSelect() == 'rtl')
+    <link rel="stylesheet" href="{{asset('backend/assets/css/rtl.scss')}}">
+  @endif
+
+
 
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
@@ -42,41 +52,42 @@
 <!-- /END GA --></head>
 
 <body>
-  <div id="app">
-    <div class="main-wrapper main-wrapper-1">
-        <div class="navbar-bg"></div>
-      <!-- NavBar -->
+    <div id="app">
+        <div  class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+                <!-- NavBar -->
 
-        @include('admin.layouts.navbar')
+                    @include('admin.layouts.navbar')
 
-      <!-- SideBar -->
+                <!-- SideBar -->
 
-        @include('admin.layouts.sidebar')
+                    @include('admin.layouts.sidebar')
 
-      <!-- Main Content -->
+                <!-- Main Content -->
 
-      <div class="main-content">
-            @yield('content')
-      </div>
+                <div class="main-content">
+                        @yield('content')
+                </div>
 
-      <!-- Footer -->
+                <!-- Footer -->
 
-      <footer class="main-footer">
-        <div class="footer-left">
-          Copyright &copy; 2023 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+                <footer class="main-footer">
+                    <div class="footer-left">
+                    Copyright &copy; 2023 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+                    </div>
+                    <div class="footer-right">
+
+                    </div>
+                </footer>
         </div>
-        <div class="footer-right">
-
-        </div>
-      </footer>
     </div>
-  </div>
 
   <!-- General JS Scripts -->
   <script src="{{ asset('backend/assets/modules/jquery.min.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/popper.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/tooltip.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/moment.min.js') }}"></script>
   <script src="{{ asset('backend/assets/js/stisla.js') }}"></script>
@@ -93,16 +104,15 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="{{ asset('backend/assets/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
 
-  <!-- Toastr Js -->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" ></script>
-
-
   <!-- Page Specific JS File -->
   <script src="{{ asset('backend/assets/js/page/index-0.js') }}"></script>
 
   <!-- Template JS File -->
   <script src="{{ asset('backend/assets/js/scripts.js') }}"></script>
   <script src="{{ asset('backend/assets/js/custom.js') }}"></script>
+
+  <!-- Toastr Js -->
+  <script src="{{asset('backend/assets/js/toastr.min.js')}}"></script>
 
   <!-- Toastr Script  -->
 
@@ -113,12 +123,12 @@
 
         @if ($errors->any())
             @foreach ($errors->all() as $error )
-                toastr.error("{{$error}}")
+                toastr.error("{{$error}}", 'Oops!')
             @endforeach
         @endif
 
         @if ($message = session('message'))
-            toastr.success("{{ $message }}")
+            toastr.success("{{ $message }}", 'Success')
         @endif
 
     </script>
@@ -129,8 +139,8 @@
 
     <script>
 
-        var sure = @json(__('strings.Are You Sure?'));
-        var revert = @json(__("strings.You won't be able to revert this!"));
+        var sure = @json(__('Are You Sure?'));
+        var revert = @json(__("You won't be able to revert this!"));
 
         $(document).ready(function(){
             $('body').on('click', '.delete-item', function(event){
@@ -143,11 +153,11 @@
                     title: sure,
                     text: revert,
                     icon: 'warning',
-                    cancelButtonText: @json(__('strings.Cancel')),
+                    cancelButtonText: @json(__('Cancel')),
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: @json(__('strings.Yes, delete it!'))
+                    confirmButtonText: @json(__('Yes, delete it!'))
                     }).then((result) => {
                     if (result.isConfirmed) {
 

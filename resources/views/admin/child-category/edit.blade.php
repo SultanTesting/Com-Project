@@ -3,15 +3,15 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>{{__('strings.Edit Child-Category')}}</h1>
+        <h1>{{__('Edit Child-Category')}}</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
-                {{__('strings.Dashboard')}}
+                {{__('Dashboard')}}
             </a></div>
             <div class="breadcrumb-item"><a href="{{ route('admin.category.index') }}">
-                {{__('strings.Manage Categories')}}
+                {{__('Manage Categories')}}
             </a></div>
-            <div class="breadcrumb-item">{{__('strings.Edit')}}</div>
+            <div class="breadcrumb-item">{{__('Edit')}}</div>
         </div>
     </div>
 
@@ -21,7 +21,7 @@
             <div class="col-12 col-xl-12 col-md-6">
                 <div class="card">
                     <div class="card-header justify-content-between">
-                        <h4>{{__('strings.Edit')}} [ {{$childCategory->name}}  ]</h4>
+                        <h4>{{__('Edit')}} [ {{$childCategory->name}}  ]</h4>
                     </div>
 
                     <div class="card-body">
@@ -31,12 +31,12 @@
                             @method('PUT')
 
                             <div class="form-group">
-                                <label for="name">{{__('strings.Child-Category Name')}}</label>
+                                <label for="name">{{__('Child-Category Name')}}</label>
                                 <input type="text" class="form-control" name="name" value="{{$childCategory->name}}">
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">{{__('strings.Category')}}</label>
+                                <label class="form-label">{{__('Category')}}</label>
                                 <select name="category_id" class="form-control main-category">
                                     @foreach ($category as $cat)
                                         <option {{$cat->id == $childCategory->category_id ? 'selected' : ''}}
@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">{{__('strings.Sub-Category')}}</label>
+                                <label class="form-label">{{__('Sub-Category')}}</label>
                                 <select name="sub_category_id" class="form-control sub-category">
                                     @foreach ($subCategory as $sub)
                                         <option {{$sub->id == $childCategory->sub_category_id ? 'selected' : ''}}
@@ -56,16 +56,16 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">{{__('strings.Status')}}</label>
+                                <label class="form-label">{{__('Status')}}</label>
                                 <select name="status" class="form-control">
 
                                     <option {{$childCategory->status == 'Active' ? 'selected' : ''}}
                                         value='Active'>
-                                        {{__('strings.Active')}}
+                                        {{__('Active')}}
                                     </option>
                                     <option {{$childCategory->status == 'Inactive' ? 'selected' : ''}}
                                         value='Inactive'>
-                                        {{__('strings.Inactive')}}
+                                        {{__('Inactive')}}
                                     </option>
 
                                 </select>
@@ -74,7 +74,7 @@
 
                             <div class="mt-4">
                                 <button type="submit" class="btn btn-outline-primary btn-lg btn-block">
-                                    {{__('strings.Update')}}
+                                    {{__('Update')}}
                                 </button>
                             </div>
                         </form>

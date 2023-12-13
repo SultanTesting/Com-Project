@@ -32,8 +32,8 @@ class BrandDataTable extends DataTable
         })
         ->addColumn('status', function($query)
         {
-            $active = __('strings.Active');
-            $inActive = __('strings.Inactive');
+            $active = __('Active');
+            $inActive = __('Inactive');
 
             if($query->status == 'Active')
             {
@@ -69,10 +69,10 @@ class BrandDataTable extends DataTable
             {
                 if($query->featured == "Yes")
                 {
-                    return "<span class='badge badge-success'>".__('strings.Yes')."</span>";
+                    return "<span class='badge badge-success'>".__('Yes')."</span>";
                 }
 
-                    return "<span class='badge badge-danger'>".__('strings.No')."</span>";
+                    return "<span class='badge badge-danger'>".__('No')."</span>";
             })
             ->rawColumns(['action', 'status', 'logo', 'featured'])
             ->setRowId('id');

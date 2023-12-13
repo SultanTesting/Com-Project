@@ -1,4 +1,6 @@
-<div class="btn-group">
+{{-- DropDown Language Selector --}}
+
+{{-- <div class="btn-group">
 
 
         <a type="button" class="nav-link nav-link-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -14,13 +16,28 @@
                              <span>English</span>
                         </div>
                     @else
-                    <div class="d-flex justify-content-between">
-                        <img src="{{ asset('frontend/images/ar.png') }}" width="20px">
-                         <span>العربية</span>
-                    </div>
+                        <div class="d-flex justify-content-between">
+                            <img src="{{ asset('frontend/images/ar.png') }}" width="20px">
+                            <span>العربية</span>
+                        </div>
                     @endif
                 </a>
             @endforeach
         </div>
 
-</div>
+</div> --}}
+
+{{-- Toggle Language Selector --}}
+
+@if (LaravelLocalization::getLocalizedURL() == LaravelLocalization::getLocalizedURL('ar'))
+
+    <a class="nav-link nav-link-lg" href="{{LaravelLocalization::getLocalizedURL('en')}}">
+        <img src="{{asset('frontend/images/en.png')}}" width="25px">
+    </a>
+
+@else
+
+    <a class="nav-link nav-link-lg" href="{{LaravelLocalization::getLocalizedURL('ar')}}">
+        <img src="{{asset('frontend/images/ar.png')}}" width="25px">
+    </a>
+@endif

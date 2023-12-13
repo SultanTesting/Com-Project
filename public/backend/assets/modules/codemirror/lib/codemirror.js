@@ -412,7 +412,7 @@ function getLine(doc, n) {
 }
 
 // Get the part of a document between two positions, as an array of
-// strings.
+//
 function getBetween(doc, start, end) {
   var out = [], n = start.line
   doc.iter(start.line, end.line + 1, function (line) {
@@ -424,7 +424,7 @@ function getBetween(doc, start, end) {
   })
   return out
 }
-// Get the lines between from and to, as array of strings.
+// Get the lines between from and to, as array of
 function getLines(doc, from, to) {
   var out = []
   doc.iter(from, to, function (line) { out.push(line.text) }) // iter aborts when callback returns truthy value

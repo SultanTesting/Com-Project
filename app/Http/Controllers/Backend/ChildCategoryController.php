@@ -51,7 +51,7 @@ class ChildCategoryController extends Controller
         ChildCategory::create($request->getData());
 
         return redirect()->route('admin.child-category.index')
-        ->with('message', __('strings.Created', ['name' => __('strings.Child-Category')]));
+        ->with('message', __('Created', ['name' => __('Child-Category')]));
     }
 
     /**
@@ -82,16 +82,15 @@ class ChildCategoryController extends Controller
         $childCategory->update($request->getData());
 
         return redirect()->route('admin.child-category.index')
-        ->with('message', __('strings.Updated', ['name' => $childCategory->name]));
+        ->with('message', __('Updated', ['name' => $childCategory->name]));
     }
 
     public function changeStatus(Request $request)
     {
         $childCategory = ChildCategory::findOrFail($request->id);
-        $childCategory->status = ($request->status == 'true') ? 'Active' : 'Inactive';
-        $childCategory->save();
+        changeStatus($childCategory, $request);
 
-        return response(['status' => 'success', 'message' => __('strings.Status Changed')]);
+        return response(['status' => 'success', 'message' => __('Status Changed')]);
     }
 
     /**
@@ -101,6 +100,6 @@ class ChildCategoryController extends Controller
     {
         $childCategory->delete();
 
-        return response(['status' => 'success', 'message' => __('strings.Deleted', ['name' => $childCategory->name])]);
+        return response(['status' => 'success', 'message' => __('Deleted', ['name' => $childCategory->name])]);
     }
 }

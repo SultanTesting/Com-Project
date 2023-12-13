@@ -59,7 +59,7 @@ class VendorFrontEndController extends Controller
         $vendor = Vendor::where('user_id', Auth::user()->id)->first();
         $vendor->update($request->getData($vendor));
 
-        return back()->with('message', __('strings.Updated', ['name' => $request->name]));
+        return back()->with('message', __('Updated', ['name' => $request->name]));
     }
 
     /**

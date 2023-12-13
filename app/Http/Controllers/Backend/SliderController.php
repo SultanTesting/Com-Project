@@ -41,7 +41,7 @@ class SliderController extends Controller
 
 
         return redirect()->route('admin.slider.index')
-            ->with('message', __('strings.Created', ['name' => __('strings.Slider')]));
+            ->with('message', __('Created', ['name' => __('Slider')]));
 
 
 
@@ -74,7 +74,7 @@ class SliderController extends Controller
         $slider->update($request->getData($slider));
 
         return redirect()->route('admin.slider.index')
-               ->with('message' , __('strings.Updated', ['name' => $slider->title]));
+               ->with('message' , __('Updated', ['name' => $slider->title]));
     }
 
     /**
@@ -86,6 +86,6 @@ class SliderController extends Controller
         $this->deleteImage($slider->banner);
         $slider->delete();
 
-        return response(['status' => 'success', 'message' => __('strings.Deleted', ['name' => $slider->title])]);
+        return response(['status' => 'success', 'message' => __('Deleted', ['name' => $slider->title])]);
     }
 }

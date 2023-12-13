@@ -4,15 +4,15 @@
 
     <section class="section">
         <div class="section-header">
-        <h1>{{__('strings.Sub-Category')}}</h1>
+        <h1>{{__('Sub-Category')}}</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{route('admin.dashboard')}}">
-                {{__('strings.Dashboard')}}
+                {{__('Dashboard')}}
             </a></div>
             <div class="breadcrumb-item"><a href="{{route('admin.category.index')}}">
-                {{__('strings.Manage Categories')}}
+                {{__('Manage Categories')}}
             </a></div>
-            <div class="breadcrumb-item">{{__('strings.Sub-Category')}}</div>
+            <div class="breadcrumb-item">{{__('Sub-Category')}}</div>
         </div>
         </div>
 
@@ -23,9 +23,9 @@
                     <div class="card">
 
                         <div class="card-header justify-content-between">
-                            <h4>{{__('strings.Table')}} {{__('strings.Sub-Category')}}</h4>
+                            <h4>{{__('Table')}} {{__('Sub-Category')}}</h4>
                             <a href="{{route('admin.sub-category.create')}}" class="btn btn-primary">
-                                <i class="fa fa-plus" aria-hidden="true"></i> {{__('strings.Create')}}
+                                <i class="fa fa-plus" aria-hidden="true"></i> {{__('Create')}}
                             </a>
                         </div>
 

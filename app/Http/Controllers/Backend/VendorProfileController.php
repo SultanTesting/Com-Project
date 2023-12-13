@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -15,32 +16,14 @@ class VendorProfileController extends Controller
         return view('vendor.dashboard.sections.profile');
     }
 
-    public function updateProfile(ProfileRequest $request)
+    public function updateProfile(ProfileRequest $request, User $user)
     {
 
         // dd($request->all());
 
-        $user = $request->user();
+        $request->user()->update($request->getData($user));
 
-        if($request->hasFile('image'))
-        {
-            if(File::exists(public_path($user->image)))
-            {
-                File::delete(public_path($user->image));
-            }
-
-            $image = $request->image;
-            $imageName = date("Y-m-d") . rand(500,1200) . '_' . $image->getClientOriginalName();
-            $image->move(public_path('uploads'), $imageName);
-
-            $path = "/uploads/".$imageName;
-        }
-
-        $user->fill($request->getData($request));
-        ($request->hasFile('image') ? ($user->image = $path) : '');
-        $user->save();
-
-        return back()->with('message', __('strings.Updated', ['name' => $request->name]));
+        return back()->with('message', __('Updated', ['name' => $request->name]));
     }
 
     public function updatePassword(Request $request)
@@ -57,6 +40,6 @@ class VendorProfileController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        return back()->with('message', __('strings.Updated', ['name' => __('strings.Password')]));
+        return back()->with('message', __('Updated', ['name' => __('Password')]));
     }
 }

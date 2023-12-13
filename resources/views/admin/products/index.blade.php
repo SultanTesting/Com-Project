@@ -4,15 +4,15 @@
 
     <section class="section">
         <div class="section-header">
-        <h1>{{__('strings.Products')}}</h1>
+        <h1>{{__('Products')}}</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{route('admin.dashboard')}}">
-                {{__('strings.Dashboard')}}
+                {{__('Dashboard')}}
             </a></div>
             <div class="breadcrumb-item"><a href="{{route('admin.products.index')}}">
-                {{__('strings.Manage Products')}}
+                {{__('Manage Products')}}
             </a></div>
-            <div class="breadcrumb-item">{{__('strings.Products')}}</div>
+            <div class="breadcrumb-item">{{__('Products')}}</div>
         </div>
         </div>
 
@@ -23,9 +23,9 @@
                     <div class="card">
 
                         <div class="card-header justify-content-between">
-                            <h4>{{__('strings.Products Table')}}</h4>
+                            <h4>{{__('Products Table')}}</h4>
                             <a href="{{route('admin.products.create')}}" class="btn btn-primary">
-                                <i class="fa fa-plus" aria-hidden="true"></i> {{__('strings.Create')}}
+                                <i class="fa fa-plus" aria-hidden="true"></i> {{__('Create')}}
                             </a>
                         </div>
 
@@ -47,11 +47,11 @@
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
-    {{-- <script>
+    <script>
         var myUrl = @json(route('admin.products.change-status'));
         var myToken = @json(csrf_token());
     </script>
 
-    <script src="{{ asset('backend/assets/js/change-status.js') }}"></script> --}}
+    <script src="{{ asset('backend/assets/js/change-status.js') }}"></script>
 
 @endpush

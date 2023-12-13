@@ -54,11 +54,11 @@ class SliderDataTable extends DataTable
             {
                 if($query->status == 'Active')
                 {
-                    return "<span class='badge badge-success'>".__('strings.Active')."</span>";
+                    return "<span class='badge badge-success'>".__('Active')."</span>";
                 }
                 else
                 {
-                    return "<span class='badge badge-danger'>".__('strings.Inactive')."</span>";
+                    return "<span class='badge badge-danger'>".__('Inactive')."</span>";
                 }
             })
             ->addIndexColumn()

@@ -5,7 +5,7 @@
 <section class="section">
 
     <div class="section-header">
-    <h1>{{__('strings.Dashboard')}}</h1>
+    <h1>{{__('Dashboard')}}</h1>
     </div>
 
     <div class="row">
@@ -16,13 +16,13 @@
             </div>
             <div class="card-wrap">
               <div class="card-header">
-                <h4>{{__('strings.Total Admin')}}</h4>
+                <h4>{{__('Total Admin')}}</h4>
               </div>
               <div class="card-body">
                 {{auth()->user()->adminCount()}}
               </div>
             </div>
-          </div> 
+          </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
           <div class="card card-statistic-1">
@@ -31,7 +31,7 @@
             </div>
             <div class="card-wrap">
               <div class="card-header">
-                <h4>{{__('strings.News')}}</h4>
+                <h4>{{__('News')}}</h4>
               </div>
               <div class="card-body">
                 42
@@ -46,7 +46,7 @@
             </div>
             <div class="card-wrap">
               <div class="card-header">
-                <h4>{{__('strings.Reports')}}</h4>
+                <h4>{{__('Reports')}}</h4>
               </div>
               <div class="card-body">
                 1,201
@@ -61,7 +61,7 @@
             </div>
             <div class="card-wrap">
               <div class="card-header">
-                <h4>{{__('strings.Online Users')}}</h4>
+                <h4>{{__('Online Users')}}</h4>
               </div>
               <div class="card-body">
                 {{ auth()->user()->activeUserCount() }}

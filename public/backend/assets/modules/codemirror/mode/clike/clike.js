@@ -293,7 +293,7 @@ CodeMirror.defineMode("clike", function(config, parserConfig) {
 
   function cpp11StringHook(stream, state) {
     stream.backUp(1);
-    // Raw strings.
+    // Raw
     if (stream.match(/(R|u8R|uR|UR|LR)/)) {
       var match = stream.match(/"([^\s\\()]{0,16})\(/);
       if (!match) {

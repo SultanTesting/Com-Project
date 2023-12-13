@@ -24,6 +24,7 @@
                         </form>
                     </div>
                 </div>
+
                 <div class="col-xl-5 col-3 col-md-3 col-lg-6">
                     <div class="wsus__call_icon_area">
                         <div class="wsus__call_area">
@@ -35,7 +36,9 @@
                                 <p>+569875544220</p>
                             </div>
                         </div>
-                        <ul class="wsus__icon_area">
+
+                        <ul class="navbar wsus__icon_area ">
+                            @include('components.language-changer')
                             <li><a href="wishlist.html"><i class="fal fa-heart"></i><span>05</span></a></li>
                             <li><a href="compare.html"><i class="fal fa-random"></i><span>03</span></a></li>
                             <li><a class="wsus__cart_icon" href="#"><i

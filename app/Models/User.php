@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -24,7 +25,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone',
         'email',
         'password',
-        'image'
+        'image',
+        'last_login_at',
+        'last_login_ip'
     ];
 
     /**
@@ -47,6 +50,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    public function vendor()
+    {
+        return $this->hasOne(Vendor::class);
+    }
+
     public function adminCount()
     {
         return $this->where('role', 'admin')->count();
@@ -57,8 +65,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->where('status', 'active')->count();
     }
 
-    public function vendor()
+    public function lastLogin()
     {
-        return $this->hasMany(Vendor::class);
+        return Carbon::parse($this->last_login_at)->diffForHumans();
     }
+
+
 }

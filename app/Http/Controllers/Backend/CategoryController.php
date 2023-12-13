@@ -40,7 +40,7 @@ class CategoryController extends Controller
         Category::create($request->getData());
 
         return redirect()->route('admin.category.index')
-        ->with('message', __('strings.Created', ['name' => __('strings.Category')]));
+        ->with('message', __('Created', ['name' => __('Category')]));
     }
 
     /**
@@ -69,17 +69,16 @@ class CategoryController extends Controller
         $category->update($request->getData());
 
         return redirect()->route('admin.category.index')
-        ->with('message', __('strings.Updated', ['name' => $category->name]));
+        ->with('message', __('Updated', ['name' => $category->name]));
     }
 
     public function changeStatus(Request $request)
     {
         // dd($request->all());
         $category = Category::findOrFail($request->id);
-        $category->status = ($request->status == 'true') ? 'Active' : 'Inactive';
-        $category->save();
+        changeStatus($category, $request);
 
-        return response(['status' => 'success', 'message' => __('strings.Status Changed')]);
+        return response(['status' => 'success', 'message' => __('Status Changed')]);
     }
 
     /**
@@ -92,11 +91,11 @@ class CategoryController extends Controller
         if($subCategory > 0)
         {
             return response(['status' => 'error',
-            'message' => __('strings.Cannot Delete This Category, Delete Sub Items First!')]);
+            'message' => __('Cannot Delete This Category, Delete Sub Items First!')]);
         }
 
         $category->delete();
 
-        return response(['status' => 'success', 'message' => __('strings.Deleted', ['name' => $category->name])]);
+        return response(['status' => 'success', 'message' => __('Deleted', ['name' => $category->name])]);
     }
 }

@@ -38,7 +38,7 @@ class SubCategoryController extends Controller
         SubCategory::create($request->getData());
 
         return redirect()->route('admin.sub-category.index')
-            ->with('message', __('strings.Created', ['name' => __('strings.Sub-Category')]));
+            ->with('message', __('Created', ['name' => __('Sub-Category')]));
     }
 
     /**
@@ -66,16 +66,15 @@ class SubCategoryController extends Controller
         $subCategory->update($request->getData());
 
         return redirect()->route('admin.sub-category.index')
-            ->with('message', __('strings.Updated', ['name' => $subCategory->name]));
+            ->with('message', __('Updated', ['name' => $subCategory->name]));
     }
 
     public function changeStatus(Request $request)
     {
         $subCategory = SubCategory::findOrFail($request->id);
-        $subCategory->status = ($request->status == 'true') ? 'Active' : 'Inactive';
-        $subCategory->save();
+        changeStatus($subCategory, $request);
 
-        return response(['status' => 'success', 'message' => __('strings.Status Changed')]);
+        return response(['status' => 'success', 'message' => __('Status Changed')]);
     }
 
     /**
@@ -93,6 +92,6 @@ class SubCategoryController extends Controller
 
         $subCategory->delete();
 
-        return response(['status' => 'success', 'message' => __('strings.Deleted', ['name' => $subCategory->name])]);
+        return response(['status' => 'success', 'message' => __('Deleted', ['name' => $subCategory->name])]);
     }
 }

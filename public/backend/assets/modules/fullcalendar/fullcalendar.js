@@ -3875,7 +3875,7 @@ var View = /** @class */ (function (_super) {
         if (dateMutation) {
             eventInstance.dateProfile = dateMutation.buildNewDateProfile(eventInstance.dateProfile, this.calendar);
         }
-        this.triggerEventDrop(eventInstance, 
+        this.triggerEventDrop(eventInstance,
         // a drop doesn't necessarily mean a date mutation (ex: resource change)
         (dateMutation && dateMutation.dateDelta) || moment.duration(), undoFunc, el, ev);
     };
@@ -4646,7 +4646,7 @@ function formatRange(date1, date2, formatStr, separator, isRTL) {
     localeData = date1.localeData();
     // Expand localized format strings, like "LL" -> "MMMM D YYYY".
     // BTW, this is not important for `formatDate` because it is impossible to put custom tokens
-    // or non-zero areas in Moment's localized format strings.
+    // or non-zero areas in Moment's localized format
     formatStr = localeData.longDateFormat(formatStr) || formatStr;
     return renderParsedFormat(getParsedFormatString(formatStr), date1, date2, separator || ' - ', isRTL);
 }

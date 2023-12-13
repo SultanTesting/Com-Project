@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\ProductDataTable;
-use App\Http\Controllers\Controller;
 use App\Models\Brand;
-use App\Models\ChildCategory;
+use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use App\Models\ChildCategory;
+use App\DataTables\ProductDataTable;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ProductRequest;
+use App\Traits\imageTrait;
 
 class ProductController extends Controller
 {
+    use imageTrait;
     /**
      * Display a listing of the resource.
      */
@@ -47,9 +52,16 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request, Product $product)
     {
-        dd($request->all());
+        // dd($request->all());
+
+        // dd(Auth::user()->vendor);
+
+        Product::create($request->getData($product));
+
+        return redirect()->route('admin.products.index')
+                    ->with('message', __('Created', ['name' => __('Product')]));
     }
 
     /**
@@ -63,24 +75,41 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        return view('admin.products.edit');
+        $subCategories = SubCategory::where('category_id', $product->category_id)->get();
+        $childCategories = ChildCategory::where('sub_category_id', $product->sub_category_id)->get();
+        $brands = Brand::all();
+        return view('admin.products.edit', compact(['product', 'brands', 'subCategories', 'childCategories']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        $product->update($request->getData($product));
+
+        return redirect()->route('admin.products.index')
+            ->with('message', __('Updated', ['name' => $product->name]));
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $product = Product::findOrFail($request->id);
+        changeStatus($product, $request);
+
+        return response(['status' => 'success', 'message' => __('Status Changed')]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+        $this->deleteImage($product->thumb_image);
+        $product->delete();
+
+        return response(['status' => 'success', 'message' => __('Deleted', ['name' => $product->name])]);
     }
 }

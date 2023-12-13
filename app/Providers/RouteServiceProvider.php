@@ -34,7 +34,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
+            Route::middleware(['web', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
+                ->prefix(LaravelLocalization::setLocale())
                 ->group(base_path('routes/web.php'));
 
             Route::middleware(['web'])
@@ -42,9 +43,8 @@ class RouteServiceProvider extends ServiceProvider
                 // ->as('admin.')
                 ->group(base_path('routes/admin.php'));
 
-            Route::middleware(['web', 'role:vendor'])
-                ->prefix('vendor')
-                ->as('vendor.')
+            Route::middleware(['web', 'role:vendor', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
+                ->prefix(LaravelLocalization::setLocale())
                 ->group(base_path('routes/vendor.php'));
         });
     }

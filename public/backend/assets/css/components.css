@@ -416,6 +416,22 @@ table.dataTable.no-footer {
   float: left;
 }
 
+div.dataTables_wrapper div.dataTables_processing {
+  font-size: 0 !important;
+  background-image: url("../img/spinner.svg") !important;
+  background-color: #fff;
+  background-size: 100%;
+  width: 50px !important;
+  height: 50px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+  top: 50% !important;
+  left: 50% !important;
+  -webkit-transform: translate(-50%, -50%) !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+  opacity: 1 !important;
+}
 
 /* 1.9 Date Range Picker */
 .daterangepicker.dropdown-menu {
@@ -1141,7 +1157,7 @@ tr:first-child > td > .fc-day-grid-event {
 }
 
 /* 1.28 Toast */
-#toast-container > div {
+/* #toast-container > div {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
   padding: 20px 20px 20px 50px;
   opacity: 1;
@@ -1190,7 +1206,7 @@ tr:first-child > td > .fc-day-grid-event {
 .toast.toast-info .toast-message {
   color: #000;
   margin-top: 5px;
-}
+} */
 
 /* 1.29 User Item */
 .user-item {

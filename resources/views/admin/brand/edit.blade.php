@@ -3,15 +3,15 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>{{__('strings.Edit Brand')}}</h1>
+        <h1>{{__('Edit Brand')}}</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
-                {{__('strings.Dashboard')}}
+                {{__('Dashboard')}}
             </a></div>
             <div class="breadcrumb-item"><a href="{{ route('admin.brand.index') }}">
-                {{__('strings.Manage Products')}}
+                {{__('Manage Products')}}
             </a></div>
-            <div class="breadcrumb-item">{{__('strings.Edit')}}</div>
+            <div class="breadcrumb-item">{{__('Edit')}}</div>
         </div>
     </div>
 
@@ -21,7 +21,7 @@
             <div class="col-12 col-xl-12 col-md-6">
                 <div class="card">
                     <div class="card-header justify-content-between">
-                        <h4>{{__('strings.Edit')}} [ {{$brand->name}} {{__('strings.Brand')}} ]</h4>
+                        <h4>{{__('Edit')}} [ {{$brand->name}} {{__('Brand')}} ]</h4>
                     </div>
 
                     <div class="card-body">
@@ -38,41 +38,41 @@
                             @endif
 
                             <div class="form-group">
-                                <label for="logo" class="form-label">{{__('strings.Logo')}}</label>
+                                <label for="logo" class="form-label">{{__('Logo')}}</label>
                                 <input type="file" name="logo" class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <label for="name">{{__('strings.Brand Name')}}</label>
+                                <label for="name">{{__('Brand Name')}}</label>
                                 <input type="text" class="form-control" name="name" value="{{$brand->name}}">
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label" for="featured">{{__('strings.Is Featured')}}</label>
+                                <label class="form-label" for="featured">{{__('Is Featured')}}</label>
                                 <select name="featured" class="form-control">
-                                    <option disabled selected>{{__('strings.Select')}}</option>
+                                    <option disabled selected>{{__('Select')}}</option>
                                     <option {{$brand->featured == 'Yes' ? 'selected' : ''}}
                                      value="Yes">
-                                        {{__('strings.Yes')}}
+                                        {{__('Yes')}}
                                     </option>
                                     <option {{$brand->featured == 'No' ? 'selected' : ''}}
                                      value="No">
-                                        {{__('strings.No')}}
+                                        {{__('No')}}
                                     </option>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">{{__('strings.Status')}}</label>
+                                <label class="form-label">{{__('Status')}}</label>
                                 <select name="status" class="form-control">
-                                    <option disabled selected>{{__('strings.Select')}}</option>
+                                    <option disabled selected>{{__('Select')}}</option>
                                     <option {{$brand->status == 'Active' ? 'selected' : ''}}
                                         value='Active'>
-                                        {{__('strings.Active')}}
+                                        {{__('Active')}}
                                     </option>
                                     <option {{$brand->status == 'Inactive' ? 'selected' : ''}}
                                         value='Inactive'>
-                                        {{__('strings.Inactive')}}
+                                        {{__('Inactive')}}
                                     </option>
                                 </select>
                             </div>
@@ -80,7 +80,7 @@
 
                             <div class="mt-4">
                                 <button type="submit" class="btn btn-outline-primary btn-lg btn-block">
-                                    {{__('strings.Update')}}
+                                    {{__('Update')}}
                                 </button>
                             </div>
                         </form>
