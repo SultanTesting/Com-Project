@@ -30,17 +30,22 @@ class ProductDataTable extends DataTable
 
             $deleteBtn = "<a href='".route('admin.products.destroy', $query->id)."' class='btn btn-sm btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
 
+            $drop = (dirSelect() == 'rtl') ? 'dropright' : 'dropleft';
             $more = "
-            <div class='btn-group dropleft'>
+            <div class='btn-group $drop'>
                 <button type='button' class='btn btn-sm btn-primary dropdown-toggle ml-2' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                 <i class='fas fa-cog'></i>
                 </button>
                 <div class='dropdown-menu'>
-                    <button class='dropdown-item' type='button'>Action</button>
-                    <button class='dropdown-item' type='button'>Another action</button>
-                    <button class='dropdown-item' type='button'>Something else here</button>
+                    <a class='dropdown-item has-icon'
+                    href='".route('admin.product-gallery.index', ['product' => $query->id])."'>
+                    <i class='far fa-images'></i>".__('Image Gallery')."
+                    </a>
+                    <a class='dropdown-item has-icon' href=''>Another action</a>
+                    <a class='dropdown-item has-icon' href=''>Something else here</a>
                 </div>
             </div>";
+
             return $editBtn.$deleteBtn.$more;
         })
         ->addColumn('status', function($query)
@@ -64,7 +69,7 @@ class ProductDataTable extends DataTable
         })
         ->addColumn('image', function($query)
         {
-            return "<img src='$query->thumb_image' width='100px'/>";
+            return "<img src='".asset($query->thumb_image)."' width='100px'/>";
         })
         ->addColumn('created_at', function($product)
         {
@@ -119,6 +124,7 @@ class ProductDataTable extends DataTable
                     ->setTableId('product-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
+                    ->language(langSelect())
                     //->dom('Bfrtip')
                     ->orderBy(0)
                     ->selectStyleSingle()

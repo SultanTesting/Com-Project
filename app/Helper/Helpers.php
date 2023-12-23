@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /** Make SideBar Item Active */
@@ -35,5 +36,23 @@ function dirSelect()
     }
 
         return "ltr";
+}
+
+function langSelect()
+{
+    if(dirSelect() == 'rtl')
+    {
+        return '//cdn.datatables.net/plug-ins/1.13.7/i18n/ar.json';
+    }
+
+        return '//cdn.datatables.net/plug-ins/1.13.7/i18n/en-GB.json';
+}
+
+function makeDirectory($dirName, $name)
+{
+    $subFolder = "uploads/$dirName/" . $name;
+    Storage::makeDirectory($subFolder);
+
+    return $subFolder;
 }
 

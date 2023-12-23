@@ -83,6 +83,7 @@ class SliderDataTable extends DataTable
                     ->setTableId('slider-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
+                    ->language(langSelect())
                     //->dom('Bfrtip')
                     ->orderBy(1)
                     ->selectStyleSingle()

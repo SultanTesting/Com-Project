@@ -53,7 +53,7 @@ class VendorProfileRequest extends FormRequest
 
         if(!empty($data['banner']))
         {
-            $data['banner'] = $this->uploadImages($this, 'banner', 'uploads/vendors', $vendor->banner);
+            $data['banner'] = $this->uploadImages($this, 'banner', makeDirectory('vendors', $this->name), $vendor->banner);
 
         }else{
 

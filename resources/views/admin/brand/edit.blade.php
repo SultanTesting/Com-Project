@@ -11,7 +11,7 @@
             <div class="breadcrumb-item"><a href="{{ route('admin.brand.index') }}">
                 {{__('Manage Products')}}
             </a></div>
-            <div class="breadcrumb-item">{{__('Edit')}}</div>
+            <div class="breadcrumb-item">{{__('Edit', ['name' => __('Brand')])}}</div>
         </div>
     </div>
 
@@ -21,7 +21,7 @@
             <div class="col-12 col-xl-12 col-md-6">
                 <div class="card">
                     <div class="card-header justify-content-between">
-                        <h4>{{__('Edit')}} [ {{$brand->name}} {{__('Brand')}} ]</h4>
+                        <h4>{{__('Edit', ['name' => $brand->name])}}</h4>
                     </div>
 
                     <div class="card-body">
@@ -33,12 +33,12 @@
 
                             @if ($brand->logo)
                                 <div class="form-group">
-                                    <img src="{{$brand->logo}}" class="img-thumbnail" width="200px"/>
+                                    <img src="{{asset($brand->logo)}}" class="img-thumbnail" width="200px"/>
                                 </div>
                             @endif
 
                             <div class="form-group">
-                                <label for="logo" class="form-label">{{__('Logo')}}</label>
+                                <label for="logo">{{__('Logo')}}</label>
                                 <input type="file" name="logo" class="form-control">
                             </div>
 
@@ -48,7 +48,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label" for="featured">{{__('Is Featured')}}</label>
+                                <label class="form-label" for="featured">{{__('featured')}}</label>
                                 <select name="featured" class="form-control">
                                     <option disabled selected>{{__('Select')}}</option>
                                     <option {{$brand->featured == 'Yes' ? 'selected' : ''}}
@@ -80,7 +80,7 @@
 
                             <div class="mt-4">
                                 <button type="submit" class="btn btn-outline-primary btn-lg btn-block">
-                                    {{__('Update')}}
+                                    {{__('Update', ['name' => __('Brand')])}}
                                 </button>
                             </div>
                         </form>

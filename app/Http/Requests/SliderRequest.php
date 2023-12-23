@@ -45,7 +45,7 @@ class SliderRequest extends FormRequest
 
         if(!empty($data['banner']))
         {
-            $data['banner'] = $this->uploadImages($this, 'banner', '/uploads/products', $slider->banner);
+            $data['banner'] = $this->uploadImages($this, 'banner', makeDirectory('sliders', $this->title), $slider->banner);
         }else{
             $slider->banner;
         }

@@ -82,6 +82,7 @@ class CategoryDataTable extends DataTable
                     ->setTableId('category-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
+                    ->language(langSelect())
                     //->dom('Bfrtip')
                     ->orderBy(0)
                     ->selectStyleSingle()

@@ -14,6 +14,7 @@ use Yajra\DataTables\Services\DataTable;
 
 class BrandDataTable extends DataTable
 {
+
     /**
      * Build the DataTable class.
      *
@@ -95,6 +96,7 @@ class BrandDataTable extends DataTable
                     ->setTableId('brand-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
+                    ->language(langSelect())
                     //->dom('Bfrtip')
                     ->orderBy(0)
                     ->selectStyleSingle()
@@ -106,6 +108,7 @@ class BrandDataTable extends DataTable
                         Button::make('reset'),
                         Button::make('reload')
                     ]);
+
     }
 
     /**

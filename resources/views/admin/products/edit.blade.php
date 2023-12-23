@@ -32,9 +32,19 @@
                                 @csrf
                                 @method("PUT")
 
-                                <div dir="auto" class="mb-3 form-group">
-                                    <label dir="auto" for="thumb_image" class="form-label">{{__('thumb_image')}}</label>
-                                    <input dir="auto" class="form-control" name="thumb_image" id="thumb_image" type="file">
+                                @if ($product->thumb_image)
+                                    <div class="form-group">
+                                        <label class="form-label">{{__('Image Preview')}}</label>
+                                        <div>
+                                            <img src="{{asset($product->thumb_image)}}" class="img-thumbnail"
+                                            width="450px">
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <div class="mb-3 form-group">
+                                    <label for="thumb_image" class="form-label">{{__('thumb_image')}}</label>
+                                    <input class="form-control" name="thumb_image" id="thumb_image" type="file">
                                         @error('thumb_image')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -65,7 +75,7 @@
                                 <div class="form-group">
                                     <label class="form-label">{{__('Short Description')}}</label>
                                     <textarea name="short_description" class="form-control">
-                                        {{$product->short_description}}
+                                    {{$product->short_description}}
                                     </textarea>
                                         @error('short_description')
                                             <div class="text-danger">
@@ -77,7 +87,7 @@
                                 <div class="form-group">
                                     <label class="form-label">{{__('Full Description')}}</label>
                                     <textarea name="long_description" class="summernote">
-                                        {{$product->long_description}}
+                                    {{$product->long_description}}
                                     </textarea>
                                         @error('long_description')
                                             <div class="text-danger">

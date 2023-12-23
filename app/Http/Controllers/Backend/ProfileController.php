@@ -18,6 +18,8 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request, User $user)
     {
 
+        // dd($request->all());
+
         $request->user()->update($request->getData($user));
 
         return redirect()->back()

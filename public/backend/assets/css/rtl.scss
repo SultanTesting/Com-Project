@@ -1,6 +1,3 @@
-
-
-
 body, html {
   direction: rtl;
   font-family: Vazir, Tahoma, Arial;
@@ -169,6 +166,10 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) {
   }
 }
 
+form img {
+    display: block;
+}
+
 .dropdown-list .dropdown-item {
   .dropdown-item-avatar {
     float: right;
@@ -248,9 +249,12 @@ body.sidebar-gone {
 }
 
 .form-group label {
-  font-weight: normal;
-  font-family: Vazir, Tahoma, Arial;
-  letter-spacing: 0;
+    font-weight: bold;
+    font-family: Vazir, Tahoma, Arial;
+    letter-spacing: 0;
+    margin-left: 100%;
+    text-wrap: nowrap;
+    margin-right: 0;
 }
 
 .dropdown-list .dropdown-header {

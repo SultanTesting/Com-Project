@@ -9,10 +9,9 @@ use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
+use App\Http\Controllers\Backend\ProductGalleryController;
 use App\Http\Controllers\Backend\VendorFrontEndController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
-// ! [ prefix && as ] methods predefined in RouteServiceProvider
 
 Route::middleware(['web', 'role:admin', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
     ->prefix('admin')
@@ -66,6 +65,8 @@ Route::middleware(['web', 'role:admin', 'localeSessionRedirect', 'localizationRe
         Route::put('products/status', [ProductController::class, 'changeStatus'])->name('products.change-status');
 
         Route::resource('products', ProductController::class);
+
+        Route::resource('product/gallery', ProductGalleryController::class)->names('product-gallery');
 
     });
 

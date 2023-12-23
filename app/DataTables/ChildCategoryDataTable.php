@@ -81,6 +81,7 @@ class ChildCategoryDataTable extends DataTable
         return $this->builder()
                     ->setTableId('childcategory-table')
                     ->columns($this->getColumns())
+                    ->language(langSelect())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
                     ->orderBy(0)

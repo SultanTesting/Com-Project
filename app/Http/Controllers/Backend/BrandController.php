@@ -6,8 +6,11 @@ use App\DataTables\BrandDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BrandRequest;
 use App\Models\Brand;
+use App\Models\Product;
 use App\Traits\imageTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
 {
@@ -85,7 +88,16 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        $this->deleteImage($brand->logo);
+        $this->deleteImage($brand->logo, 'brands', $brand->name);
+
+        $products = Product::where('brand_id', $brand->id)->count();
+
+        if($products > 0)
+        {
+            return response(['status' => 'error',
+            'message' => __('Cannot Delete This Brand, Delete Products First!')]);
+        }
+
         $brand->delete();
 
         return response(['status' => 'success', 'message' => __('Deleted', ['name' => $brand->name])]);

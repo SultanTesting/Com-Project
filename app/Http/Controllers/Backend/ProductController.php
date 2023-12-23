@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\Brand;
 use App\Models\Product;
+use App\Traits\imageTrait;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Models\ChildCategory;
 use App\DataTables\ProductDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\ProductRequest;
-use App\Traits\imageTrait;
 
 class ProductController extends Controller
 {
@@ -107,7 +108,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $this->deleteImage($product->thumb_image);
+        File::deleteDirectory(public_path("uploads/products/$product->slug"));
         $product->delete();
 
         return response(['status' => 'success', 'message' => __('Deleted', ['name' => $product->name])]);

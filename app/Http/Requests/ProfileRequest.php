@@ -42,7 +42,7 @@ class ProfileRequest extends FormRequest
 
         if(!empty($data['image']))
         {
-            $data['image'] = $this->uploadImages($this, 'image', 'uploads/userProfiles', $user->image);
+            $data['image'] = $this->uploadImages($this, 'image', makeDirectory('userProfiles', $this->name), $user->image);
         }else{
             $user->image;
         }

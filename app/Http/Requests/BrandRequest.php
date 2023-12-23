@@ -57,7 +57,7 @@ class BrandRequest extends FormRequest
 
         if(!empty($data['logo']))
         {
-            $data['logo'] = $this->uploadImages($this, 'logo', '/uploads/brands', $brand->logo);
+            $data['logo'] = $this->uploadImages($this, 'logo', makeDirectory('brands', $this->name), $brand->logo);
         }else{
             $brand->logo;
         }

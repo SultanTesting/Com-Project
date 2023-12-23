@@ -248,6 +248,9 @@
     font-weight: normal;
     font-family: Vazir, Tahoma, Arial;
     letter-spacing: 0;
+    margin-left: 100%;
+    text-wrap: nowrap;
+    margin-right: 0;
   }
 
   .dropdown-list .dropdown-header {

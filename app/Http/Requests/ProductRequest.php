@@ -91,16 +91,17 @@ class ProductRequest extends FormRequest
 
         $data['vendor_id'] = Auth::user()->vendor->id;
 
+        $data['slug'] = Str::slug($data['name'], '-');
+
         if(!empty($data['thumb_image']))
         {
-            $data['thumb_image'] = $this->uploadImages($this, 'thumb_image', '/uploads/products', $product->thumb_image);
+            $data['thumb_image'] = $this->uploadImages($this, 'thumb_image', makeDirectory('products', $data['slug']), $product->thumb_image);
 
         }else{
 
             $product->thumb_image;
         }
 
-        $data['slug'] = Str::slug($data['name'], '-');
 
         return $data;
 

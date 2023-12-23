@@ -83,7 +83,7 @@ class SliderController extends Controller
     public function destroy(Slider $slider)
     {
 
-        $this->deleteImage($slider->banner);
+        $this->deleteImage($slider->banner, 'sliders', $slider->title);
         $slider->delete();
 
         return response(['status' => 'success', 'message' => __('Deleted', ['name' => $slider->title])]);

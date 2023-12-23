@@ -123,12 +123,12 @@
 
         @if ($errors->any())
             @foreach ($errors->all() as $error )
-                toastr.error("{{$error}}", 'Oops!')
+                toastr.error("{{$error}}", "{{__('Whoops!')}}")
             @endforeach
         @endif
 
         @if ($message = session('message'))
-            toastr.success("{{ $message }}", 'Success')
+            toastr.success("{{ $message }}", "{{__('Success')}}")
         @endif
 
     </script>
@@ -141,6 +141,7 @@
 
         var sure = @json(__('Are You Sure?'));
         var revert = @json(__("You won't be able to revert this!"));
+        var cant = @json(__("Can't Delete!"));
 
         $(document).ready(function(){
             $('body').on('click', '.delete-item', function(event){
@@ -182,7 +183,7 @@
                                 else if(data.status == 'error')
                                 {
                                     Swal.fire(
-                                        "Can't Delete!",
+                                        cant,
                                         data.message,
                                         'error'
 
