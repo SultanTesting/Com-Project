@@ -19,6 +19,16 @@ class Product extends Model
         return $this->hasMany(ProductGallery::class);
     }
 
+    public function items() : HasMany
+    {
+        return $this->hasMany(ProductVariantItem::class);
+    }
+
+    public function variants() : HasMany
+    {
+        return $this->hasMany(ProductVariants::class);
+    }
+
     public function uploadDate()
     {
         return $this->created_at->diffForHumans();

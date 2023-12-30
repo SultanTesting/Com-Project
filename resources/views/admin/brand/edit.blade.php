@@ -17,6 +17,11 @@
 
     <div class="section-body">
 
+
+        <div class="mb-4">
+            <x-back-arrow :href='route("admin.brand.index")'/>
+        </div>
+
         <div class="row">
             <div class="col-12 col-xl-12 col-md-6">
                 <div class="card">

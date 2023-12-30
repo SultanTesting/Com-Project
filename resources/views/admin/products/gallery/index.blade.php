@@ -5,26 +5,33 @@
     <section class="section">
 
         <div class="section-header">
-        <h1>{{__('Products Image Gallery')}}</h1>
-        <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="{{route('admin.dashboard')}}">
-                {{__('Dashboard')}}
-            </a></div>
-            <div class="breadcrumb-item"><a href="{{route('admin.products.index')}}">
-                {{__('Manage Products')}}
-            </a></div>
-            <div class="breadcrumb-item">{{__('Image Gallery')}}</div>
-        </div>
+
+            <h1>{{__('Product Image Gallery')}} [ <code>{{$product->name}}</code> ]</h1>
+
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active"><a href="{{route('admin.dashboard')}}">
+                    {{__('Dashboard')}}
+                </a></div>
+                <div class="breadcrumb-item"><a href="{{route('admin.products.index')}}">
+                    {{__('Manage Products')}}
+                </a></div>
+                <div class="breadcrumb-item">{{__('Image Gallery')}}</div>
+            </div>
+
         </div>
 
         <div class="section-body">
+
+            <div class="mb-4">
+                <x-back-arrow :href='route("admin.products.index")'/>
+            </div>
 
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-12">
                     <div class="card">
 
                         <div class="card-header">
-                            <h4>{{__('Upload Files')}} [ {{$product->name}} ]</h4>
+                            <h4>{{__('Upload Files')}}</h4>
                         </div>
 
                         <div class="card-body">
@@ -114,7 +121,7 @@
                 } else {
                     $('.button').prop('disabled', false);
                 }
-            }, 1500);
+            }, 1000);
         })
     </script>
 

@@ -5,11 +5,11 @@
 
 <section class="section">
     <div class="section-header">
-    <h1>Products</h1>
+    <h1>{{__('Slider')}}</h1>
     <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active"><a href="{{route('admin.dashboard')}}">Dashboard</a></div>
-        <div class="breadcrumb-item"><a href="{{route('admin.slider.index')}}">Manage Website</a></div>
-        <div class="breadcrumb-item">Products</div>
+        <div class="breadcrumb-item active"><a href="{{route('admin.dashboard')}}">{{__('Dashboard')}}</a></div>
+        <div class="breadcrumb-item"><a href="{{route('admin.slider.index')}}">{{__('Manage Website')}}</a></div>
+        <div class="breadcrumb-item">{{__('Slider')}}</div>
     </div>
     </div>
 
@@ -19,8 +19,8 @@
             <div class="col-12 col-md-6 col-lg-12">
                 <div class="card">
                     <div class="card-header justify-content-between">
-                        <h4>Poducts Table</h4>
-                        <a href="{{route('admin.slider.create')}}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Create</a>
+                        <h4>{{__('Sliders Table')}}</h4>
+                        <a href="{{route('admin.slider.create')}}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> {{__('Create')}}</a>
                     </div>
                     <div class="card-body">
                         <table>

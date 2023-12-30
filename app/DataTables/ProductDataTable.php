@@ -39,10 +39,15 @@ class ProductDataTable extends DataTable
                 <div class='dropdown-menu'>
                     <a class='dropdown-item has-icon'
                     href='".route('admin.product-gallery.index', ['product' => $query->id])."'>
-                    <i class='far fa-images'></i>".__('Image Gallery')."
+                    <i class='far fa-images'></i>
+                    ".__('Image Gallery')."
                     </a>
-                    <a class='dropdown-item has-icon' href=''>Another action</a>
-                    <a class='dropdown-item has-icon' href=''>Something else here</a>
+                    <a class='dropdown-item has-icon'
+                     href='".route('admin.product-variants.index', ['product' => $query->id])."'>
+                    <i class='fas fa-exchange-alt'></i>
+                    ".__('Variants')."
+                    </a>
+                    <a class='dropdown-item has-icon' href=''>To be added</a>
                 </div>
             </div>";
 
@@ -103,6 +108,7 @@ class ProductDataTable extends DataTable
                 return "<span style='font-size:25px'>⭐</span>";
         })
 
+        ->addIndexColumn() // search for index_column datatables.php
         ->rawColumns(['action', 'created_at', 'status', 'image', 'offer_start_date', 'offer_end_date', 'product_type'])
         ->setRowId('id');
     }
@@ -126,7 +132,7 @@ class ProductDataTable extends DataTable
                     ->minifiedAjax()
                     ->language(langSelect())
                     //->dom('Bfrtip')
-                    ->orderBy(0)
+                    ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -145,7 +151,7 @@ class ProductDataTable extends DataTable
     {
         return [
 
-            Column::make('id'),
+            Column::make('#'),
             Column::make('name')
                 ->addClass('font-weight-bold')
                 ->width(150),

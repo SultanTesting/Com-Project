@@ -61,6 +61,7 @@ class ChildCategoryDataTable extends DataTable
             {
                 return $query->subCategory->name;
             })
+            ->addIndexColumn() // search for index_column datatables.php
             ->rawColumns(['action', 'status'])
             ->setRowId('id');
     }
@@ -84,7 +85,7 @@ class ChildCategoryDataTable extends DataTable
                     ->language(langSelect())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(0)
+                    ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -102,7 +103,7 @@ class ChildCategoryDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            Column::make('#'),
             Column::make('name')
                   ->addClass('font-weight-bold'),
             Column::make('category'),

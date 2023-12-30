@@ -103,7 +103,7 @@ class SliderDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('DT_RowIndex'),
+            Column::make('#'),
             Column::make('banner'),
             Column::make('title'),
             Column::make('serial'),

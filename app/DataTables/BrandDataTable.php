@@ -75,8 +75,9 @@ class BrandDataTable extends DataTable
 
                     return "<span class='badge badge-danger'>".__('No')."</span>";
             })
-            ->rawColumns(['action', 'status', 'logo', 'featured'])
-            ->setRowId('id');
+                ->addIndexColumn() // search for index_column datatables.php
+                ->rawColumns(['action', 'status', 'logo', 'featured'])
+                ->setRowId('id');
     }
 
     /**
@@ -98,7 +99,7 @@ class BrandDataTable extends DataTable
                     ->minifiedAjax()
                     ->language(langSelect())
                     //->dom('Bfrtip')
-                    ->orderBy(0)
+                    ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -118,7 +119,7 @@ class BrandDataTable extends DataTable
     {
         return [
 
-            Column::make('id'),
+            Column::make('#'),
             Column::make('name')
                 ->addClass('font-weight-bold')
                 ->width(200),

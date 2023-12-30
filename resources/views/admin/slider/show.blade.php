@@ -3,11 +3,11 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Show Product</h1>
+            <h1>{{__('Slider')}}</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ route('admin.slider.index') }}">Manage Website</a></div>
-                <div class="breadcrumb-item">Show</div>
+                <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">{{__('Dashboard')}}</a></div>
+                <div class="breadcrumb-item"><a href="{{ route('admin.slider.index') }}">{{__('Manage Website')}}</a></div>
+                <div class="breadcrumb-item">{{__('Showing')}}</div>
             </div>
         </div>
 
@@ -37,13 +37,16 @@
 
                                   <div>
                                     @if ($slider->status == 'Active')
-                                        <p class="text-success font-weight-bold">Available</p>
+                                        <p class="text-success font-weight-bold">{{__('Available')}}</p>
                                     @else
-                                        <p class="text-danger">Out Of Stock</p>
+                                        <p class="text-danger">{{__('Out Of Stock')}}</p>
                                     @endif
                                   </div>
 
-                                  <a href="{{route('admin.slider.index')}}" class="btn btn-secondary">Go Back</a>
+                                  <a href="{{route('admin.slider.index')}}"
+                                    class="font-weight-bold" style="text-decoration: none; font-size: 30px">
+                                        🔙
+                                  </a>
                                 </div>
                                 <div class="card-footer text-muted">
                                   {{$slider->uploadDate()}}

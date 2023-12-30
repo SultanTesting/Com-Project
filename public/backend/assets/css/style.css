@@ -2263,6 +2263,10 @@ pre {
 .section {
   position: relative;
   z-index: 1; }
+
+  .section .back-arrow {
+    display: block;
+  }
   .section > *:first-child {
     margin-top: -7px; }
   .section .section-header {

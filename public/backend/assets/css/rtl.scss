@@ -124,6 +124,16 @@ body {
   }
 }
 
+.section .back-arrow {
+    display: block;
+    margin-left: 100%;
+  }
+
+.section .icon {
+    display: inline-block;
+    float: right;
+}
+
 .main-sidebar .sidebar-menu li {
   text-align: right;
 }

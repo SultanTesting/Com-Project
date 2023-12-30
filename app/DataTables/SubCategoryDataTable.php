@@ -60,6 +60,7 @@ class SubCategoryDataTable extends DataTable
             {
                 return $query->category->name;
             })
+            ->addIndexColumn() // search for index_column datatables.php
             ->rawColumns(['action', 'created_at', 'status', 'category'])
             ->setRowId('id');
     }
@@ -83,7 +84,7 @@ class SubCategoryDataTable extends DataTable
                     ->minifiedAjax()
                     ->language(langSelect())
                     //->dom('Bfrtip')
-                    ->orderBy(0)
+                    ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -102,7 +103,7 @@ class SubCategoryDataTable extends DataTable
     {
         return [
 
-            Column::make('id'),
+            Column::make('#'),
             Column::make('name'),
             Column::make('category'),
             Column::make('status'),

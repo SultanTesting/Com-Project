@@ -2,8 +2,11 @@
 
 @section('content')
 <section class="section">
+
     <div class="section-header">
+
         <h1>{{__('Edit Category')}}</h1>
+
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
                 {{__('Dashboard')}}
@@ -11,17 +14,23 @@
             <div class="breadcrumb-item"><a href="{{ route('admin.category.index') }}">
                 {{__('Manage Website')}}
             </a></div>
-            <div class="breadcrumb-item">{{__('Edit')}}</div>
+            <div class="breadcrumb-item">{{__('Edit', ['name' => __('Category')])}}</div>
         </div>
+
     </div>
 
     <div class="section-body">
 
+        <div class="mb-4">
+            <x-back-arrow :href='route("admin.category.index")'/>
+        </div>
+
         <div class="row">
             <div class="col-12 col-xl-12 col-md-6">
                 <div class="card">
+
                     <div class="card-header justify-content-between">
-                        <h4>{{__('Edit')}} [ {{$category->name}} {{__('Category')}} ]</h4>
+                        <h4>{{__('Edit', ['name' => __('Category')])}} [ <code>{{$category->name}}</code> ]</h4>
                     </div>
 
                     <div class="card-body">
@@ -33,7 +42,7 @@
 
                             @if ($category->icon)
                                 <div class="form-group">
-                                    <i class="{{$category->icon}} img-thumbnail " style='font-size: 55px'></i>
+                                    <i class="{{$category->icon}} img-thumbnail icon" style='font-size: 55px'></i>
                                 </div>
                             @endif
 
@@ -66,7 +75,7 @@
 
                             <div class="mt-4">
                                 <button type="submit" class="btn btn-outline-primary btn-lg btn-block">
-                                    {{__('Update')}}
+                                    {{__('Update', ['name' => __('Category')])}}
                                 </button>
                             </div>
                         </form>

@@ -4,7 +4,7 @@
 
     <section class="section">
         <div class="section-header">
-            <h1>{{__('Add New Product')}}</h1>
+            <h1>{{__('Add New', ['name' => __('Product')])}}</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
                     {{__('Dashboard')}}
@@ -17,6 +17,10 @@
         </div>
 
         <div class="section-body">
+
+            <div class="mb-4">
+                <x-back-arrow :href='route("admin.products.index")'/>
+            </div>
 
             <div class="row">
                 <div class="col-12 col-xl-12 col-md-6">

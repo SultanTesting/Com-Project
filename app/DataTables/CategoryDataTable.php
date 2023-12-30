@@ -84,7 +84,7 @@ class CategoryDataTable extends DataTable
                     ->minifiedAjax()
                     ->language(langSelect())
                     //->dom('Bfrtip')
-                    ->orderBy(0)
+                    ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -103,7 +103,7 @@ class CategoryDataTable extends DataTable
     {
         return [
 
-            Column::make('id'),
+            Column::make('#'),
             Column::make('name')
                   ->addClass('font-weight-bold'),
             Column::make('slug'),
