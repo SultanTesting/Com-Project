@@ -25,10 +25,13 @@ class ProductDataTable extends DataTable
 
         ->addColumn('action', function($query)
         {
-            $editBtn = "<a href='".route('admin.products.edit', $query->id)."' class='btn btn-sm btn-info ml-2'>
+            $editBtn = "<a href='".route('admin.products.edit', $query->id)."'
+            class='btn btn-sm btn-info ml-2'>
             <i class='far fa-edit'></i></a>";
 
-            $deleteBtn = "<a href='".route('admin.products.destroy', $query->id)."' class='btn btn-sm btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
+            $deleteBtn = "<a href='".route('admin.products.destroy', $query->id)."'
+            class='btn btn-sm btn-danger ml-2 delete-item'>
+            <i class='far fa-trash-alt'></i></a>";
 
             $drop = (dirSelect() == 'rtl') ? 'dropright' : 'dropleft';
             $more = "
@@ -37,17 +40,19 @@ class ProductDataTable extends DataTable
                 <i class='fas fa-cog'></i>
                 </button>
                 <div class='dropdown-menu'>
+
                     <a class='dropdown-item has-icon'
                     href='".route('admin.product-gallery.index', ['product' => $query->id])."'>
                     <i class='far fa-images'></i>
                     ".__('Image Gallery')."
                     </a>
+
                     <a class='dropdown-item has-icon'
                      href='".route('admin.product-variants.index', ['product' => $query->id])."'>
                     <i class='fas fa-exchange-alt'></i>
                     ".__('Variants')."
                     </a>
-                    <a class='dropdown-item has-icon' href=''>To be added</a>
+
                 </div>
             </div>";
 
@@ -74,7 +79,7 @@ class ProductDataTable extends DataTable
         })
         ->addColumn('image', function($query)
         {
-            return "<img src='".asset($query->thumb_image)."' width='100px'/>";
+            return "<img src='".asset($query->thumb_image)."' width='100px' class='img-thumbnail'/>";
         })
         ->addColumn('created_at', function($product)
         {
@@ -108,6 +113,11 @@ class ProductDataTable extends DataTable
                 return "<span style='font-size:25px'>⭐</span>";
         })
 
+        ->addColumn('vendor', function($query)
+        {
+            return $query->vendor->name;
+        })
+
         ->addIndexColumn() // search for index_column datatables.php
         ->rawColumns(['action', 'created_at', 'status', 'image', 'offer_start_date', 'offer_end_date', 'product_type'])
         ->setRowId('id');
@@ -130,6 +140,8 @@ class ProductDataTable extends DataTable
                     ->setTableId('product-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
+                    ->responsive(true)
+                    ->autoWidth(false)
                     ->language(langSelect())
                     //->dom('Bfrtip')
                     ->orderBy(1)
@@ -154,6 +166,9 @@ class ProductDataTable extends DataTable
             Column::make('#'),
             Column::make('name')
                 ->addClass('font-weight-bold')
+                ->width(150),
+            Column::make('vendor')
+                ->addClass('font-weight-bold text-primary')
                 ->width(150),
             Column::make('image')
                 ->width(100),

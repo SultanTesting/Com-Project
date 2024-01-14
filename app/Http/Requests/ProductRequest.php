@@ -46,6 +46,8 @@ class ProductRequest extends FormRequest
                 'offer_start_date' => ['nullable', 'date', 'after_or_equal:today'],
                 'offer_end_date' => ['nullable', 'date', 'after:offer_start_date'],
                 "product_type" => ['required'],
+                "seo_title" => ['nullable', 'max:100'],
+                "seo_description" => ['nullable', 'max:255'],
                 "status" => ['required'],
             ];
         }
@@ -67,6 +69,8 @@ class ProductRequest extends FormRequest
                 'offer_start_date' => ['nullable', 'date', 'after_or_equal:today'],
                 'offer_end_date' => ['nullable', 'date', 'after:offer_start_date'],
                 "product_type" => ['required'],
+                "seo_title" => ['nullable', 'max:100'],
+                "seo_description" => ['nullable', 'max:255'],
                 "status" => ['required'],
             ];
     }

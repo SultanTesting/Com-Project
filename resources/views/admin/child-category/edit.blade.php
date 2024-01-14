@@ -37,6 +37,7 @@
                             <div class="form-group">
                                 <label for="name">{{__('Child-Category Name')}}</label>
                                 <input type="text" class="form-control" name="name" value="{{$childCategory->name}}">
+                                <x-input-error :messages="$errors->get('name')" class="alert-danger mb-2"/>
                             </div>
 
                             <div class="form-group">
@@ -47,6 +48,7 @@
                                         value="{{$cat->id}}">{{$cat->name}}</option>
                                     @endforeach
                                 </select>
+                                <x-input-error :messages="$errors->get('category_id')" class="alert-danger mb-2"/>
                             </div>
 
                             <div class="form-group">
@@ -57,6 +59,7 @@
                                         value="{{$sub->id}}">{{$sub->name}}</option>
                                     @endforeach
                                 </select>
+                                <x-input-error :messages="$errors->get('sub_category_id')" class="alert-danger mb-2"/>
                             </div>
 
                             <div class="form-group">
@@ -73,6 +76,7 @@
                                     </option>
 
                                 </select>
+                                <x-input-error :messages="$errors->get('status')" class="alert-danger mb-2"/>
                             </div>
 
 

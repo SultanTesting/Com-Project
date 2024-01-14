@@ -56,3 +56,19 @@ function makeDirectory($dirName, $name)
     return $subFolder;
 }
 
+function protectWrongDelete($subItem, $mainItem, $messageMainItemName)
+{
+    if($subItem > 0)
+    {
+        return response([
+            'status' => 'error',
+            'message' => __("Cannot Delete This $messageMainItemName, Delete Items First!")
+        ]);
+    }else{
+
+        $mainItem->delete();
+
+        return response(['status' => 'success', 'message' => __('Deleted', ['name' => $mainItem->name])]);
+    }
+}
+

@@ -1,4 +1,4 @@
-@extends('vendor.dashboard.layouts.main')
+@extends('vendor.layouts.main')
 
 @section('content')
 
@@ -10,37 +10,37 @@
             <div class="col-xl-2 col-6 col-md-4">
             <a class="wsus__dashboard_item red" href="dsahboard_order.html">
                 <i class="far fa-address-book"></i>
-                <p>order</p>
+                <p>{{__('Order')}}</p>
             </a>
             </div>
             <div class="col-xl-2 col-6 col-md-4">
             <a class="wsus__dashboard_item green" href="dsahboard_download.html">
                 <i class="fal fa-cloud-download"></i>
-                <p>download</p>
+                <p>{{__('Download')}}</p>
             </a>
             </div>
             <div class="col-xl-2 col-6 col-md-4">
             <a class="wsus__dashboard_item sky" href="dsahboard_review.html">
                 <i class="fas fa-star"></i>
-                <p>review</p>
+                <p>{{__('Review')}}</p>
             </a>
             </div>
             <div class="col-xl-2 col-6 col-md-4">
             <a class="wsus__dashboard_item blue" href="dsahboard_wishlist.html">
                 <i class="far fa-heart"></i>
-                <p>wishlist</p>
+                <p>{{__('Wishlist')}}</p>
             </a>
             </div>
             <div class="col-xl-2 col-6 col-md-4">
             <a class="wsus__dashboard_item orange" href="dsahboard_profile.html">
                 <i class="fas fa-user-shield"></i>
-                <p>profile</p>
+                <p>{{__('Profile')}}</p>
             </a>
             </div>
             <div class="col-xl-2 col-6 col-md-4">
             <a class="wsus__dashboard_item purple" href="dsahboard_address.html">
                 <i class="fal fa-map-marker-alt"></i>
-                <p>address</p>
+                <p>{{__('Address')}}</p>
             </a>
             </div>
         </div>

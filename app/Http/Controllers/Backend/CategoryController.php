@@ -87,14 +87,16 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //! Protecting categories from wrong actions!
+
         $subCategory = SubCategory::where('category_id', $category->id)->count();
+        
         if($subCategory > 0)
         {
             return response(['status' => 'error',
             'message' => __('Cannot Delete This Category, Delete Sub Items First!')]);
         }
 
-        $category->delete();
+            $category->delete();
 
         return response(['status' => 'success', 'message' => __('Deleted', ['name' => $category->name])]);
     }

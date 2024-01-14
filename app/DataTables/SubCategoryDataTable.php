@@ -83,6 +83,8 @@ class SubCategoryDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->language(langSelect())
+                    ->responsive()
+                    ->autoWidth(false)
                     //->dom('Bfrtip')
                     ->orderBy(1)
                     ->selectStyleSingle()

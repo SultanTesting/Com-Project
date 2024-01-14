@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Vendor;
 use App\Traits\imageTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class VendorProfileRequest extends FormRequest
@@ -27,14 +28,21 @@ class VendorProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        // $vendorId = $this->route('vendor_profile.id');
+        if(Request::routeIs('admin.*'))
+        {
+         $vendorId = $this->route('vendor_profile.id');
+        }elseif(Request::routeIs('vendor.*'))
+        {
+         $vendorId = $this->route('shop_profile');
+        }
 
         return [
 
             'user_id' => ['exists:users,id'],
-            'banner' => ['nullable', 'image', 'max:2000'],
-            'phone' => ['required', 'max:50'],
-            'email' => ['required', 'email', 'max:50'],
+            'banner'  => ['required', 'image', 'max:2000'],
+            'name'    => ['required', 'max:30', 'unique:vendors,name,' . $vendorId],
+            'phone'   => ['required', 'max:50'],
+            'email'   => ['required', 'email', 'max:50'],
             'address' => ['nullable', 'max:255'],
             'shop_description' => ['nullable', 'max:255'],
             'store_status' => ['required'],
@@ -53,7 +61,7 @@ class VendorProfileRequest extends FormRequest
 
         if(!empty($data['banner']))
         {
-            $data['banner'] = $this->uploadImages($this, 'banner', makeDirectory('vendors', $this->name), $vendor->banner);
+            $data['banner'] = $this->uploadImages($this, 'banner', makeDirectory('vendors', $vendor->name), $vendor->banner);
 
         }else{
 

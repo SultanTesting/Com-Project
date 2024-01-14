@@ -94,6 +94,8 @@ class ProductVariantItemDataTable extends DataTable
                     ->minifiedAjax()
                     //->dom('Bfrtip')
                     ->language(langSelect())
+                    ->responsive()
+                    ->autoWidth(false)
                     ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([

@@ -55,6 +55,7 @@
                             <div class="form-group">
                                 <label for="name">{{__('Category Name')}}</label>
                                 <input type="text" class="form-control" name="name" value="{{$category->name}}">
+                                <x-input-error :messages="$errors->get('name')" class="alert-danger mb-2"/>
                             </div>
 
                             <div class="form-group">
@@ -70,6 +71,7 @@
                                         {{__('Inactive')}}
                                     </option>
                                 </select>
+                                <x-input-error :messages="$errors->get('status')" class="alert-danger mb-2"/>
                             </div>
 
 

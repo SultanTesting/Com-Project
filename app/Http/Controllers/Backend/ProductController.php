@@ -13,6 +13,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\ProductRequest;
+use App\Models\ProductGallery;
+use App\Models\ProductVariantItem;
+use App\Models\ProductVariants;
 
 class ProductController extends Controller
 {
@@ -108,6 +111,29 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+
+        // ! Delete Images
+
+        $images = ProductGallery::where('product_id', $product->id)->get();
+
+        foreach($images as $image)
+        {
+            $image->delete();
+        }
+
+        // ! Delete Variants Items And Variants IF Exists
+
+
+        $variants = ProductVariants::where('product_id', $product->id)->get();
+
+        foreach($variants as $variant)
+        {
+            $variant->items()->delete();
+            $variant->delete();
+        }
+
+        // ! Delete Product Directory And Product Data From DataBase
+
         File::deleteDirectory(public_path("uploads/products/$product->slug"));
         $product->delete();
 

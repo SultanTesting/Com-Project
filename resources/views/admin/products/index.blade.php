@@ -30,9 +30,9 @@
                         </div>
 
                         <div class="card-body">
-                            <table>
+                            
                                 {{$dataTable->table()}}
-                            </table>
+                            
                         </div>
 
                     </div>

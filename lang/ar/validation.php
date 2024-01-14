@@ -233,6 +233,7 @@ return [
         'quantity'                 => 'الكمية',
         'status'                   => 'الحالة',
         'short_description'        => 'نبذه مختصرة',
-        'long_description'         => 'نص كامل'
+        'long_description'         => 'نص كامل',
+        'Change Password'          => 'تغيير كلمة السر',
     ],
 ];

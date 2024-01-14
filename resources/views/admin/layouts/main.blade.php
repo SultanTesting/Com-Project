@@ -21,9 +21,12 @@
   <link rel="stylesheet" href="{{asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css')}}">
   <link rel="stylesheet" href="{{ asset('backend/assets/modules/summernote/summernote-bs4.css') }}">
   {{-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/> --}}
-  <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"/>
+  {{-- <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"/> --}}
   <link rel="stylesheet" href="{{ asset('backend/assets/css/bootstrap-iconpicker.min.css') }}"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap.min.css"/>
 
 
 
@@ -83,7 +86,9 @@
     </div>
 
   <!-- General JS Scripts -->
-  <script src="{{ asset('backend/assets/modules/jquery.min.js') }}"></script>
+  {{-- <script src="{{ asset('backend/assets/modules/jquery.min.js') }}"></script> --}}
+  <script src="https://code.jquery.com/jquery-3.7.0.js" ></script>
+
   <script src="{{ asset('backend/assets/modules/popper.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/tooltip.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -99,10 +104,18 @@
   <script src="{{ asset('backend/assets/modules/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/summernote/summernote-bs4.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
-  <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" ></script>
-  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js" ></script>
+  {{-- <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" ></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js" ></script> --}}
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="{{ asset('backend/assets/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js" ></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js" ></script>
+  <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js" ></script>
+  <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap.min.js" ></script>
+  <script async src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+    integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
+    crossorigin="anonymous"></script>
+
 
   <!-- Page Specific JS File -->
   <script src="{{ asset('backend/assets/js/page/index-0.js') }}"></script>

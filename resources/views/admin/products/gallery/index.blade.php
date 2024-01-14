@@ -79,14 +79,14 @@
                                             <img src="{{ asset($image->images) }}" class="card-img-top">
 
                                             <div class="photo-buttons">
-                                                    <form action="{{route('admin.product-gallery.destroy', $image->id)}}" method="POST">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <a href="{{route('admin.product-gallery.destroy', ['gallery' => $image->id, 'name' => $product->slug])}}"
-                                                            type="submit" class="btn btn-sm btn-danger delete-item">
-                                                            <i class='far fa-trash-alt'></i>
-                                                        </a>
-                                                    </form>
+                                                <form action="{{route('admin.product-gallery.destroy', $image->id)}}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <a href="{{route('admin.product-gallery.destroy', ['gallery' => $image->id, 'name' => $product->slug])}}"
+                                                        type="submit" class="btn btn-sm btn-danger delete-item">
+                                                        <i class='far fa-trash-alt'></i>
+                                                    </a>
+                                                </form>
                                             </div>
 
                                     </div>
@@ -104,12 +104,6 @@
 @endsection
 
 @push('scripts')
-
-
-    <script async src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
-    integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
-    crossorigin="anonymous"></script>
-
     <script>
         // Disable button while input is empty
         $('body').ready(function()

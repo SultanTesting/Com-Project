@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\ProductVariantsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductVariantItem;
 use App\Models\ProductVariants;
 use Illuminate\Http\Request;
 
@@ -95,8 +96,9 @@ class ProductVariantsController extends Controller
     {
         $variant = ProductVariants::findOrFail($id);
 
-        $variant->delete();
+        $items = ProductVariantItem::where('product_variants_id', $variant->id)->count();
 
-        return response(['status' => 'success', 'message' => __('Deleted', ['name' => $variant->name])]);
+        return protectWrongDelete($items, $variant, 'Variant');
+
     }
 }

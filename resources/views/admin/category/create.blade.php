@@ -33,6 +33,7 @@
                                 <div class="form-group">
                                     <label for="name" class="form-label">{{__('Category Name')}}</label>
                                     <input type="text" class="form-control" name="name" value="{{old('name')}}">
+                                    <x-input-error :messages="$errors->get('name')" class="alert-danger mb-2"/>
                                 </div>
 
                                 <div class="form-group">
@@ -48,6 +49,7 @@
                                         <option value="Active">{{__('Active')}}</option>
                                         <option value="Inactive">{{__('Inactive')}}</option>
                                     </select>
+                                    <x-input-error :messages="$errors->get('status')" class="alert-danger mb-2"/>
                                 </div>
 
                                 <div>
