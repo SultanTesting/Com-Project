@@ -93,7 +93,14 @@ class ProductRequest extends FormRequest
     {
         $data = $this->validated();
 
-        $data['vendor_id'] = Auth::user()->vendor->id;
+        if($this->method() == 'PUT')
+        {
+            $data['vendor_id'] = $product->vendor_id;
+        }else{
+
+            $data['vendor_id'] = Auth::user()->vendor->id;
+        }
+
 
         $data['slug'] = Str::slug($data['name'], '-');
 

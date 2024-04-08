@@ -27,7 +27,8 @@
         <li class="dropdown {{ setActive([
             'admin.category.*',
             'admin.sub-category.*',
-            'admin.child-category.*'
+            'admin.child-category.*',
+            'admin.brand.*',
         ]) }}">
 
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
@@ -48,6 +49,10 @@
                 <a class="nav-link" href="{{route('admin.child-category.index')}}">@lang("Child-Category")</a>
             </li>
 
+            <li class="{{ setActive(['admin.brand.*']) }}">
+                <a class="nav-link" href="{{route('admin.brand.index')}}"> {{__('Brands')}} </a>
+            </li>
+
           </ul>
         </li>
 
@@ -56,8 +61,10 @@
         <li class="menu-header">@lang("PRODUCTS SECTION")</li>
 
         <li class="dropdown {{ setActive([
-            'admin.brand.*',
-            'admin.products.*'
+            'admin.products.*',
+            'admin.product*',
+            'admin.seller.*',
+            'admin.pending-products',
             ]) }}">
 
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
@@ -66,12 +73,16 @@
 
           <ul class="dropdown-menu">
 
-            <li class="{{ setActive(['admin.brand.*']) }}">
-                <a class="nav-link" href="{{route('admin.brand.index')}}"> {{__('Brands')}} </a>
+            <li class="{{ setActive(['admin.products.*']) }}">
+                <a class="nav-link" href="{{route('admin.products.index')}}">{{__('Admin Products')}}</a>
             </li>
 
-            <li class="{{ setActive(['admin.products.*']) }}">
-                <a class="nav-link" href="{{route('admin.products.index')}}">{{__('Products')}}</a>
+            <li class="{{ setActive(['admin.seller.*']) }}">
+                <a class="nav-link" href="{{route('admin.seller.products.index')}}">{{__('Vendors Products')}}</a>
+            </li>
+
+            <li class="{{ setActive(['admin.pending-products']) }}">
+                <a class="nav-link" href="{{route('admin.pending-products')}}">{{__('Pending Products')}}</a>
             </li>
 
           </ul>
@@ -85,7 +96,8 @@
 
         <li class="dropdown {{ setActive([
              'admin.slider.*',
-             'admin.vendor-profile.*'
+             'admin.vendor-profile.*',
+             'admin.flash-sale.*'
              ]) }}">
 
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
@@ -102,15 +114,24 @@
                 <a class="nav-link" href="{{route('admin.vendor-profile.index')}}">@lang("Vendor Profile")</a>
             </li>
 
+            <li class="{{ setActive(['admin.flash-sale.*']) }}">
+                <a class="nav-link" href="{{route('admin.flash-sale.index')}}">@lang("Flash Sale")</a>
+            </li>
+
+            <li class="{{ setActive(['admin.coupon.*']) }}">
+                <a class="nav-link" href="{{route('admin.coupon.index')}}">@lang("Coupons")</a>
+            </li>
+
           </ul>
 
         </li>
 
-        {{-- <li>
-            <a class="nav-link" href="blank.html"><i class="far fa-square"></i>
-                <span>Blank Page</span>
+        <li class="menu-header"> {{__("Settings")}} </li>
+        <li class="dropdown {{ setActive(['admin.settings.*']) }}">
+            <a href="{{route('admin.settings.index')}}" class="nav-link">
+                <i class="fas fa-cog"></i><span> {{__('Settings')}} </span>
             </a>
-        </li> --}}
+        </li>
 
       </ul>
 

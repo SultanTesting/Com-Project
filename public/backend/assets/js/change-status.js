@@ -19,14 +19,14 @@ $(document).ready(function() {
                     },
 
                     success: function(data){
-                        toastr.success(data.message);
+                        iziToast.success({title: 'Success', message: data.message});
                         setTimeout(() => {
                             window.location.reload();
                         }, 2000);
                     },
 
                     error: function(xhr, status, error){
-                        toastr.error(error);
+                        iziToast.error({title: 'Oops', message: error});
                         console.log(error);
                     }
                 })

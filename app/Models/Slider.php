@@ -9,7 +9,7 @@ class Slider extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['banner', 'title', 'type', 'starting_price', 'url', 'serial', 'status'];
+    protected $fillable = ['banner', 'title', 'slug', 'type', 'starting_price', 'url', 'serial', 'status'];
 
     public function uploadDate()
     {

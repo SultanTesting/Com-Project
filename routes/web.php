@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Frontend\FlashSaleController;
+use App\Http\Controllers\Frontend\FrontendProductController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserProfileController;
@@ -19,6 +21,10 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
+
+Route::get('flash-sale', FlashSaleController::class)->name('flash-sale');
+
+Route::get('product/{slug}', FrontendProductController::class)->name('product-detail');
 
 // Route::resource('user/dashboard', UserDashboardController::class, ['as' => 'user'])
 // ->only(['index']);

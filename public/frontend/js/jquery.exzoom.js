@@ -37,7 +37,7 @@
             "navItemMargin": 7,
             "navBorder": 1,
             "autoPlay": true,
-            "autoPlayTimeout": 2000,
+            "autoPlayTimeout": 10000,
         };
 
 
@@ -52,7 +52,7 @@
             exzoom_prev_btn = ele.find(".exzoom_prev_btn");
             exzoom_next_btn = ele.find(".exzoom_next_btn");
 
-            boxHeight = boxWidth = ele.outerWidth();  
+            boxHeight = boxWidth = ele.outerWidth();
             g.navWidth = opts.navWidth;
             g.navHeight = opts.navHeight;
             g.navBorder = opts.navBorder;
@@ -65,13 +65,13 @@
             imgNum = images.length;
             checkLoadedAllImages(images)
         },
-        prev: function () {            
+        prev: function () {
             moveLeft()
         },
-        next: function () {            
+        next: function () {
             moveRight();
         },
-        setImg: function () {            
+        setImg: function () {
             let url = arguments[0];
 
             getImageSize(url, function (width, height) {
@@ -184,7 +184,7 @@
     }
 
     /**
-     * 
+     *
      * @param images
      */
     function checkLoadedAllImages(images) {
@@ -356,7 +356,7 @@
     }
 
     /**
-     * @param direction: 
+     * @param direction:
      */
     function move(direction) {
         if (typeof direction === "undefined") {
@@ -369,7 +369,7 @@
         exzoom_navSpan.eq(imgIndex).addClass(navHightClass).siblings().removeClass(navHightClass);
 
         let exzoom_nav_width = exzoom_nav.width();
-        let nav_item_width = g.navItemMargin + g.navWidth + g.navBorder * 2; 
+        let nav_item_width = g.navItemMargin + g.navWidth + g.navBorder * 2;
         let new_nav_offset = 0;
 
         let temp = nav_item_width * (imgIndex + 1);
@@ -471,9 +471,9 @@
     }
 
     /**
-     * @param image : 
-     * @param width : 
-     * @param height : 
+     * @param image :
+     * @param width :
+     * @param height :
      * @returns {Array}
      */
     function copute_image_prop(image, width, height) {
@@ -528,5 +528,5 @@
         return res;
     }
 
-// 闭包结束     
+// 闭包结束
 })(jQuery, window);

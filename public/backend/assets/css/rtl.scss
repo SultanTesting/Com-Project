@@ -68,8 +68,8 @@ body.sidebar-mini .main-sidebar:after {
 }
 
 .main-sidebar .sidebar-menu li ul.dropdown-menu li a {
-  padding-left: auto !important;
   padding-right: 65px;
+  padding-left: 0 !important;
 }
 
 body {
@@ -96,7 +96,7 @@ body {
     }
     .main-sidebar .sidebar-menu li ul.dropdown-menu li a {
       padding-right: 34px;
-      padding-left: 0;
+      padding-left: 0 !important;
     }
   }
 }
@@ -262,9 +262,13 @@ body.sidebar-gone {
     font-weight: bold;
     font-family: Vazir, Tahoma, Arial;
     letter-spacing: 0;
-    margin-left: 100%;
+    // margin-left: 100%;
     text-wrap: nowrap;
     margin-right: 0;
+}
+
+.form-group .form-select {
+    background-position: left 0.75rem center;
 }
 
 .dropdown-list .dropdown-header {

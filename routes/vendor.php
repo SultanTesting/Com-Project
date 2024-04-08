@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Backend\Vendor\ProductVariantItemController;
+use App\Http\Controllers\Backend\Vendor\ProductVariantsController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\VendorController;
-use App\Http\Controllers\Backend\VendorProductController;
-use App\Http\Controllers\Backend\VendorProductGalleryController;
-use App\Http\Controllers\Backend\VendorProfileController;
-use App\Http\Controllers\Backend\VendorShopController;
+use App\Http\Controllers\Backend\Vendor\VendorController;
+use App\Http\Controllers\Backend\Vendor\VendorProductController;
+use App\Http\Controllers\Backend\Vendor\VendorProductGalleryController;
+use App\Http\Controllers\Backend\Vendor\VendorProfileController;
+use App\Http\Controllers\Backend\Vendor\VendorShopController;
 
 // ! [ prefix && as ] methods predefined in RouteServiceProvider
 
@@ -30,5 +32,13 @@ Route::prefix('vendor')
     Route::resource('product/gallery', VendorProductGalleryController::class)
         ->except(['show', 'create', 'edit', 'update'])
         ->names('product-gallery');
+
+    /** Vendor Product Variants Routes */
+    Route::put('variants-status', [ProductVariantsController::class, 'changeStatus'])->name('variant-status');
+    Route::resource('product/variants', ProductVariantsController::class)->except('show');
+
+    /** Product Variants Item Routes  */
+    Route::put('item-status', [ProductVariantItemController::class, 'changeStatus'])->name('item-status');
+    Route::resource('product/variants/item', ProductVariantItemController::class);
 });
 

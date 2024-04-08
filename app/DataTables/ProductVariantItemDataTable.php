@@ -22,21 +22,21 @@ class ProductVariantItemDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-        ->addColumn('action', function($query)
-        {
-            $dir = (dirSelect() == 'rtl') ? 'mr-2' : '' ;
+            ->addColumn('action', function($query)
+            {
+                $dir = (dirSelect() == 'rtl') ? 'mr-2' : '' ;
 
-            $editBtn = "<a href='".route('admin.product.variant-item.edit',
-            ['item' => $query->id, 'product' => request()->productId])."' class='btn btn-sm btn-info $dir'>
-            <i class='far fa-edit'></i></a>";
+                $editBtn = "<a href='".route('admin.product.variant-item.edit',
+                ['item' => $query->id, 'product' => request()->productId])."' class='btn btn-sm btn-info $dir'>
+                <i class='far fa-edit'></i></a>";
 
-            $deleteBtn = "<a href='".route('admin.product.variant-item.destroy', $query->id)."' class='btn btn-sm btn-danger ml-2 $dir delete-item'>
-            <i class='far fa-trash-alt'></i></a>";
+                $deleteBtn = "<a href='".route('admin.product.variant-item.destroy', $query->id)."' class='btn btn-sm btn-danger ml-2 $dir delete-item'>
+                <i class='far fa-trash-alt'></i></a>";
 
-            return $editBtn.$deleteBtn;
-        })
+                return $editBtn.$deleteBtn;
+            })
 
-        ->addColumn('status', function($query)
+            ->addColumn('status', function($query)
             {
                 if($query->status == 'active')
                 {
@@ -56,20 +56,20 @@ class ProductVariantItemDataTable extends DataTable
                 }
             })
 
-        ->addColumn('default', function($query)
-        {
-            if($query->default == 'yes')
+            ->addColumn('default', function($query)
             {
-                return "<span class='badge badge-success'>Yes</span>";
-            }else{
-                return "<span class='badge badge-danger'>No</span>";
-            }
-        })
+                if($query->default == 'yes')
+                {
+                    return "<span class='badge badge-success'>Yes</span>";
+                }else{
+                    return "<span class='badge badge-danger'>No</span>";
+                }
+            })
 
-        ->addColumn('created_at', function($query)
-        {
-            return $query->created_at->diffForHumans();
-        })
+            ->addColumn('created_at', function($query)
+            {
+                return $query->created_at->diffForHumans();
+            })
             ->rawColumns(['action', 'created_at', 'status', 'default'])
             ->addIndexColumn()
             ->setRowId('id');

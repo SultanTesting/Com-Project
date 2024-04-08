@@ -14,7 +14,7 @@
                 [ <code>{{$product->name}}</code> ]
             </h1>
 
-            <div class="section-header-breadcrumb">
+            <div class="breadcrumb section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{route('admin.dashboard')}}">
                     {{__('Dashboard')}}
                 </a></div>

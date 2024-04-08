@@ -20,17 +20,22 @@
   {{-- <link rel="stylesheet" href="{{asset('backend/assets/css/bootstrap-iconpicker.min.css')}}"> --}}
   <link rel="stylesheet" href="{{asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css')}}">
   <link rel="stylesheet" href="{{ asset('backend/assets/modules/summernote/summernote-bs4.css') }}">
+  <link rel="stylesheet" href="{{ asset('backend/assets/modules/select2/dist/css/select2.min.css') }}">
   {{-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/> --}}
-  {{-- <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"/> --}}
+  {{-- <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/> --}}
+  {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"/> --}}
+
   <link rel="stylesheet" href="{{ asset('backend/assets/css/bootstrap-iconpicker.min.css') }}"/>
+
+
+  <link rel="stylesheet" href="{{ asset('backend/assets/modules/izitoast/css/iziToast.min.css') }}"/>
+
+
+
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css"/>
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap.min.css"/>
-
-
-
-
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('backend/assets/css/style.css') }}">
@@ -86,8 +91,7 @@
     </div>
 
   <!-- General JS Scripts -->
-  {{-- <script src="{{ asset('backend/assets/modules/jquery.min.js') }}"></script> --}}
-  <script src="https://code.jquery.com/jquery-3.7.0.js" ></script>
+  <script src="{{ asset('backend/assets/modules/jquery-3.7.1.min.js') }}"></script>
 
   <script src="{{ asset('backend/assets/modules/popper.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/tooltip.js') }}"></script>
@@ -100,10 +104,12 @@
   <!-- JS Libraies -->
   <script src="{{ asset('backend/assets/modules/simple-weather/jquery.simpleWeather.min.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/chart.min.js') }}"></script>
+  <script src="{{ asset('backend/assets/modules/select2/dist/js/select2.min.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/jqvmap/dist/jquery.vmap.min.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/summernote/summernote-bs4.js') }}"></script>
   <script src="{{ asset('backend/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
+  <script src="{{ asset('backend/assets/modules/izitoast/js/iziToast.min.js') }}"></script>
   {{-- <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" ></script>
   <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js" ></script> --}}
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -115,7 +121,6 @@
   <script async src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
     integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
     crossorigin="anonymous"></script>
-
 
   <!-- Page Specific JS File -->
   <script src="{{ asset('backend/assets/js/page/index-0.js') }}"></script>
@@ -210,6 +215,12 @@
                     }
                 })
             })
+        })
+    </script>
+
+    <script>
+        iziToast.settings({
+            position: 'topCenter',
         })
     </script>
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('banner')->nullable();
             $table->string('title')->nullable();
+            $table->string('slug')->nullable();
             $table->string('type')->nullable();
             $table->string('starting_price')->nullable();
             $table->string('url')->nullable();

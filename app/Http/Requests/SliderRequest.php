@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Slider;
 use App\Traits\imageTrait;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -30,6 +31,7 @@ class SliderRequest extends FormRequest
         return [
             "banner" => ['nullable', 'image', 'max:2000'],
             "title"  => ['required', 'min:6', 'max:25'],
+            "slug"   => ['string'],
             "type"   => ['string', 'max:200'],
             "starting_price" => ['required', 'max:200000'],
             "url"    => ['required', 'url', 'max:200'],
@@ -43,9 +45,11 @@ class SliderRequest extends FormRequest
 
         $data = $this->validated();
 
+        $data['slug'] = Str::slug($data['title'], '-');
+
         if(!empty($data['banner']))
         {
-            $data['banner'] = $this->uploadImages($this, 'banner', makeDirectory('sliders', $this->title), $slider->banner);
+            $data['banner'] = $this->uploadImages($this, 'banner', makeDirectory('sliders', $data['slug']), $slider->banner);
         }else{
             $slider->banner;
         }

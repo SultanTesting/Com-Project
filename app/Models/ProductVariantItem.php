@@ -12,13 +12,9 @@ class ProductVariantItem extends Model
 
     protected $fillable = ['product_variants_id', 'name', 'price', 'default', 'status'];
 
-    public function variants() : BelongsTo
+    public function variant() : BelongsTo
     {
-        return $this->belongsTo(ProductVariants::class);
+        return $this->belongsTo(ProductVariants::class, 'product_variants_id');
     }
 
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
 }

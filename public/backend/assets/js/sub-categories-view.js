@@ -26,7 +26,7 @@ $(document).ready(function()
                 error: function(xhr, status, error)
                 {
                     console.log(error);
-                    toastr.error(error);
+                    iziToast.error(error);
                 }
             }
         )

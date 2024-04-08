@@ -28,6 +28,8 @@ function changeStatus($model, $request)
     return $model->save();
 }
 
+/** Localization Direction  */
+
 function dirSelect()
 {
     if(LaravelLocalization::getLocalizedURL() == LaravelLocalization::getLocalizedURL('ar'))
@@ -38,15 +40,19 @@ function dirSelect()
         return "ltr";
 }
 
+/** Language Select For DataTables */
+
 function langSelect()
 {
     if(dirSelect() == 'rtl')
     {
-        return '//cdn.datatables.net/plug-ins/1.13.7/i18n/ar.json';
+        return '//cdn.datatables.net/plug-ins/2.0.3/i18n/ar.json';
     }
 
         return '//cdn.datatables.net/plug-ins/1.13.7/i18n/en-GB.json';
 }
+
+/** Create Directory For Each Upload File */
 
 function makeDirectory($dirName, $name)
 {
@@ -55,6 +61,8 @@ function makeDirectory($dirName, $name)
 
     return $subFolder;
 }
+
+/** Prevent User From Delete Parent if there is child items */
 
 function protectWrongDelete($subItem, $mainItem, $messageMainItemName)
 {
@@ -69,6 +77,52 @@ function protectWrongDelete($subItem, $mainItem, $messageMainItemName)
         $mainItem->delete();
 
         return response(['status' => 'success', 'message' => __('Deleted', ['name' => $mainItem->name])]);
+    }
+}
+
+/** Check if discount is valid */
+
+function checkDiscount($product)
+{
+    $today = date("Y-m-d");
+
+    if($product->offer_price > 0 && $today >= $product->offer_start_date && $today <= $product->offer_end_date)
+    {
+        return true;
+    }
+        return false;
+
+}
+
+/** Calculate Discount Percentage */
+function discountPercent($price, $offerPrice)
+{
+    $diff = $price - $offerPrice;
+
+    $percent =  round($diff / $price * 100);
+
+    return $percent;
+}
+
+/** Check Product Label */
+function productLabel($product)
+{
+    switch ($product) {
+        case "new":
+            return 'New';
+            break;
+
+        case 'featured':
+            return "Featured";
+            break;
+
+        case 'top':
+            return 'top';
+            break;
+
+        default:
+            return "New";
+            break;
     }
 }
 

@@ -4,15 +4,15 @@
 
     <section class="section">
         <div class="section-header">
-            <h1>{{__('Add New Product')}}</h1>
-            <div class="section-header-breadcrumb">
+            <h1>{{__('Edit', ['name' => __('Product')])}}</h1>
+            <div class="breadcrumb section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
                     {{__('Dashboard')}}
                 </a></div>
                 <div class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">
                     {{__('Manage Products')}}
                 </a></div>
-                <div class="breadcrumb-item">{{__('Create')}} +</div>
+                <div class="breadcrumb-item">{{__('Edit', ['name' => __('Product')])}}</div>
             </div>
         </div>
 

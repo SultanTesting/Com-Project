@@ -207,7 +207,7 @@ select.form-control:not([size]):not([multiple]) {
   margin-bottom: 25px; }
   .form-group .control-label,
   .form-group > label {
-    font-weight: 600;
+    font-weight: 700;
     color: #34395e;
     font-size: 12px;
     letter-spacing: .5px; }
@@ -605,7 +605,7 @@ select.form-control:not([size]):not([multiple]) {
 .card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
   background-color: #fff;
-  border-radius: 3px;
+  border-radius: 18px;
   border: none;
   position: relative;
   margin-bottom: 30px; }
@@ -626,16 +626,19 @@ select.form-control:not([size]):not([multiple]) {
       margin-top: -5px; }
     .card .card-body p {
       font-weight: 500; }
-  .card .card-header {
-    border-bottom-color: #f9f9f9;
-    line-height: 30px;
-    -ms-grid-row-align: center;
-    align-self: center;
-    width: 100%;
-    min-height: 70px;
-    padding: 15px 25px;
-    display: flex;
-    align-items: center; }
+    .card .card-header {
+        border-bottom-color: #ebe6e6;
+        background-color: #fbfbfb;
+        line-height: 30px;
+        -ms-grid-row-align: center;
+        align-self: center;
+        width: 100%;
+        min-height: 59px;
+        padding: 15px 25px;
+        display: flex;
+        align-items: center; }
+
+
     .card .card-header .btn {
       margin-top: 1px;
       padding: 2px 15px; }

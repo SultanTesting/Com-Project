@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Product extends Model
 {
@@ -14,9 +16,19 @@ class Product extends Model
         'vendor_id', 'name', 'slug', 'category_id', 'sub_category_id', 'child_category_id', 'brand_id', 'thumb_image', 'quantity', 'short_description', 'long_description', 'video_link', 'SKU', 'price', 'offer_price', 'offer_start_date', 'offer_end_date', 'top', 'best', 'featured', 'status', 'approved', 'seo_title', 'seo_description'
     ];
 
-    public function vendor()
+    public function vendor() : BelongsTo
     {
         return $this->belongsTo(Vendor::class);
+    }
+
+    public function category() : BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
 
     public function gallery() : HasMany
@@ -38,7 +50,4 @@ class Product extends Model
     {
         return $this->created_at->diffForHumans();
     }
-
-
-
 }

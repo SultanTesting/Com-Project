@@ -1,19 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\AdminController;
-use App\Http\Controllers\Backend\BrandController;
-use App\Http\Controllers\Backend\SliderController;
-use App\Http\Controllers\Backend\ProductController;
-use App\Http\Controllers\Backend\ProfileController;
-use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\Backend\SubCategoryController;
-use App\Http\Controllers\Backend\variantItemController;
-use App\Http\Controllers\Backend\ChildCategoryController;
-use App\Http\Controllers\Backend\ProductGalleryController;
-use App\Http\Controllers\Backend\VendorFrontEndController;
-use App\Http\Controllers\Backend\ProductVariantsController;
-
+use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Backend\Admin\BrandController;
+use App\Http\Controllers\Backend\Admin\SliderController;
+use App\Http\Controllers\Backend\Admin\ProductController;
+use App\Http\Controllers\Backend\Admin\ProfileController;
+use App\Http\Controllers\Backend\Admin\CategoryController;
+use App\Http\Controllers\Backend\Admin\SubCategoryController;
+use App\Http\Controllers\Backend\Admin\variantItemController;
+use App\Http\Controllers\Backend\Admin\ChildCategoryController;
+use App\Http\Controllers\Backend\Admin\CouponController;
+use App\Http\Controllers\Backend\Admin\ProductGalleryController;
+use App\Http\Controllers\Backend\Admin\VendorFrontEndController;
+use App\Http\Controllers\Backend\Admin\ProductVariantsController;
+use App\Http\Controllers\Backend\Admin\SellersProductsController;
+use App\Http\Controllers\Backend\Admin\SettingsController;
+use App\Http\Controllers\Backend\FlashSaleController;
 
 Route::middleware(['web', 'role:admin', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
     ->prefix('admin')
@@ -85,6 +88,32 @@ Route::middleware(['web', 'role:admin', 'localeSessionRedirect', 'localizationRe
 
         Route::resource('products/variant/item', variantItemController::class)->except('show')
         ->names('product.variant-item');
+
+        // ? Sellers & Pending Products Routes
+        Route::get('pending/products', [SellersProductsController::class, 'pendingProducts'])
+        ->name('pending-products');
+        Route::put('change-approved', [SellersProductsController::class, 'changeApproved'])
+        ->name('change-approved');
+        Route::resource('seller/products', SellersProductsController::class)
+        ->names('seller.products');
+
+        // ? Flash Sale Routes
+
+        Route::delete('flash-clear-all', [FlashSaleController::class, 'clearAll'])->name('flash-clear-all');
+        Route::PUT('flash/status', [FlashSaleController::class, 'changeStatus'])->name('flash-status');
+        Route::resource('flash-sale', FlashSaleController::class)->only(['index', 'create', 'store', 'destroy']);
+
+        // ? Coupons Routes
+
+        Route::put('coupon/status', [CouponController::class, 'changeStatus'])->name('coupon-status');
+        Route::resource('coupon', CouponController::class);
+
+        // ? General Settings Routes
+
+        Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
+        Route::put('general-settings-update', [SettingsController::class, 'generalSettingsUpdate'])->name('general-settings.update');
+
+
 
     });
 
