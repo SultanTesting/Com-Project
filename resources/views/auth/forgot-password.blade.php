@@ -1,3 +1,6 @@
+@section('title', "$settings->site_name || Forgot Password")
+
+
 @extends('frontend.layouts.main')
 
 @section('content')

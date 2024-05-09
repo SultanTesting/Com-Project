@@ -1,3 +1,5 @@
+@section('title', "$settings->site_name || Sliders")
+
 @extends('admin.layouts.main')
 
 @section('content')

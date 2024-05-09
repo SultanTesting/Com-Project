@@ -1,3 +1,5 @@
+@section('title', "$settings->site_name || Vendor Variant Items")
+
 @extends('vendor.layouts.main')
 
 @section('content')

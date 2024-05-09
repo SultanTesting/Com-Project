@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\FrontendProductController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserProfileController;
 use App\Http\Controllers\ProfileController;
@@ -26,6 +28,10 @@ Route::get('flash-sale', FlashSaleController::class)->name('flash-sale');
 
 Route::get('product/{slug}', FrontendProductController::class)->name('product-detail');
 
+/** Cart Routes */
+Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
+Route::get('cart', [CartController::class, 'cartDetails'])->name('cart-details');
+
 // Route::resource('user/dashboard', UserDashboardController::class, ['as' => 'user'])
 // ->only(['index']);
 
@@ -38,5 +44,6 @@ Route::prefix('user')->as('user.')
     Route::get('profile', [UserProfileController::class, 'index'])->name('profile');
     Route::put('profile', [UserProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('profile', [UserProfileController::class, 'updatePassword'])->name('profile.password');
+    Route::resource('address', UserAddressController::class);
 });
 

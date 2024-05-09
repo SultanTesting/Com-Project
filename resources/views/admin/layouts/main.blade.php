@@ -5,7 +5,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="icon" type="image/x-icon" href="{{ asset('backend/assets/img/main-logo.png') }}">
-  <title>General Dashboard &mdash; Stisla</title>
+  <title>@yield('title', $settings->site_name)</title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{ asset('backend/assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -81,7 +81,7 @@
 
                 <footer class="main-footer">
                     <div class="footer-left">
-                    Copyright &copy; 2023 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+                    Copyright &copy; {{date('Y')}} <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
                     </div>
                     <div class="footer-right">
 

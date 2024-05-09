@@ -97,7 +97,9 @@
         <li class="dropdown {{ setActive([
              'admin.slider.*',
              'admin.vendor-profile.*',
-             'admin.flash-sale.*'
+             'admin.flash-sale.*',
+             'admin.shipping.*',
+             'admin.coupon.*'
              ]) }}">
 
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
@@ -108,6 +110,10 @@
 
             <li class="{{ setActive(['admin.slider.*']) }}">
                 <a class="nav-link" href="{{route('admin.slider.index')}}">@lang("Slider")</a>
+            </li>
+
+            <li class="{{ setActive(['admin.shipping.*']) }}">
+                <a class="nav-link" href="{{route('admin.shipping.index')}}">@lang("Shipping Center")</a>
             </li>
 
             <li class="{{ setActive(['admin.vendor-profile.*']) }}">

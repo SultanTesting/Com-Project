@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\Admin\VendorFrontEndController;
 use App\Http\Controllers\Backend\Admin\ProductVariantsController;
 use App\Http\Controllers\Backend\Admin\SellersProductsController;
 use App\Http\Controllers\Backend\Admin\SettingsController;
+use App\Http\Controllers\Backend\Admin\ShippingCenterController;
 use App\Http\Controllers\Backend\FlashSaleController;
 
 Route::middleware(['web', 'role:admin', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
@@ -113,7 +114,10 @@ Route::middleware(['web', 'role:admin', 'localeSessionRedirect', 'localizationRe
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::put('general-settings-update', [SettingsController::class, 'generalSettingsUpdate'])->name('general-settings.update');
 
+        // ? Shipping Center Routes
 
+        Route::put('shipping/status', [ShippingCenterController::class, 'changeStatus'])->name('shipping-status');
+        Route::resource('shipping', ShippingCenterController::class);
 
     });
 

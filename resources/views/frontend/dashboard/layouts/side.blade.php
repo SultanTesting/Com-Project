@@ -16,7 +16,7 @@
       <li><a href="dsahboard_wishlist.html"><i class="far fa-heart"></i> Wishlist</a></li>
       <li><a class="{{ Route::is('user.profile') ? 'active' : '' }}"
         href="{{route('user.profile')}}"><i class="far fa-user"></i> My Profile</a></li>
-      <li><a href="dsahboard_address.html"><i class="fal fa-gift-card"></i> Addresses</a></li>
+      <li><a href="{{route('user.address.index')}}"><i class="fal fa-gift-card"></i> Addresses</a></li>
       <li>
 
         <form method="POST" action="{{route('logout')}}">

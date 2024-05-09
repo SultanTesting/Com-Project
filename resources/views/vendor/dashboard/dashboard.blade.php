@@ -1,3 +1,5 @@
+@section('title', "$settings->site_name || Vendor Dash")
+
 @extends('vendor.layouts.main')
 
 @section('content')

@@ -2,15 +2,6 @@
 
 @section('content')
 
-    <!--==========================
-      PRODUCT MODAL VIEW START
-    ===========================-->
-        @include('frontend.home.sections.popup-modal')
-    <!--==========================
-      PRODUCT MODAL VIEW END
-    ===========================-->
-
-
     <!--============================
         BANNER PART 2 START
     ==============================-->
@@ -29,7 +20,7 @@
     ==============================-->
 
 
-    <!--============================
+    {{-- <!--============================
        MONTHLY TOP PRODUCT START
     ==============================-->
         @include('frontend.home.sections.top-products')
@@ -116,6 +107,6 @@
         @include('frontend.home.sections.recent-blogs')
     <!--============================
         RECENT BLOGS END
-    ==============================-->
+    ==============================--> --}}
 
 @endsection

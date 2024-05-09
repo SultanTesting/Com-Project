@@ -1,3 +1,5 @@
+@section('title', "$settings->site_name || $product->name Gallery")
+
 @extends('vendor.layouts.main')
 
 @section('content')

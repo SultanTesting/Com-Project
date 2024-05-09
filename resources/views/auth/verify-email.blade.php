@@ -1,3 +1,6 @@
+@section('title', "$settings->site_name || Email Verify")
+
+
 @extends('frontend.layouts.main')
 
 @section('content')

@@ -1,3 +1,7 @@
+@section('title')
+    {{$settings->site_name}} || {{auth()->user()->name}}
+@endsection
+
 @extends('admin.layouts.main')
 
 @section('content')

@@ -1,3 +1,5 @@
+@section('title', "$settings->site_name || Admin Dash")
+
 @extends('admin.layouts.main')
 
 @section('content')

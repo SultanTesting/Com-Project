@@ -6,7 +6,7 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <title>Ecommece User Dashboard</title>
+  <title>@yield('title', $settings->site_name)</title>
     <link rel="icon" type="image/png" href="{{ asset('frontend/images/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/all.min.css') }} ">
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }} ">
@@ -22,10 +22,15 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery.classycountdown.css') }} ">
     <link rel="stylesheet" href="{{ asset('frontend/css/venobox.min.css') }} ">
 
+
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }} ">
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }} ">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
+
+    @if (dirSelect() == 'rtl')
+        <link rel="stylesheet" href="{{asset('frontend/css/rtl.scss')}}">
+    @endif
 </head>
 
 <body>
@@ -116,6 +121,73 @@
 
   <!--Toastr Js-->
   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" ></script>
+
+  <!--SweerAlert JS-->
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+
+        var sure = @json(__('Are You Sure?'));
+        var revert = @json(__("You won't be able to revert this!"));
+        var cant = @json(__("Can't Delete!"));
+
+        $(document).ready(function(){
+            $('body').on('click', '.delete-item', function(event){
+                event.preventDefault();
+
+                let deleteUrl = $(this).attr('href');
+
+                Swal.fire(
+                {
+                    title: sure,
+                    text: revert,
+                    icon: 'warning',
+                    cancelButtonText: @json(__('Cancel')),
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: @json(__('Yes, delete it!'))
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        $.ajax({
+                            type: 'DELETE',
+                            url: deleteUrl,
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                            },
+                            success: function(data){
+                                if(data.status == 'success')
+                                {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        data.message,
+                                        'success'
+                                    )
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 3000);
+                                }
+                                else if(data.status == 'error')
+                                {
+                                    Swal.fire(
+                                        cant,
+                                        data.message,
+                                        'error'
+
+                                    )
+                                }
+                            },
+                            error: function(xhr, status, error){
+                                console.log(error);
+                            }
+                        })
+                    }
+                })
+            })
+        })
+    </script>
 
   <script>
       toastr.options.progressBar = true;

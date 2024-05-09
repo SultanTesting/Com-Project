@@ -1,4 +1,4 @@
-@section('title', "$settings->site_name || Coupons")
+@section('title', "$settings->site_name || Shipping Center")
 
 @extends('admin.layouts.main')
 
@@ -6,15 +6,15 @@
 
     <section class="section">
         <div class="section-header">
-        <h1>{{__('Coupons')}}</h1>
+        <h1>{{__('Shipping Center')}}</h1>
         <div class="breadcrumb section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{route('admin.dashboard')}}">
                 {{__('Dashboard')}}
             </a></div>
-            <div class="breadcrumb-item"><a href="{{route('admin.products.index')}}">
-                {{__('Manage Products')}}
+            <div class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">
+                {{__('Manage Website')}}
             </a></div>
-            <div class="breadcrumb-item">{{__('Coupons')}}</div>
+            <div class="breadcrumb-item">{{__('Shipping Center')}}</div>
         </div>
         </div>
 
@@ -25,8 +25,8 @@
                     <div class="card">
 
                         <div class="card-header justify-content-between">
-                            <h4>{{__('Coupons Table')}}</h4>
-                            <a href="{{route('admin.coupon.create')}}" class="btn btn-primary">
+                            <h4>{{__('Shipping Table')}}</h4>
+                            <a href="{{route('admin.shipping.create')}}" class="btn btn-primary">
                                 <i class="fa fa-plus" aria-hidden="true"></i> {{__('Create')}}
                             </a>
                         </div>
@@ -50,7 +50,7 @@
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
     <script>
-        var myUrl = @json(route('admin.coupon-status'));
+        var myUrl = @json(route('admin.shipping-status'));
         var myToken = @json(csrf_token());
     </script>
 

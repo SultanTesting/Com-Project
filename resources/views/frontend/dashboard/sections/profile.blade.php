@@ -1,3 +1,5 @@
+@section('title', "$settings->site_name || Profile")
+
 @extends('frontend.dashboard.layouts.main')
 
 @section('content')

@@ -1,3 +1,5 @@
+@section('title', "$settings->site_name || Vendor Shop Profile")
+
 @extends('vendor.layouts.main')
 
 @section('content')

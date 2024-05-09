@@ -1,3 +1,5 @@
+@section('title', "$settings->site_name || Reset Password")
+
 @extends('frontend.layouts.main')
 
 @section('content')
@@ -40,7 +42,7 @@
 
                         <div class="wsus__change_password">
                             <h4>Reset Password</h4>
-                            
+
                             <div class="wsus__single_pass">
                                 <label for="email">Email</label>
                                 <input type="email" id="email" name="email" value="{{old('email', $request->email)}}" placeholder="Current Password">

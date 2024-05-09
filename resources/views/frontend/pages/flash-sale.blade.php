@@ -1,3 +1,5 @@
+@section('title', "$settings->site_name || FlashSale")
+
 @extends('frontend.layouts.main')
 
 @section('content')
