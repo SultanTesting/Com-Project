@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('zip_code');
             $table->text('address');
+            $table->enum('default', ['yes', 'no'])->default('no');
             $table->text('comment')->nullable();
             $table->timestamps();
         });

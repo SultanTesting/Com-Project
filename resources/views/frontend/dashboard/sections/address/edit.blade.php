@@ -86,6 +86,19 @@
                             <x-input-error :messages="$errors->get('address')" class="alert-danger mb-2"/>
                             </div>
                         </div>
+                        <div class="col-xl-12 d-flex justify-content-center">
+                            <div class="wsus__add_address_single">
+                                <label>{{__('Make It Default')}} <b>*</b></label>
+
+                                <input type="radio" class="btn-check" name="default" id="success-outlined" autocomplete="off" value="yes" {{($address->default == 'yes') ? 'checked' : ''}}>
+                                <label class="btn btn-outline-success" for="success-outlined">{{__('Yes')}}</label>
+
+                                <input type="radio" class="btn-check" name="default" id="danger-outlined" autocomplete="off" value="no" {{($address->default == 'no') ? 'checked' : ''}}>
+                                <label class="btn btn-outline-danger" for="danger-outlined">{{__('No')}}</label>
+
+                                <x-input-error :messages="$errors->get('default')" class="alert-danger mb-2"/>
+                            </div>
+                        </div>
                         <div class="col-xl-12">
                             <div class="wsus__add_address_single">
                             <label>{{__('Comment')}}</label>

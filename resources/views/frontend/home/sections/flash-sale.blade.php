@@ -32,16 +32,21 @@
                         @endif
 
                         <a class="wsus__pro_link" href="{{route('product-detail', $item->product->slug)}}">
-                            <img src="{{ asset($item->product->thumb_image) }}" alt="product" class="img-fluid w-100 img_1" />
-                            <img
-                             src="
-                             @if (isset($item->product->gallery[0]->images))
-                                {{asset($item->product->gallery[0]->images)}}
-                             @else
-                                {{asset($item->product->thumb_image)}}
-                             @endif
-                             "
-                             alt="product" class="img-fluid w-100 img_2" />
+                            @if ($item->product->quantity > 0)
+                                <img src="{{ asset($item->product->thumb_image) }}" alt="product" class="img-fluid w-100 img_1" />
+                                <img
+                                src="
+                                @if (isset($item->product->gallery[0]->images))
+                                    {{asset($item->product->gallery[0]->images)}}
+                                @else
+                                    {{asset($item->product->thumb_image)}}
+                                @endif
+                                " alt="product" class="img-fluid w-100 img_2" />
+                            @else
+                                <img src="{{ asset($item->product->thumb_image) }}" alt="product" class="" />
+                                <img src="{{ asset('frontend/images/sold.png') }}"
+                                    style="position: absolute; bottom: 1px"/>
+                            @endif
                         </a>
 
                         <ul class="wsus__single_pro_icon">
@@ -75,8 +80,23 @@
                                 <p class="wsus__price"> {{number_format($item->product->price)}} {{$settings->currency_icon}} </p>
                             @endif
 
-
-                            <a class="add_cart" href="#">add to cart</a>
+                            <form class="shopping-cart">
+                                <input type="hidden" name="product_id" value="{{$item->product->id}}">
+                                <input type="hidden" name="qty" value="1">
+                                @foreach ($item->product->variants->where('status', 'active') as $variant)
+                                    <select hidden name="variants[]">
+                                        @foreach ($variant->items->where('status', 'active') as $variantItem)
+                                            <option {{($variantItem->default == 'yes') ? 'selected' : ''}}
+                                                value="{{$variantItem->id}}">
+                                                {{$variantItem->name}} (+{{$variantItem->price}} {{$settings->currency_icon}})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                @endforeach
+                                <button {{($item->product->quantity == 0) ? 'hidden' : ''}} class="add_cart" href="#">
+                                    Add To Cart
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -161,23 +181,23 @@
 
                                     <form class="shopping-cart">
 
-                                        @if ($item->product->quantity > 1)
+                                        <input type="hidden" name="product_id" value="{{$item->product->id}}">
+
                                         <div class="wsus__quentity">
                                                 <h5>quantity : </h5>
-                                                <div class="select_number">
-                                                    <input name="qty" class="number_area" type="number" min="1" max="{{$item->product->quantity}}" value="1" />
+                                                <div class="select_number ms-3">
+                                                    <input name="qty" class="number_area" type="number" min="1"
+                                                    max="{{$item->product->quantity}}" value="1" />
                                                 </div>
-                                            </div>
-                                        @endif
+                                        </div>
 
                                         <div class="wsus__selectbox">
                                             <div class="row">
-                                                <input type="hidden" name="product_id" value="{{$item->product->id}}">
-                                                @foreach ($item->product->variants as $variant)
+                                                @foreach ($item->product->variants->where('status', 'active') as $variant)
                                                     <div class="col-xl-6 col-sm-6">
                                                         <h5 class="mb-2 mt-1">{{$variant->name}}:</h5>
-                                                        <select class="select_2" name="variants[{{$variant->name}}]">
-                                                            @foreach ($variant->items as $variantItem)
+                                                        <select class="select_2" name="variants[]">
+                                                            @foreach ($variant->items->where('status', 'active') as $variantItem)
                                                                 <option {{($variantItem->default == 'yes') ? 'selected' : ''}}
                                                                     value="{{$variantItem->id}}">
                                                                     {{$variantItem->name}} (+{{$variantItem->price}} {{$settings->currency_icon}})
@@ -190,7 +210,9 @@
                                         </div>
 
                                         <ul class="wsus__button_area">
-                                            <li><button type="submit" class="add_cart" href="#">add to cart</button></li>
+                                            <li>
+                                                <button type="submit" class="add_cart" href="#">add to cart</button>
+                                            </li>
                                             <li><a class="buy_now" href="#">buy now</a></li>
                                             <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                             <li><a href="#"><i class="far fa-random"></i></a></li>
@@ -221,10 +243,10 @@
     @endforeach
 </section>
 
-
 @push('scripts')
+
+    {{-- Making Count-Down Responsive --}}
     <script>
-        /** Making CountDown Responsive */
         $(document).ready(function(){
             simplyCountdown('.simply-countdown-one', {
                 year:   {{date('Y',  strtotime($flash_end->end_date))}},
@@ -237,36 +259,7 @@
         })
     </script>
 
-         {{-- Shopping Cart --}}
     <script>
-        $(document).ready(function(){
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $('.shopping-cart').on('submit', function(e)
-        {
-            e.preventDefault();
-
-            let formData = $(this).serialize();
-
-            $.ajax({
-                method: "POST",
-                data: formData,
-                url: "{{route('add-to-cart')}}",
-                success : function(data)
-                {
-                    console.log('Success');
-                },
-                error: function(xhr, status, error)
-                {
-                    console.error(error)
-                }
-
-            });
-        })
-        })
+        var currency = @json($settings->currency_icon);
     </script>
 @endpush

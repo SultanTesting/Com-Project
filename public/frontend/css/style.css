@@ -308,7 +308,7 @@ header {
 }
 
 .wsus__header_logo {
-  width: 75%;
+  width: 50%;
 }
 
 .wsus__search form {
@@ -547,7 +547,8 @@ header {
 }
 
 .wsus__mini_cart .wsus__cart_img img {
-  height: 100%;
+  height: 70px;
+  object-fit: cover;
 }
 
 .wsis__del_icon {
@@ -595,7 +596,7 @@ header {
 }
 
 .wsus__mini_cart .wsus__cart_text p {
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 600;
   color: #333;
   margin-top: 0;
@@ -1811,6 +1812,7 @@ PRODUCT MODAL VIEW END
   width: 100%;
   text-align: center;
   border-radius: 0;
+  border: transparent;
 }
 
 /* .wsus__product_item:hover
@@ -3511,6 +3513,17 @@ PRODUCT DETAILS START
   margin-right: 5px;
 }
 
+.wsus__stock_area .out_stock {
+    background: #ff0000;
+    color: #fff;
+    text-transform: capitalize;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-right: 5px;
+  }
+
 .wsus__pro_details_text .brand_model {
   display: inline-block;
   margin-right: 20px;
@@ -4370,11 +4383,11 @@ CART VIEW PAGE START
 }
 
 .wsus__cart_list .wsus__pro_img {
-  width: 140px;
+  width: 105px;
 }
 
 .wsus__cart_list .wsus__pro_name {
-  width: 250px;
+  width: 215px;
 }
 
 .wsus__cart_list td.wsus__pro_name {
@@ -4397,11 +4410,11 @@ CART VIEW PAGE START
 }
 
 .wsus__cart_list .wsus__pro_select {
-  width: 150px;
+  width: 135px;
 }
 
 .wsus__cart_list .wsus__pro_tk {
-  width: 135px;
+  width: 136px;
 }
 
 .wsus__cart_list .wsus__pro_tk h6 {
@@ -4416,7 +4429,7 @@ CART VIEW PAGE START
 }
 
 .wsus__cart_list .wsus__pro_icon {
-  width: 121px;
+  width: 123px;
   border-right: none !important;
 }
 
@@ -9471,7 +9484,7 @@ DASHBOARD CHAT END
 }
 
 .select_number .number_area {
-  width: 65px;
+  width: 51px;
   border-radius: 30px;
   margin: 0px 5px;
 }

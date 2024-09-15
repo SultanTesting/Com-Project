@@ -17,9 +17,14 @@ use App\Http\Controllers\Backend\Admin\ProductVariantsController;
 use App\Http\Controllers\Backend\Admin\SellersProductsController;
 use App\Http\Controllers\Backend\Admin\SettingsController;
 use App\Http\Controllers\Backend\Admin\ShippingCenterController;
+use App\Http\Controllers\Backend\Admin\PaymentSettingsController;
+use App\Http\Controllers\Backend\Admin\PaypalController;
+use App\Http\Controllers\Backend\Admin\StripeController;
+use App\Http\Controllers\Backend\Admin\StripeSettings;
+use App\Http\Controllers\Backend\Admin\StripeSettingsController;
 use App\Http\Controllers\Backend\FlashSaleController;
 
-Route::middleware(['web', 'role:admin', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
+Route::middleware(['auth', 'verified' ,'role:admin', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
     ->prefix('admin')
     ->as('admin.')
     ->group( function(){
@@ -118,6 +123,11 @@ Route::middleware(['web', 'role:admin', 'localeSessionRedirect', 'localizationRe
 
         Route::put('shipping/status', [ShippingCenterController::class, 'changeStatus'])->name('shipping-status');
         Route::resource('shipping', ShippingCenterController::class);
+
+        // ? Payment Settings Routes
+        Route::get('payment-settings', PaymentSettingsController::class)->name('payment-settings');
+        Route::post('paypal', PaypalController::class)->name('paypal-settings');
+        Route::post('stripe', StripeController::class)->name('stripe-settings');
 
     });
 

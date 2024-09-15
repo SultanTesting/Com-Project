@@ -17,6 +17,7 @@ class UserAddress extends Model
     'state', 'city',
     'address',
     'comment',
+    'default',
     'zip_code'
     ];
 }

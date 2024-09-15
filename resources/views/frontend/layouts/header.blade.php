@@ -12,7 +12,7 @@
                 <div class="col-xl-2 col-7 col-md-8 col-lg-2">
                     <div class="wsus_logo_area">
                         <a class="wsus__header_logo" href="{{route('home')}}">
-                            <img src="{{ asset('frontend/images/logo_2.png') }}" alt="logo" class="img-fluid w-100">
+                            <img src="{{ asset('frontend/images/main-site-logo.png') }}" alt="logo" class="img-fluid w-100">
                         </a>
                     </div>
                 </div>
@@ -32,8 +32,8 @@
                                 <i class="fas fa-user-headset"></i>
                             </div>
                             <div class="wsus__call_text">
-                                <p>example@gmail.com</p>
-                                <p>+569875544220</p>
+                                <p>ecommerce@gmail</p>
+                                <p>+201119969679</p>
                             </div>
                         </div>
 
@@ -41,38 +41,68 @@
                             @include('components.language-changer')
                             <li><a href="wishlist.html"><i class="fal fa-heart"></i><span>05</span></a></li>
                             <li><a href="compare.html"><i class="fal fa-random"></i><span>03</span></a></li>
-                            <li><a class="wsus__cart_icon" href="#"><i
-                                        class="fal fa-shopping-bag"></i><span>04</span></a></li>
+                            <li><a class="wsus__cart_icon" href="#">
+                                        <i class="fal fa-shopping-bag"></i>
+                                        <span id="cart-counter">{{Cart::content()->count()}}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="wsus__mini_cart">
             <h4>shopping cart <span class="wsus_close_mini_cart"><i class="far fa-times"></i></span></h4>
-            <ul>
-                @if (@$cart)
-                    @foreach ($cart as $cartItem)
+
+            <ul class="mini-cart">
+                @if (cart::count() > 0)
+                    @foreach (Cart::content() as $cartItem)
                         <li>
                             <div class="wsus__cart_img">
                                 <a href="{{route('product-detail', $cartItem->options->slug)}}">
                                     <img src="{{ asset($cartItem->options->image) }}" alt="{!!$cartItem->name!!}" class="img-fluid w-100"></a>
-                                <a class="wsis__del_icon" href="#"><i class="fas fa-minus-circle"></i></a>
+                                <a class="wsis__del_icon" href="{{route('cart-delete', $cartItem->rowId)}}">
+                                    <i class="fas fa-minus-circle "></i>
+                                </a>
                             </div>
                             <div class="wsus__cart_text">
-                                <a class="wsus__cart_title" href="{{route('product-detail', $cartItem->options->slug)}}">{!! $cartItem->name !!}</a>
-                                <code>{{number_format($cartItem->price).$settings->currency_icon}} </code>
+                                <a class="wsus__cart_title"
+                                href="{{route('product-detail', $cartItem->options->slug)}}">{!! $cartItem->name !!}</a>
+                                <div class="d-flex justify-content-between">
+                                    <code>{{number_format($cartItem->price).$settings->currency_icon}} </code>
+                                    <div style="display: ruby">
+                                        <i class="fas fa-times fa-xs"></i>
+                                        <p id="{{$cartItem->rowId . 'qty'}}" class="text-secondary">{{$cartItem->qty}}</p>
+                                    </div>
+                                </div>
                             </div>
                         </li>
                     @endforeach
+                @else
+                    <div class="d-flex flex-row justify-content-center">
+                        <img src="{{ asset('frontend/images/empty-cart.png') }}" alt="empty-cart">
+                    </div>
                 @endif
+
             </ul>
-            <h5>sub total <span>$3540</span></h5>
-            <div class="wsus__minicart_btn_area">
-                <a class="common_btn" href="{{route('cart-details')}}">view cart</a>
-                <a class="common_btn" href="check_out.html">checkout</a>
+
+            <div class="mini-cart-actions {{(Cart::count() < 1) ? 'd-none' : ''}}">
+                <h5>sub total
+                <span class="mini-cart-subTotal">
+                {{Cart::subTotal('0')}} {{$settings->currency_icon}}
+                </span>
+                </h5>
+
+                <div class="wsus__minicart_btn_area">
+                    <a class="common_btn" href="{{route('cart-details')}}">view cart</a>
+                    <a class="common_btn" href="{{route('user.checkout')}}">checkout</a>
+                </div>
             </div>
+
         </div>
+
+
 
     </header>
     <!--============================

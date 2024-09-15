@@ -14,7 +14,9 @@
                         @foreach ($userAddress as $address)
                         <div class="col-xl-6">
                             <div class="wsus__dash_add_single">
-                                <h4>{{__('Billing Address')}} <span>office</span></h4>
+                                <h4>{{__('Billing Address')}}
+                                    <span class="text-danger">{{($address->default === 'yes') ? 'Default' : ''}}</span>
+                                </h4>
                                 <ul>
                                 <li><span>{{__('Name')}} :</span> {{$address->name}}</li>
                                 <li><span>{{__('Phone')}} :</span> {{$address->phone}}</li>

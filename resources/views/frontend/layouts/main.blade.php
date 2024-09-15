@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/ranger_style.css') }} ">
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery.classycountdown.css') }} ">
     <link rel="stylesheet" href="{{ asset('frontend/css/venobox.min.css') }} ">
+    <link rel="stylesheet" href="{{ asset('frontend/modules/iziToast/css/iziToast.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }} ">
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }} ">
@@ -84,7 +85,6 @@
         SCROLL BUTTON  END
     ==============================-->
 
-
     <!--jquery library js-->
     <script src="{{ asset('frontend/js/jquery-3.6.0.min.js') }}"></script>
     <!--bootstrap js-->
@@ -120,8 +120,14 @@
     <!--classycountdown js-->
     <script src="{{ asset('frontend/js/jquery.classycountdown.js') }}"></script>
 
+    <!--iziToast js-->
+    <script src="{{ asset('frontend/modules/iziToast/js/iziToast.min.js') }}"></script>
+
     <!--main/custom js-->
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+
+    <!--SweetAlert js-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!--Toastr Js-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" ></script>
@@ -137,16 +143,89 @@
             @endforeach
         @endif
 
-        // Show Success Messages
+        // Show Controller Messages
         @if ($message = session('message'))
             toastr.success("{{ $message }}")
-        @endif
-
-        @if ($message = session('status'))
+        @elseif ($message = session('status'))
             toastr.success("{{ $message }}")
+        @elseif ($message = session('warning'))
+            toastr.warning("{{ $message }}")
+        @elseif ($message = session('error'))
+            toastr.error("{{ $message }}")
         @endif
 
     </script>
+
+    <script>
+        iziToast.settings({
+            position: 'topCenter',
+        })
+    </script>
+
+<script>
+
+    var sure = @json(__('Are You Sure?'));
+    var revert = @json(__("You won't be able to revert this!"));
+    var cant = @json(__("Can't Delete!"));
+
+    $(document).ready(function(){
+        $('body').on('click', '.delete-item', function(event){
+            event.preventDefault();
+
+            let deleteUrl = $(this).attr('href');
+
+            Swal.fire(
+            {
+                title: sure,
+                text: revert,
+                icon: 'warning',
+                cancelButtonText: @json(__('Cancel')),
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: @json(__('Yes, delete it!'))
+                }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        type: 'DELETE',
+                        url: deleteUrl,
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                        },
+                        success: function(data){
+                            if(data.status == 'success')
+                            {
+                                Swal.fire(
+                                    'Deleted!',
+                                    data.message,
+                                    'success'
+                                )
+                               setTimeout(() => {
+                                window.location.reload();
+                               }, 3000);
+                            }
+                            else if(data.status == 'error')
+                            {
+                                Swal.fire(
+                                    cant,
+                                    data.message,
+                                    'error'
+
+                                )
+                            }
+                        },
+                        error: function(xhr, status, error){
+                            console.log(error);
+                        }
+                    })
+                }
+            })
+        })
+    })
+</script>
+
+    @include('frontend.layouts.scripts')
 
     @stack('scripts')
 

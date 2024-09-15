@@ -39,7 +39,7 @@ class UserProfileController extends Controller
             $path = "/uploads/".$imageName;
         }
 
-        $user->fill($request->getData());
+        $user->fill($request->getData($user));
         ($request->hasFile('image') ? ($user->image = $path) : '');
         $user->save();
 

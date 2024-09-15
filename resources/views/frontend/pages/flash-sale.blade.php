@@ -109,7 +109,21 @@
                                             <p class="wsus__price"> {{number_format($item->product->price)}} {{$settings->currency_icon}} </p>
                                         @endif
 
-                                        <a class="add_cart" href="#">add to cart</a>
+                                        <form class="shopping-cart">
+                                            <input type="hidden" name="product_id" value="{{$item->product->id}}">
+                                            <input type="hidden" name="qty" value="1">
+                                            @foreach ($item->product->variants->where('status', 'active') as $variant)
+                                                <select hidden name="variants[]">
+                                                    @foreach ($variant->items->where('status', 'active') as $variantItem)
+                                                        <option {{($variantItem->default == 'yes') ? 'selected' : ''}}
+                                                            value="{{$variantItem->id}}">
+                                                            {{$variantItem->name}} (+{{$variantItem->price}} {{$settings->currency_icon}})
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            @endforeach
+                                            <button class="add_cart" href="#">add to cart</button>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="wsus__offer_progress">
@@ -153,5 +167,9 @@
                 seconds: {{date('s', strtotime($flashTime->end_date))}},
             });
         })
+    </script>
+
+    <script>
+        var currency = @json($settings->currency_icon);
     </script>
 @endpush

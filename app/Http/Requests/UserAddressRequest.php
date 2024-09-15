@@ -32,6 +32,7 @@ class UserAddressRequest extends FormRequest
             'zip_code' => ['required', 'max:10'],
             'address' => ['required', 'max:200'],
             'comment' => ['nullable', 'max:100'],
+            'default' => ['required']
         ];
     }
 

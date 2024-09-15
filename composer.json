@@ -15,6 +15,8 @@
         "laravel/tinker": "^2.8",
         "mcamara/laravel-localization": "^1.8",
         "php-flasher/flasher-toastr-laravel": "^1.15",
+        "srmklive/paypal": "~3.0",
+        "stripe/stripe-php": "^15.9",
         "yajra/laravel-datatables": "^10.1"
     },
     "require-dev": {

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Frontend\CheckOutController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\FrontendProductController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -10,7 +12,7 @@ use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserProfileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use Psy\VersionUpdater\Checker;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -31,13 +33,16 @@ Route::get('product/{slug}', FrontendProductController::class)->name('product-de
 /** Cart Routes */
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::get('cart', [CartController::class, 'cartDetails'])->name('cart-details');
+Route::get('cart/count', [CartController::class, 'cartCounter'])->name('cart-counter');
+Route::get('cart/mini-cart', [CartController::class, 'miniCart'])->name('mini-cart');
+Route::post('cart/update-qty', [CartController::class, 'updateQty'])->name('cart.update-qty');
+Route::get('cart/delete/{rowid}', [CartController::class, 'clearItem'])->name('cart-delete');
+Route::delete('cart/clearAll', [CartController::class, 'clearAll'])->name('cart-clear-all');
+Route::get('mini-cart/subTotal', [CartController::class, 'miniCartSubTotal'])->name('mini-cart.sub-total');
+Route::get('cart/coupon', [CartController::class, 'cartCoupon'])->name('cart-coupon');
+Route::get('cart/coupon-calc', [CartController::class, 'couponCalc'])->name('cart.coupon-calc');
 
-// Route::resource('user/dashboard', UserDashboardController::class, ['as' => 'user'])
-// ->only(['index']);
-
-// Route::post('user/profile', [UserProfileController::class, 'updatePassword'])->name('user.password');
-// Route::resource('user/profile', UserProfileController::class, ['as' => 'user'])->only(['index', 'update']);
-
+/** User Routes */
 Route::prefix('user')->as('user.')
 ->group(function () {
     Route::get('dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
@@ -45,5 +50,18 @@ Route::prefix('user')->as('user.')
     Route::put('profile', [UserProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('profile', [UserProfileController::class, 'updatePassword'])->name('profile.password');
     Route::resource('address', UserAddressController::class);
+
+    /** CheckOut Routes */
+    Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout');
+    Route::post('checkout/submit', [CheckOutController::class, 'checkoutSubmit'])->name('checkout.submit');
+
+    /** Payment Routes */
+    Route::get('payment', [PaymentController::class, 'index'])->name('payment');
+    Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+
+    /** Paypal Routes */
+    Route::get('paypal/payment', [PaymentController::class, 'payWithPaypal'])->name('paypal.pay');
+    Route::get('paypal/success', [PaymentController::class, 'paypalSuccess'])->name('paypal.success');
+    Route::get('paypal/cancel', [PaymentController::class, 'paypalCancel'])->name('paypal.cancel');
 });
 

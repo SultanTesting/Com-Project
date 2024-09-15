@@ -18,6 +18,7 @@ class HomeController extends Controller
         $products = Product::where('flash', 'yes')->get();
         $flash_end = FlashSale::first();
         $cart = Cart::content();
-        return view('frontend.home.home', compact(['sliders', 'flashItems', 'flash_end', 'products', 'cart']));
+        $cartTotal = Cart::subtotal('0');
+        return view('frontend.home.home', compact(['sliders', 'flashItems', 'flash_end', 'products', 'cart', 'cartTotal']));
     }
 }

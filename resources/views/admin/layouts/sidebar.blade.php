@@ -99,7 +99,8 @@
              'admin.vendor-profile.*',
              'admin.flash-sale.*',
              'admin.shipping.*',
-             'admin.coupon.*'
+             'admin.coupon.*',
+             'admin.payment-settings'
              ]) }}">
 
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
@@ -126,6 +127,10 @@
 
             <li class="{{ setActive(['admin.coupon.*']) }}">
                 <a class="nav-link" href="{{route('admin.coupon.index')}}">@lang("Coupons")</a>
+            </li>
+
+            <li class="{{ setActive(['admin.payment-settings']) }}">
+                <a class="nav-link" href="{{route('admin.payment-settings')}}">@lang("Payment Settings")</a>
             </li>
 
           </ul>

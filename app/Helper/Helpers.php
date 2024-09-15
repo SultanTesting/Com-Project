@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\GeneralSettings;
+use App\Models\PaypalSettings;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -123,6 +127,81 @@ function productLabel($product)
         default:
             return "New";
             break;
+    }
+}
+
+function mainCartTotal()
+{
+    if(Session::has('coupon'))
+    {
+        $coupon = Session::get('coupon');
+        $subTotal = Cart::subtotal('0', '.', false);
+
+        if($coupon['discount_type'] === 'cash')
+        {
+            $total = $subTotal - $coupon['discount'];
+
+            return $total;
+
+        }elseif($coupon['discount_type'] === 'percentage')
+        {
+            $percentage = 1 - ($coupon['discount'] / 100);
+
+            $total = (int) ($subTotal * $percentage);
+
+            return $total;
+        }
+    }else {
+        return Cart::subtotal('0', '.', false);
+    }
+}
+
+function getCartDiscount()
+{
+    if(Session::has('coupon'))
+    {
+        $coupon = Session::get('coupon');
+        $settings = GeneralSettings::first();
+
+        if($coupon['discount_type'] === 'percentage')
+        {
+            $discount = $coupon['discount']  . '%';
+
+            return $discount;
+
+        }elseif($coupon['discount_type'] === 'cash')
+        {
+            $discount = $coupon['discount'] . $settings->currency_icon;
+
+            return $discount;
+        }
+    }else {
+
+        return 0;
+    }
+}
+
+function getShippingFee()
+{
+    if(Session::has('ship_method'))
+    {
+        return Session::get('ship_method')['cost'];
+    }else {
+        return 0;
+    }
+}
+
+function getFinalAmount()
+{
+    if(Session::has('ship_method'))
+    {
+        Session::put('final_amount', [
+            'final_amount' => (mainCartTotal() + getShippingFee())
+        ]);
+
+        return number_format(mainCartTotal() + getShippingFee());
+    } else {
+        return "Back To Products !";
     }
 }
 

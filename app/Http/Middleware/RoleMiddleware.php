@@ -17,7 +17,12 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, $role): Response
     {
         $user = $request->user();
-        if($user->role !== $role)
+
+        if(!auth()->user())
+        {
+            return redirect()->route('home');
+
+        } elseif($user->role !== $role)
         {
             switch($user->role)
             {

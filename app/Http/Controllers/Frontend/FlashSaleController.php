@@ -15,7 +15,7 @@ class FlashSaleController extends Controller
     public function __invoke(Request $request)
     {
         $items = FlashSaleItem::where('show_at_front', 'yes')->where('status', 'active')
-                ->orderBy('id', 'desc')
+                ->orderBy('id', 'asc')
                 ->paginate(6);
 
         $flashTime = FlashSale::first();
