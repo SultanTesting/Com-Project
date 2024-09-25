@@ -18,6 +18,7 @@ use App\Http\Controllers\Backend\Admin\SellersProductsController;
 use App\Http\Controllers\Backend\Admin\SettingsController;
 use App\Http\Controllers\Backend\Admin\ShippingCenterController;
 use App\Http\Controllers\Backend\Admin\PaymentSettingsController;
+use App\Http\Controllers\Backend\Admin\PaymobController;
 use App\Http\Controllers\Backend\Admin\PaypalController;
 use App\Http\Controllers\Backend\Admin\StripeController;
 use App\Http\Controllers\Backend\Admin\StripeSettings;
@@ -128,6 +129,7 @@ Route::middleware(['auth', 'verified' ,'role:admin', 'localeSessionRedirect', 'l
         Route::get('payment-settings', PaymentSettingsController::class)->name('payment-settings');
         Route::post('paypal', PaypalController::class)->name('paypal-settings');
         Route::post('stripe', StripeController::class)->name('stripe-settings');
+        Route::post('paymob', PaymobController::class)->name('paymob-settings');
 
     });
 

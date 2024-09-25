@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Backend\Admin\StripeController;
 use App\Http\Controllers\Frontend\CheckOutController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\PaymentController;
@@ -63,5 +64,16 @@ Route::prefix('user')->as('user.')
     Route::get('paypal/payment', [PaymentController::class, 'payWithPaypal'])->name('paypal.pay');
     Route::get('paypal/success', [PaymentController::class, 'paypalSuccess'])->name('paypal.success');
     Route::get('paypal/cancel', [PaymentController::class, 'paypalCancel'])->name('paypal.cancel');
+
+    /** Stripe Routes */
+    Route::post('stripe/payment', [PaymentController::class, 'payWithStripe'])->name('stripe.pay');
+
+    /** Paymob Routes */
+    Route::get('/payments/verify/{data}',[PaymentController::class,'payment_verify'])->name('verify-payment');
+
+    Route::get('paymob/payment', [PaymentController::class, 'payWithPaymob'])->name('paymob.pay');
+    Route::get('/callback', [PaymentController::class, 'callback'])->name('callback');
+
+
 });
 

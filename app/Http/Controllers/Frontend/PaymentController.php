@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use App\Models\GeneralSettings;
+use Stripe\Charge;
+use Stripe\Stripe;
 use App\Models\Order;
-use App\Models\OrderProduct;
-use App\Models\PaypalSettings;
 use App\Models\Product;
 use App\Models\Transaction;
-use Gloudemans\Shoppingcart\Facades\Cart;
-use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
+use App\Models\PaypalSettings;
+use App\Models\StripeSettings;
+use App\Models\GeneralSettings;
+use Spatie\FlareClient\Http\Client;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Http;
+use Nafezly\Payments\Classes\PaymobPayment;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class PaymentController extends Controller
 {
@@ -30,7 +36,9 @@ class PaymentController extends Controller
             return redirect()->route('home');
         }
 
-        return view('frontend.pages.payment');
+        $stripe = StripeSettings::first();
+
+        return view('frontend.pages.payment', compact('stripe'));
     }
 
     public function paymentSuccess()
@@ -92,7 +100,7 @@ class PaymentController extends Controller
 
     }
 
-    /** PayPal Functions */
+    /** PayPal Payment */
 
     public function paypalConfig()
     {
@@ -188,4 +196,120 @@ class PaymentController extends Controller
     {
         return redirect()->route('user.payment')->with('error', 'Something Went Wrong! Payment Declined!');
     }
+
+    /** Stripe Payment */
+
+    public function payWithStripe(Request $request)
+    {
+        $stripe = StripeSettings::first();
+        $paidAmount = round(session('final_amount')['final_amount'] / $stripe->currency_rate, 2);
+
+        Stripe::setApiKey($stripe->secret_key);
+        $response = Charge::create([
+            "amount" => $paidAmount * 100,
+            "currency" => $stripe->currency_name,
+            "source" => $request->stripe_token,
+            "description" => "Product Purchase"
+        ]);
+
+        if($response->status !== 'succeeded')
+        {
+            return redirect()->route('user.payment')
+                            ->with('error', 'Something Went Wrong! Payment Declined 🚫');
+
+        } elseif($response->status === 'succeeded')
+        {
+            $this->storeOrder('stripe', 1, $response->id, $paidAmount);
+            Cart::destroy();
+            Session::forget(['ship_address', 'coupon', 'ship_method', 'final_amount']);
+            return redirect()->route('user.payment.success');
+        }
+    }
+
+    public function payWithPaymob(Request $request)
+    {
+        $user = auth()->user();
+        $payment = new PaymobPayment();
+
+        $response = $payment->pay(session('final_amount')['final_amount'], $user->id, $user->name, 'ahmed',$user->email, $user->phone, 'paymob');
+
+        if($response['payment_id'])
+        {
+            return redirect($response['redirect_url']);
+        }else{
+            return back()->with('error', 'Something Went Wrong, Payment Declined!');
+        }
+
+    }
+
+    // public function payWithPaymob()
+    // {
+    //     $amount = session('final_amount')['final_amount'];
+    //     $address = session('ship_address');
+
+    //     $token = Http::withHeaders(['content-type' => 'application/json'])->post(
+    //         'https://accept.paymob.com/api/auth/tokens',
+    //         ["api_key" => env('PAYMOB_API_KEY')]
+    //     )->json();
+
+    //     $order = Http::withHeaders(
+    //         ['content_type' => 'application/json']
+    //     )->post('https://accept.paymobsolutions.com/api/ecommerce/orders',
+    //     [
+    //     "auth_token" => $token['token'],
+    //     "amount_cents" => $amount * 100,
+    //     "items" => []
+    //     ])->json();
+
+
+    //     $payment_key = Http::withHeaders(
+    //         ['content_type' => 'application_json']
+    //     )->post('https://accept.paymobsolutions.com/api/acceptance/payment_keys', [
+    //         "auth_token" => $token['token'],
+    //         "expiration" => 1800,
+    //         "amount_cents" => $amount * 100,
+    //         "order_id" => $order['id'],
+    //         "billing_data" => [
+    //             "appartment" => "NA",
+    //             "email" => $address['email'],
+    //             "floor" => "NA",
+    //             "first_name" => $address['name'],
+    //             "street" => "NA",
+    //             "building" => "NA",
+    //             "phone_number" => $address['phone'],
+    //             "shipping_method" => json_encode(Session::get('ship_method')),
+    //             "postal_code" => $address['zip_code'],
+    //             "city" => $address['city'],
+    //             "country" => $address['country'],
+    //             "last_name" => "NA",
+    //             "state" => $address['state']
+    //         ],
+    //         "currency" => 'EGP',
+    //         "integration_id" => env("PAYMOB_INTEGRATION_ID")
+    //         ])->json();
+
+    //         return [
+    //             'payment_id' => $order['id'],
+    //             'redirect_url' => "https://accept.paymobsolutions.com/api/acceptance/iframes/" . env("PAYMOB_IFRAME_ID") . "?payment_token=" . $order['token']
+    //         ];
+    // }
+
+    public function payment_verify(Request $request)
+    {
+        $payment = new PaymobPayment();
+
+        $response = $payment->verify($request);
+
+        if($response['success'] == true)
+        {
+            $this->storeOrder('Paymob', 1, $response['payment_id'], session('final_amount')['final_amount']);
+            Cart::destroy();
+            Session::forget(['ship_address', 'coupon', 'ship_method', 'final_amount']);
+            return redirect()->route('user.payment.success')->with('success', 'Done ✅');
+        } else {
+            return redirect()->route('user.payment')->with('error', 'Something Went Wrong ! Payment Declined !');
+        }
+
+    }
+
 }
