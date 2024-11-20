@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\Admin\SubCategoryController;
 use App\Http\Controllers\Backend\Admin\variantItemController;
 use App\Http\Controllers\Backend\Admin\ChildCategoryController;
 use App\Http\Controllers\Backend\Admin\CouponController;
+use App\Http\Controllers\Backend\Admin\OrderController;
 use App\Http\Controllers\Backend\Admin\ProductGalleryController;
 use App\Http\Controllers\Backend\Admin\VendorFrontEndController;
 use App\Http\Controllers\Backend\Admin\ProductVariantsController;
@@ -24,6 +25,8 @@ use App\Http\Controllers\Backend\Admin\StripeController;
 use App\Http\Controllers\Backend\Admin\StripeSettings;
 use App\Http\Controllers\Backend\Admin\StripeSettingsController;
 use App\Http\Controllers\Backend\FlashSaleController;
+use App\Http\Controllers\Backend\Admin\TransactionsController;
+use App\Http\Controllers\Backend\HomePageSettingsController;
 
 Route::middleware(['auth', 'verified' ,'role:admin', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
     ->prefix('admin')
@@ -97,6 +100,7 @@ Route::middleware(['auth', 'verified' ,'role:admin', 'localeSessionRedirect', 'l
         ->names('product.variant-item');
 
         // ? Sellers & Pending Products Routes
+
         Route::get('pending/products', [SellersProductsController::class, 'pendingProducts'])
         ->name('pending-products');
         Route::put('change-approved', [SellersProductsController::class, 'changeApproved'])
@@ -115,10 +119,24 @@ Route::middleware(['auth', 'verified' ,'role:admin', 'localeSessionRedirect', 'l
         Route::put('coupon/status', [CouponController::class, 'changeStatus'])->name('coupon-status');
         Route::resource('coupon', CouponController::class);
 
+        // ? Order Routes
+
+        Route::get('order/status', [OrderController::class, 'orderStatus'])->name('order-status');
+        Route::get('payment/status', [OrderController::class, 'paymentStatus'])->name('payment-status');
+        Route::resource('order', OrderController::class);
+
+        // ? Transactions Routes
+
+        Route::get('transactions', TransactionsController::class)->name('transactions');
+
         // ? General Settings Routes
 
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::put('general-settings-update', [SettingsController::class, 'generalSettingsUpdate'])->name('general-settings.update');
+
+        // ? Home Page Settings
+
+        Route::get('home-settings', [HomePageSettingsController::class, 'index'])->name('home-settings');
 
         // ? Shipping Center Routes
 
@@ -130,6 +148,8 @@ Route::middleware(['auth', 'verified' ,'role:admin', 'localeSessionRedirect', 'l
         Route::post('paypal', PaypalController::class)->name('paypal-settings');
         Route::post('stripe', StripeController::class)->name('stripe-settings');
         Route::post('paymob', PaymobController::class)->name('paymob-settings');
+
+
 
     });
 

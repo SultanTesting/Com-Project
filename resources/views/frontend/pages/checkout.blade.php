@@ -141,11 +141,12 @@
                         </div>
 
 
-                        <h5 class="mt-3">Shipping Address
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                add new address
+                        <div class="d-flex justify-content-between mt-3">
+                            <h5 class="">{{__('Shipping Address')}}</h5>
+                            <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                {{__('Add New Address ?')}}
                             </a>
-                        </h5>
+                        </div>
 
                         <div class="row">
                             @foreach ($addresses as $address)

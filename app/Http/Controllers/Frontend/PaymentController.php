@@ -55,7 +55,7 @@ class PaymentController extends Controller
 
         $order->invoice_id = (Order::get('invoice_id')->max('invoice_id') + 1);
         $order->user_id = Auth::user()->id;
-        $order->sub_total = mainCartTotal();
+        $order->sub_total = Cart::subtotal('0', '.', false);
         $order->amount = session('final_amount')['final_amount'];
         $order->currency_name = $settings->currency_name;
         $order->currency_icon = $settings->currency_icon;
@@ -65,7 +65,7 @@ class PaymentController extends Controller
         $order->shipping_method = json_encode(Session::get('ship_method'));
         $order->order_address = json_encode(Session::get('ship_address'));
         $order->coupon = (Session::has('coupon') ? json_encode(Session::get('coupon')) : 'No Coupon');
-        $order->order_status = 0;
+        $order->order_status = 'pending';
         $order->save();
 
         /** Store Order Products */
@@ -92,6 +92,7 @@ class PaymentController extends Controller
         /** Store Transaction Details */
         $transaction = new Transaction();
         $transaction->order_id = $order->id;
+        $transaction->user_name = auth()->user()->username;
         $transaction->transaction_id = $transactionId;
         $transaction->payment_method = $paymentMethod;
         $transaction->amount = session('final_amount')['final_amount'];

@@ -9547,4 +9547,20 @@ a:not([href]):not([class]):hover {
     opacity: 1;
   }
 
+  @media print {
+    body, header, footer, aside { visibility: hidden;}
+    #printable {
+        visibility: visible;
+        position: absolute;
+    }
+
+    .hide-print {
+        visibility: hidden;
+    }
+
+    .invoice-total {
+        bottom: 300px;
+    }
+}
+
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\Frontend\FrontendProductController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
+use App\Http\Controllers\Frontend\UserOrdersController;
 use App\Http\Controllers\Frontend\UserProfileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,10 @@ Route::prefix('user')->as('user.')
     Route::post('profile', [UserProfileController::class, 'updatePassword'])->name('profile.password');
     Route::resource('address', UserAddressController::class);
 
+    /** Orders Routes */
+    Route::get('order', [UserOrdersController::class, 'index'])->name('order.index');
+    Route::get('order/{id}', [UserOrdersController::class, 'show'])->name('order.show');
+    
     /** CheckOut Routes */
     Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout');
     Route::post('checkout/submit', [CheckOutController::class, 'checkoutSubmit'])->name('checkout.submit');

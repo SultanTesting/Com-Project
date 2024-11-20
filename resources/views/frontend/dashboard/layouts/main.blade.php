@@ -7,26 +7,34 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <title>@yield('title', $settings->site_name)</title>
-    <link rel="icon" type="image/png" href="{{ asset('frontend/images/favicon.png') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/all.min.css') }} ">
-    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }} ">
-    <link rel="stylesheet" href="{{ asset('frontend/css/select2.min.css') }} ">
-    <link rel="stylesheet" href="{{ asset('frontend/css/slick.css') }} ">
-    <link rel="stylesheet" href="{{ asset('frontend/css/jquery.nice-number.min.css') }} ">
-    <link rel="stylesheet" href="{{ asset('frontend/css/jquery.calendar.css') }} ">
-    <link rel="stylesheet" href="{{ asset('frontend/css/add_row_custon.css') }} ">
-    <link rel="stylesheet" href="{{ asset('frontend/css/mobile_menu.css') }} ">
-    <link rel="stylesheet" href="{{ asset('frontend/css/jquery.exzoom.css') }} ">
-    <link rel="stylesheet" href="{{ asset('frontend/css/multiple-image-video.css') }} ">
-    <link rel="stylesheet" href="{{ asset('frontend/css/ranger_style.css') }} ">
-    <link rel="stylesheet" href="{{ asset('frontend/css/jquery.classycountdown.css') }} ">
-    <link rel="stylesheet" href="{{ asset('frontend/css/venobox.min.css') }} ">
+  <link rel="icon" type="image/png" href="{{ asset('frontend/images/favicon.png') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/css/all.min.css') }} ">
+  <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }} ">
+  <link rel="stylesheet" href="{{ asset('frontend/css/select2.min.css') }} ">
+  <link rel="stylesheet" href="{{ asset('frontend/css/slick.css') }} ">
+  <link rel="stylesheet" href="{{ asset('frontend/css/jquery.nice-number.min.css') }} ">
+  <link rel="stylesheet" href="{{ asset('frontend/css/jquery.calendar.css') }} ">
+  <link rel="stylesheet" href="{{ asset('frontend/css/add_row_custon.css') }} ">
+  <link rel="stylesheet" href="{{ asset('frontend/css/mobile_menu.css') }} ">
+  <link rel="stylesheet" href="{{ asset('frontend/css/jquery.exzoom.css') }} ">
+  <link rel="stylesheet" href="{{ asset('frontend/css/multiple-image-video.css') }} ">
+  <link rel="stylesheet" href="{{ asset('frontend/css/ranger_style.css') }} ">
+  <link rel="stylesheet" href="{{ asset('frontend/css/jquery.classycountdown.css') }} ">
+  <link rel="stylesheet" href="{{ asset('frontend/css/venobox.min.css') }} ">
+  {{-- <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/> --}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap.min.css"/>
+  <link rel="stylesheet" href="{{ asset('backend/assets/modules/summernote/summernote-bs4.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('backend/assets/modules/izitoast/css/iziToast.min.css') }}"/>
 
 
-    <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }} ">
-    <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }} ">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
-    <!-- <link rel="stylesheet" href="css/rtl.css"> -->
+  <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }} ">
+  <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }} ">
+  <link rel="stylesheet" href="{{ asset('backend/assets/css/components.css') }}">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
 
     @if (dirSelect() == 'rtl')
         <link rel="stylesheet" href="{{asset('frontend/css/rtl.scss')}}">
@@ -80,9 +88,10 @@
     SCROLL BUTTON  END
   ==============================-->
 
+    <!--jquery library js-->
+  {{-- <script src="{{ asset('frontend/js/jquery-3.6.0.min.js') }}"></script> --}}
+  <script src="https://code.jquery.com/jquery-3.7.0.js" ></script>
 
-  <!--jquery library js-->
-  <script src="{{ asset('frontend/js/jquery-3.6.0.min.js') }}"></script>
   <!--bootstrap js-->
   <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}"></script>
   <!--font-awesome js-->
@@ -115,16 +124,39 @@
   <script src="{{ asset('frontend/js/venobox.min.js') }}"></script>
   <!--classycountdown js-->
   <script src="{{ asset('frontend/js/jquery.classycountdown.js') }}"></script>
+  <!--SweetAlert js-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="{{ asset('backend/assets/modules/izitoast/js/iziToast.min.js') }}"></script>
+
+  <!--DataTables js-->
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js" ></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js" ></script>
+  <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js" ></script>
+  <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap.min.js" ></script>
+
 
   <!--main/custom js-->
   <script src="{{ asset('frontend/js/main.js') }}"></script>
 
+  <!--SummerNote JS-->
+  <script src="{{ asset('backend/assets/modules/summernote/summernote-bs4.js') }}"></script>
+
+  <!--Masonry JS-->
+  <script async src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+    integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
+    crossorigin="anonymous"></script>
+
+  <script>
+   $('.summernote').summernote({
+        placeholder: 'Hello Bootstrap 4',
+        tabsize: 2,
+        height: 100
+      });
+  </script>
+
   <!--Toastr Js-->
   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" ></script>
-
-  <!--SweerAlert JS-->
-
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
 
@@ -208,6 +240,8 @@
       @endif
 
   </script>
+
+  @stack('scripts')
 </body>
 
 </html>

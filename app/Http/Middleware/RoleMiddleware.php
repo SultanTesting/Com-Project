@@ -33,8 +33,9 @@ class RoleMiddleware
                     return redirect()->route('vendor.dashboard');
                     break;
                 case 'user':
-                    return redirect()->route('user.dashboard.index');
+                    return redirect()->route('home');
                     break;
+
                 default: return redirect()->route('home');
             }
         }

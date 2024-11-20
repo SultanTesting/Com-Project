@@ -33,6 +33,7 @@
     <section id="wsus__daily_deals">
         <div class="container">
             <div class="wsus__offer_details_area">
+                {{-- Flash Sale Banner --}}
                 <div class="row">
                     <div class="col-xl-6 col-md-6">
                         <div class="wsus__offer_details_banner">
@@ -69,72 +70,75 @@
                         </div>
                     </div>
                 </div>
+                {{-- End Of Banner --}}
 
                 <div class="row">
 
                     @foreach ($items as $item)
-                        <div class="col-xl-3">
-                            <div class="wsus__offer_det_single">
-                                <div class="wsus__product_item">
-                                    <a class="wsus__pro_link" href="{{route('product-detail', $item->product->slug)}}">
-                                        <img src="{{asset($item->product->thumb_image)}}" alt="product" class="img-fluid w-100 img_1" />
-                                        <img src="
-                                            @if (isset($item->product->gallery[0]->images))
-                                                {{ asset($item->product->gallery[0]->images) }}
-                                            @else
-                                                {{ asset($item->product->thumb_image) }}
-                                            @endif
-                                        " alt="product" class="img-fluid w-100 img_2" />
-                                    </a>
-                                    <div class="wsus__product_details">
-                                        <a class="wsus__category" href=""> {{$item->product->category->name}} </a>
-                                        <p class="wsus__pro_rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <span>(120 review)</span>
-                                        </p>
-                                        <a class="wsus__pro_name"
-                                        href="{{route('product-detail', $item->product->slug)}}">{{$item->product->name}}
+                        @if ($item->product->quantity >= 1)
+                            <div class="col-xl-3">
+                                <div class="wsus__offer_det_single">
+                                    <div class="wsus__product_item">
+                                        <a class="wsus__pro_link" href="{{route('product-detail', $item->product->slug)}}">
+                                            <img src="{{asset($item->product->thumb_image)}}" alt="product" class="img-fluid w-100 img_1" />
+                                            <img src="
+                                                @if (isset($item->product->gallery[0]->images))
+                                                    {{ asset($item->product->gallery[0]->images) }}
+                                                @else
+                                                    {{ asset($item->product->thumb_image) }}
+                                                @endif
+                                            " alt="product" class="img-fluid w-100 img_2" />
                                         </a>
-
-                                        @if (checkDiscount($item->product))
-                                            <p class="wsus__price">
-                                                {{number_format($item->product->offer_price)}} {{$settings->currency_icon}}
-                                                <del>{{number_format($item->product->price)}} {{$settings->currency_icon}}</del>
+                                        <div class="wsus__product_details">
+                                            <a class="wsus__category" href=""> {{$item->product->category->name}} </a>
+                                            <p class="wsus__pro_rating">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                                <span>(120 review)</span>
                                             </p>
-                                        @else
-                                            <p class="wsus__price"> {{number_format($item->product->price)}} {{$settings->currency_icon}} </p>
-                                        @endif
+                                            <a class="wsus__pro_name"
+                                            href="{{route('product-detail', $item->product->slug)}}">{{$item->product->name}}
+                                            </a>
 
-                                        <form class="shopping-cart">
-                                            <input type="hidden" name="product_id" value="{{$item->product->id}}">
-                                            <input type="hidden" name="qty" value="1">
-                                            @foreach ($item->product->variants->where('status', 'active') as $variant)
-                                                <select hidden name="variants[]">
-                                                    @foreach ($variant->items->where('status', 'active') as $variantItem)
-                                                        <option {{($variantItem->default == 'yes') ? 'selected' : ''}}
-                                                            value="{{$variantItem->id}}">
-                                                            {{$variantItem->name}} (+{{$variantItem->price}} {{$settings->currency_icon}})
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            @endforeach
-                                            <button class="add_cart" href="#">add to cart</button>
-                                        </form>
+                                            @if (checkDiscount($item->product))
+                                                <p class="wsus__price">
+                                                    {{number_format($item->product->offer_price)}} {{$settings->currency_icon}}
+                                                    <del>{{number_format($item->product->price)}} {{$settings->currency_icon}}</del>
+                                                </p>
+                                            @else
+                                                <p class="wsus__price"> {{number_format($item->product->price)}} {{$settings->currency_icon}} </p>
+                                            @endif
+
+                                            <form class="shopping-cart">
+                                                <input type="hidden" name="product_id" value="{{$item->product->id}}">
+                                                <input type="hidden" name="qty" value="1">
+                                                @foreach ($item->product->variants->where('status', 'active') as $variant)
+                                                    <select hidden name="variants[]">
+                                                        @foreach ($variant->items->where('status', 'active') as $variantItem)
+                                                            <option {{($variantItem->default == 'yes') ? 'selected' : ''}}
+                                                                value="{{$variantItem->id}}">
+                                                                {{$variantItem->name}} (+{{$variantItem->price}} {{$settings->currency_icon}})
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                @endforeach
+                                                <button class="add_cart" href="#">add to cart</button>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="wsus__offer_progress">
-                                    <p><span>Sold 100</span> <span>Total 120</span></p>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65"
-                                            aria-valuemin="0" aria-valuemax="100">65%</div>
+                                    <div class="wsus__offer_progress">
+                                        <p><span>Sold 100</span> <span>Total {{$item->product->quantity}}</span></p>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="20"
+                                                aria-valuemin="0" aria-valuemax="100">65%</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
 
                 </div>

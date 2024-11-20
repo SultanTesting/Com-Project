@@ -50,10 +50,12 @@ function langSelect()
 {
     if(dirSelect() == 'rtl')
     {
-        return '//cdn.datatables.net/plug-ins/2.0.3/i18n/ar.json';
-    }
+        return '//cdn.datatables.net/plug-ins/2.1.8/i18n/ar.json';
+    }else{
 
         return '//cdn.datatables.net/plug-ins/1.13.7/i18n/en-GB.json';
+    }
+
 }
 
 /** Create Directory For Each Upload File */
@@ -203,5 +205,54 @@ function getFinalAmount()
     } else {
         return "Back To Products !";
     }
+}
+
+/** Order Status Function */
+
+function orderStatus()
+{
+    return [
+        'admin_order_status' => [
+        'pending' => [
+            'status'  => __('Pending'),
+            'details' => __('Your Order Status: Pending')
+        ],
+        'canceled' => [
+            'status'  => __('Canceled'),
+            'details' => __('Canceled')
+        ],
+        'processed_ready' => [
+            'status'  => __('Processed & Ready'),
+            'details' => __('Your Package Is Ready Now, It Will Be With Delivery Soon')
+        ],
+        'dropped_off' => [
+            'status'  => __('Dropped Off'),
+            'details' => __('Your Package Has Been Dropped Off By The Seller')
+        ],
+        'shipped' => [
+            'status'  => __('Shipped'),
+            'details' => __('Your Package Has Arrived At Our Warehouse')
+        ],
+        'out_for_delivery' => [
+            'status'  => __('Out For Delivery'),
+            'details' => __('Our Delivery Partner Received Your Package, It Will Arrive Soon')
+        ],
+        'delivered' => [
+            'status'  => __('Delivered'),
+            'details' => __('Congrats, Your Package Has Been Delivered')
+        ]
+        ],
+
+        'vendor_order_status' => [
+        'pending' => [
+            'status'  => __('Pending'),
+            'details' => __('Your Order Status: Pending')
+        ],
+        'processed_ready' => [
+            'status'  => __('Processed & Ready'),
+            'details' => __('Your Package Is Ready Now, It Will Be With Delivery Soon')
+        ],
+        ]
+    ];
 }
 

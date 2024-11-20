@@ -25,7 +25,7 @@ class ProductFactory extends Factory
         $rand = array_rand($type, 1);
 
         return [
-            'vendor_id' => rand(1,6),
+            'vendor_id' => rand(2,7),
             'name' => $name = fake()->name(),
             'slug' => Str::slug($name, '-'),
             'category_id' => 1,
@@ -40,8 +40,8 @@ class ProductFactory extends Factory
             "video_link" => fake()->url(),
             "price" =>  $price = rand(555, 500000),
             "offer_price" => $price / 2,
-            'offer_start_date' => fake()->dateTime(),
-            'offer_end_date' => fake()->dateTime('2025'),
+            'offer_start_date' => fake()->dateTimeThisMonth(),
+            'offer_end_date' => fake()->dateTimeThisMonth('+14 days'),
             "product_type" => $type[$rand],
             "seo_title" =>  fake()->text(100),
             "seo_description" => fake()->text(),

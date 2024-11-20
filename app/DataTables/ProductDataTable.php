@@ -143,7 +143,7 @@ class ProductDataTable extends DataTable
                     ->minifiedAjax()
                     ->responsive(true)
                     ->autoWidth(false)
-                    ->language(langSelect())
+                    ->languageUrl(langSelect())
                     //->dom('Bfrtip')
                     ->orderBy(1)
                     ->selectStyleSingle()

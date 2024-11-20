@@ -26,17 +26,17 @@ class vendorProductDataTable extends DataTable
         ->addColumn('action', function($query)
         {
             $editBtn = "<a href='".route('vendor.products.edit', $query->id)."'
-            class='btn btn-sm btn-info me-2'>
+            class='btn btn-sm btn-info me-1'>
             <i class='far fa-edit'></i></a>";
 
             $deleteBtn = "<a href='".route('vendor.products.destroy', $query->id)."'
-            class='btn btn-sm btn-danger me-2 delete-item'>
+            class='btn btn-sm btn-danger me-1 delete-item'>
             <i class='far fa-trash-alt'></i></a>";
 
             $drop = (dirSelect() == 'rtl') ? 'dropend' : 'dropstart';
             $more = "
             <div class='btn-group $drop'>
-                <button type='button' class='btn btn-sm btn-primary dropdown-toggle ml-2' data-bs-toggle='dropdown'     data-bs-display='static' aria-expanded='false'>
+                <button type='button' class='btn btn-sm btn-primary dropdown-toggle ml-1' data-bs-toggle='dropdown' data-bs-display='static' aria-expanded='false'>
                 <i class='fas fa-cog'></i>
                 </button>
                 <div class='dropdown-menu dropdown-menu-end'>
@@ -64,16 +64,15 @@ class vendorProductDataTable extends DataTable
             {
                 return "<div class='form-check form-switch'>
                 <input class='form-check-input change-status' type='checkbox' checked id='flexSwitchCheckDefault'
-                data-id='".$query->id."'>
-                <label class='form-check-label badge bg-success' for='flexSwitchCheckDefault'>".__('Active')."</label>
-              </div>";
+                data-id='".$query->id."'><span class='form-check-label badge bg-success' for='flexSwitchCheckDefault'>".__('Active')."</span>
+                </div>";
             }
             else
             {
                 return "<div class='form-check form-switch'>
                 <input class='form-check-input change-status' type='checkbox' id='flexSwitchCheckDefault'
                 data-id='".$query->id."'>
-                <label class='form-check-label badge bg-secondary' for='flexSwitchCheckDefault'>".__('Inactive')."</label>
+                <span class='form-check-label badge bg-secondary' for='flexSwitchCheckDefault'>".__('Inactive')."</span>
               </div>";
             }
         })
@@ -81,11 +80,19 @@ class vendorProductDataTable extends DataTable
         {
             return "<img src='".asset($query->thumb_image)."' width='100px' class='img-thumbnail'/>";
         })
-        ->addColumn('created_at', function($product)
+        ->addColumn('created_at', function($query)
         {
-            return $product->uploadDate();
+            return date('d M, Y', strtotime($query->created_at));
         })
-        ->addColumn('offer_start_date', function($query)
+        ->addColumn('price', function($query)
+        {
+            return number_format($query->price);
+        })
+        ->addColumn('offer_price', function($query)
+        {
+            return number_format($query->offer_price);
+        })
+        ->addColumn('offer_start', function($query)
         {
             if($query->offer_start_date)
             {
@@ -93,7 +100,7 @@ class vendorProductDataTable extends DataTable
             }
                 return "<span class='badge bg-secondary'>No Offer Date</span>";
         })
-        ->addColumn('offer_end_date', function($query)
+        ->addColumn('offer_end', function($query)
         {
             if($query->offer_end_date)
             {
@@ -128,7 +135,7 @@ class vendorProductDataTable extends DataTable
         })
 
             ->addIndexColumn() // search for index_column datatables.php
-            ->rawColumns(['action', 'created_at', 'status', 'approved', 'image', 'offer_start_date', 'offer_end_date', 'product_type'])
+            ->rawColumns(['action', 'created_at', 'status', 'approved', 'image', 'offer_start', 'offer_end', 'product_type', 'price', 'offer_price'])
             ->setRowId('id');
     }
 
@@ -181,9 +188,9 @@ class vendorProductDataTable extends DataTable
             Column::make('quantity'),
             Column::make('price'),
             Column::make('offer_price'),
-            Column::make('offer_start_date')
+            Column::make('offer_start')
                 ->addClass('fw-bold'),
-            Column::make('offer_end_date')
+            Column::make('offer_end')
                 ->addClass('fw-bold'),
             Column::make('status')
                 ->addClass('text-center'),
@@ -196,7 +203,7 @@ class vendorProductDataTable extends DataTable
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(150)
+                  ->width(135)
                   ->addClass('text-center'),
         ];
     }

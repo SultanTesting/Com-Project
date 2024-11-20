@@ -3,7 +3,7 @@
     <aside id="sidebar-wrapper">
 
       <div class="sidebar-brand">
-        <a href="{{route('admin.dashboard')}}">Stisla</a>
+        <a href="{{route('admin.dashboard')}}">{{env('APP_NAME')}}</a>
       </div>
       <div class="sidebar-brand sidebar-brand-sm">
         <a href="{{route('admin.dashboard')}}">St</a>
@@ -29,7 +29,7 @@
             'admin.sub-category.*',
             'admin.child-category.*',
             'admin.brand.*',
-        ]) }}">
+            ]) }}">
 
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
             <i class="fas fa-columns"></i> <span>@lang("Manage Categories")</span>
@@ -89,12 +89,57 @@
 
         </li>
 
+        {{-- Orders Section --}}
+
+        <li class="menu-header">@lang("ORDERS SECTION")</li>
+
+        <li class="dropdown {{ setActive([
+            'admin.order.*'
+            ]) }}">
+
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+            <i class="fas fa-list"></i> <span>@lang("Manage Orders")</span>
+          </a>
+
+          <ul class="dropdown-menu">
+
+            <li class="{{ setActive(['admin.order.index']) }}">
+                <a class="nav-link" href="{{route('admin.order.index')}}">{{__('All Orders')}}</a>
+            </li>
+
+          </ul>
+
+        </li>
+
+        {{-- Transactions Section --}}
+
+        <li class="menu-header">@lang("Transactions SECTION")</li>
+
+        <li class="dropdown {{ setActive([
+            'admin.transactions'
+            ]) }}">
+
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+            <i class="fas fa-exchange-alt"></i> <span>@lang("Manage Transactions")</span>
+          </a>
+
+          <ul class="dropdown-menu">
+
+            <li class="{{ setActive(['admin.transactions']) }}">
+                <a class="nav-link" href="{{route('admin.transactions')}}">{{__('Transactions')}}</a>
+            </li>
+
+          </ul>
+
+        </li>
+
         {{-- WebSite Section --}}
 
 
         <li class="menu-header">@lang("WEBSITE SECTION")</li>
 
         <li class="dropdown {{ setActive([
+            'admin.home-settings',
              'admin.slider.*',
              'admin.vendor-profile.*',
              'admin.flash-sale.*',
@@ -108,6 +153,10 @@
           </a>
 
           <ul class="dropdown-menu">
+
+            <li class="{{ setActive(['admin.home-settings']) }}">
+                <a class="nav-link" href="{{route('admin.home-settings')}}">@lang("Home Settings")</a>
+            </li>
 
             <li class="{{ setActive(['admin.slider.*']) }}">
                 <a class="nav-link" href="{{route('admin.slider.index')}}">@lang("Slider")</a>
@@ -136,6 +185,8 @@
           </ul>
 
         </li>
+
+        {{-- Settings Section --}}
 
         <li class="menu-header"> {{__("Settings")}} </li>
         <li class="dropdown {{ setActive(['admin.settings.*']) }}">

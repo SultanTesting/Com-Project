@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap.min.css"/>
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/summernote/summernote-bs4.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('backend/assets/modules/izitoast/css/iziToast.min.css') }}"/>
+
 
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }} ">
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }} ">
@@ -129,6 +131,7 @@
   <!--SweetAlert js-->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+  <script src="{{ asset('backend/assets/modules/izitoast/js/iziToast.min.js') }}"></script>
 
   <!--DataTables js-->
   <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js" ></script>
@@ -241,6 +244,12 @@
                 }
             })
         })
+    })
+</script>
+
+<script>
+    iziToast.settings({
+        position: 'topCenter',
     })
 </script>
 

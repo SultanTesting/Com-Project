@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained();
+            $table->foreignId('order_id')->nullable()->constrained()->nullOnDelete();
             $table->string('transaction_id');
             $table->string('payment_method');
             $table->double('amount');

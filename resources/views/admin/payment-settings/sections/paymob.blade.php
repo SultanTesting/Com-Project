@@ -4,7 +4,7 @@
         <div class="card-body">
 
             <div class="d-flex justify-content-center mb-2">
-                <img src="{{ asset('backend/assets/img/paymob-logo.png') }}" alt="paypal" width="120px">
+                <img src="{{ asset('backend/assets/img/paymob.png') }}" alt="paymob" width="120px">
             </div>
 
             <form action="{{route('admin.paymob-settings')}}" method="POST">
