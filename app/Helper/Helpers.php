@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\ChildCategory;
 use App\Models\GeneralSettings;
 use App\Models\PaypalSettings;
+use App\Models\SubCategory;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -254,5 +256,19 @@ function orderStatus()
         ],
         ]
     ];
+}
+
+/** Get Selected SubCategories in Top-Categories view */
+
+function subCats($catNum)
+{
+    return SubCategory::where('category_id', $catNum)->get();
+}
+
+/** Get Selected ChildCategories in Top-Categories view */
+
+function childCats($catNum)
+{
+    return ChildCategory::where('sub_category_id', $catNum)->get();
 }
 

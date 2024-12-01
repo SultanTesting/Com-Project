@@ -137,6 +137,7 @@ Route::middleware(['auth', 'verified' ,'role:admin', 'localeSessionRedirect', 'l
         // ? Home Page Settings
 
         Route::get('home-settings', [HomePageSettingsController::class, 'index'])->name('home-settings');
+        Route::put('top-categories', [HomePageSettingsController::class, 'topCategories'])->name('top-categories');
 
         // ? Shipping Center Routes
 
